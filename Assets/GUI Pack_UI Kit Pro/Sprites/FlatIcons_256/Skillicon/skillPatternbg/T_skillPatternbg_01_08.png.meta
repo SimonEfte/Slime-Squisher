@@ -1,0 +1,990 @@
+fileFormatVersion: 2
+guid: 7ecbb09d5802e8644a779ed742fff4a1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -642145790883848266
+    second: T_skillPatternbg_01_08_0
+  - first:
+      213: 3042530731582082769
+    second: T_skillPatternbg_01_08_1
+  - first:
+      213: -8891206376019976898
+    second: T_skillPatternbg_01_08_2
+  - first:
+      213: 7060294047796052176
+    second: T_skillPatternbg_01_08_3
+  - first:
+      213: 3371018257909373464
+    second: T_skillPatternbg_01_08_4
+  - first:
+      213: -8921010822471331110
+    second: T_skillPatternbg_01_08_5
+  - first:
+      213: 5143636169074797247
+    second: T_skillPatternbg_01_08_6
+  - first:
+      213: 6871586572287812223
+    second: T_skillPatternbg_01_08_7
+  - first:
+      213: -233583538145395951
+    second: T_skillPatternbg_01_08_8
+  - first:
+      213: -1302761010148368322
+    second: T_skillPatternbg_01_08_9
+  - first:
+      213: -4064922801368296865
+    second: T_skillPatternbg_01_08_10
+  - first:
+      213: -8206230731442009270
+    second: T_skillPatternbg_01_08_11
+  - first:
+      213: 8384186686149481745
+    second: T_skillPatternbg_01_08_12
+  - first:
+      213: 2014899304455129350
+    second: T_skillPatternbg_01_08_13
+  - first:
+      213: -6973322737509544271
+    second: T_skillPatternbg_01_08_14
+  - first:
+      213: -5631507201551200074
+    second: T_skillPatternbg_01_08_15
+  - first:
+      213: -6664125081018987567
+    second: T_skillPatternbg_01_08_16
+  - first:
+      213: 8220810260709523860
+    second: T_skillPatternbg_01_08_17
+  - first:
+      213: 6342020912506735108
+    second: T_skillPatternbg_01_08_18
+  - first:
+      213: 8714520011670552032
+    second: T_skillPatternbg_01_08_19
+  - first:
+      213: 2027286265162621611
+    second: T_skillPatternbg_01_08_20
+  - first:
+      213: -6466506525038804603
+    second: T_skillPatternbg_01_08_21
+  - first:
+      213: 1179248580349559491
+    second: T_skillPatternbg_01_08_22
+  - first:
+      213: 1975186930994746067
+    second: T_skillPatternbg_01_08_23
+  - first:
+      213: -8670749517201269948
+    second: T_skillPatternbg_01_08_24
+  - first:
+      213: -7650313512311665045
+    second: T_skillPatternbg_01_08_25
+  - first:
+      213: 8468999406484770062
+    second: T_skillPatternbg_01_08_26
+  - first:
+      213: -8969369401345546032
+    second: T_skillPatternbg_01_08_27
+  - first:
+      213: 4383386672878697773
+    second: T_skillPatternbg_01_08_28
+  - first:
+      213: 222132355713713622
+    second: T_skillPatternbg_01_08_29
+  - first:
+      213: 5261465242020950589
+    second: T_skillPatternbg_01_08_30
+  - first:
+      213: -9083197817309197781
+    second: T_skillPatternbg_01_08_31
+  - first:
+      213: -7627585407870607463
+    second: T_skillPatternbg_01_08_32
+  - first:
+      213: -6417380575153381748
+    second: T_skillPatternbg_01_08_33
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_0
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 246
+        width: 29
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bf1b503ec3a617f0800000000000000
+      internalID: -642145790883848266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_1
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 188
+        width: 53
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dec822949d393a20800000000000000
+      internalID: 3042530731582082769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_2
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 231
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3d14ac98e61c9480800000000000000
+      internalID: -8891206376019976898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_3
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 232
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d040b887043bf160800000000000000
+      internalID: 7060294047796052176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_4
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 216
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81a5b02ce3348ce20800000000000000
+      internalID: 3371018257909373464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_5
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 203
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad25e292ce3323480800000000000000
+      internalID: -8921010822471331110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_6
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 189
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbaed87f7ddd16740800000000000000
+      internalID: 5143636169074797247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_7
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 176
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f722f8c8497cc5f50800000000000000
+      internalID: 6871586572287812223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_8
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 176
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11bf677720522ccf0800000000000000
+      internalID: -233583538145395951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_9
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 186
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e30a0ea73c9abede0800000000000000
+      internalID: -1302761010148368322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_10
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f529e01cf3e7697c0800000000000000
+      internalID: -4064922801368296865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_11
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 155
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4b4183d0ac9d1e80800000000000000
+      internalID: -8206230731442009270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_12
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 169
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 115df76ae5d9a5470800000000000000
+      internalID: 8384186686149481745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 98
+        width: 33
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 609ca34fd3c56fb10800000000000000
+      internalID: 2014899304455129350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_14
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 155
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bec69e9ae7c93f90800000000000000
+      internalID: -6973322737509544271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_15
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 157
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b09c75890ed8d1b0800000000000000
+      internalID: -5631507201551200074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_16
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 137
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1db871ffb854483a0800000000000000
+      internalID: -6664125081018987567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_17
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 143
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4914a7b506f261270800000000000000
+      internalID: 8220810260709523860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_18
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 133
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40a00102b62630850800000000000000
+      internalID: 6342020912506735108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_19
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 93
+        width: 52
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0edf7a377c130f870800000000000000
+      internalID: 8714520011670552032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_20
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 107
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba2eb0dfd1e522c10800000000000000
+      internalID: 2027286265162621611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_21
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 110
+        width: 40
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5810155939a5246a0800000000000000
+      internalID: -6466506525038804603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 122
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c28e9df5588d5010800000000000000
+      internalID: 1179248580349559491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_23
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 42
+        width: 65
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d29fea7c06496b10800000000000000
+      internalID: 1975186930994746067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_24
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 89
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44b14d2f04f4ba780800000000000000
+      internalID: -8670749517201269948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_25
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 94
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6eca46c460a4d590800000000000000
+      internalID: -7650313512311665045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_26
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 87
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0dc48ae61ee78570800000000000000
+      internalID: 8468999406484770062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_27
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 80
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d86a8d1d06668380800000000000000
+      internalID: -8969369401345546032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_28
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 83
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2dbd1e64fae4dc30800000000000000
+      internalID: 4383386672878697773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_29
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 55
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d5cf6b533c251300800000000000000
+      internalID: 222132355713713622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_30
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 68
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3239bcd2ca740940800000000000000
+      internalID: 5261465242020950589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_31
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 26
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2a8ea2c5bff1f180800000000000000
+      internalID: -9083197817309197781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_32
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 61
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99f5be5fb7f552690800000000000000
+      internalID: -7627585407870607463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_skillPatternbg_01_08_33
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 6
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8e9d7d1e52e0f6a0800000000000000
+      internalID: -6417380575153381748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      T_skillPatternbg_01_08_0: -642145790883848266
+      T_skillPatternbg_01_08_1: 3042530731582082769
+      T_skillPatternbg_01_08_10: -4064922801368296865
+      T_skillPatternbg_01_08_11: -8206230731442009270
+      T_skillPatternbg_01_08_12: 8384186686149481745
+      T_skillPatternbg_01_08_13: 2014899304455129350
+      T_skillPatternbg_01_08_14: -6973322737509544271
+      T_skillPatternbg_01_08_15: -5631507201551200074
+      T_skillPatternbg_01_08_16: -6664125081018987567
+      T_skillPatternbg_01_08_17: 8220810260709523860
+      T_skillPatternbg_01_08_18: 6342020912506735108
+      T_skillPatternbg_01_08_19: 8714520011670552032
+      T_skillPatternbg_01_08_2: -8891206376019976898
+      T_skillPatternbg_01_08_20: 2027286265162621611
+      T_skillPatternbg_01_08_21: -6466506525038804603
+      T_skillPatternbg_01_08_22: 1179248580349559491
+      T_skillPatternbg_01_08_23: 1975186930994746067
+      T_skillPatternbg_01_08_24: -8670749517201269948
+      T_skillPatternbg_01_08_25: -7650313512311665045
+      T_skillPatternbg_01_08_26: 8468999406484770062
+      T_skillPatternbg_01_08_27: -8969369401345546032
+      T_skillPatternbg_01_08_28: 4383386672878697773
+      T_skillPatternbg_01_08_29: 222132355713713622
+      T_skillPatternbg_01_08_3: 7060294047796052176
+      T_skillPatternbg_01_08_30: 5261465242020950589
+      T_skillPatternbg_01_08_31: -9083197817309197781
+      T_skillPatternbg_01_08_32: -7627585407870607463
+      T_skillPatternbg_01_08_33: -6417380575153381748
+      T_skillPatternbg_01_08_4: 3371018257909373464
+      T_skillPatternbg_01_08_5: -8921010822471331110
+      T_skillPatternbg_01_08_6: 5143636169074797247
+      T_skillPatternbg_01_08_7: 6871586572287812223
+      T_skillPatternbg_01_08_8: -233583538145395951
+      T_skillPatternbg_01_08_9: -1302761010148368322
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

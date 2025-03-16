@@ -51,7 +51,7 @@ public class CoinMechanics : MonoBehaviour
 
     IEnumerator Wait()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.74f);
         coinCompletelySpawned = true;
         coinRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
     }
@@ -74,8 +74,8 @@ public class CoinMechanics : MonoBehaviour
         PickUpgrade.coinsThisRound += 1;
         coinAnim.Play();
         TextMeshProUGUI pluss1Text = ObjectPool.instance.GetTextFromPool();
-        Vector3 offset = new Vector3(0, 10f, 0);
-        pluss1Text.transform.localPosition = gameObject.transform.localPosition + offset;
+        Vector3 offset = new Vector3(0, 0, 0);
+        pluss1Text.transform.position = gameObject.transform.position;
         StartCoroutine(AnimOff());
     }
 

@@ -1,0 +1,490 @@
+fileFormatVersion: 2
+guid: 2be8e105d41344c40b356a9c3e9acd00
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5138328339563373077
+    second: T_icon_laurels_01_0
+  - first:
+      213: -6998785516554316670
+    second: T_icon_laurels_01_1
+  - first:
+      213: -1801339351717964077
+    second: T_icon_laurels_01_2
+  - first:
+      213: 5686110269022663046
+    second: T_icon_laurels_01_3
+  - first:
+      213: 1873643027545543733
+    second: T_icon_laurels_01_4
+  - first:
+      213: -6502510288361447388
+    second: T_icon_laurels_01_5
+  - first:
+      213: -1900618411806878890
+    second: T_icon_laurels_01_6
+  - first:
+      213: -3888791352359885286
+    second: T_icon_laurels_01_7
+  - first:
+      213: 3113945961803904992
+    second: T_icon_laurels_01_8
+  - first:
+      213: -5703953452862009143
+    second: T_icon_laurels_01_9
+  - first:
+      213: 8470599775330285050
+    second: T_icon_laurels_01_10
+  - first:
+      213: 4980928683082710497
+    second: T_icon_laurels_01_11
+  - first:
+      213: -7769601406633229070
+    second: T_icon_laurels_01_12
+  - first:
+      213: -2704613606281550650
+    second: T_icon_laurels_01_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: T_icon_laurels_01_0
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 210
+        width: 24
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bed9005699df0b8b0800000000000000
+      internalID: -5138328339563373077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_1
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 225
+        width: 43
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28491a267a15fde90800000000000000
+      internalID: -6998785516554316670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_2
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 225
+        width: 41
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d61bec476b5007e0800000000000000
+      internalID: -1801339351717964077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_3
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 210
+        width: 25
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 681fbc2d92f19ee40800000000000000
+      internalID: 5686110269022663046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_4
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 152
+        width: 54
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5345db41864800a10800000000000000
+      internalID: 1873643027545543733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_5
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 197
+        width: 33
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 420a4e1385172c5a0800000000000000
+      internalID: -6502510288361447388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_6
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 197
+        width: 34
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6531fa6df95af95e0800000000000000
+      internalID: -1900618411806878890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_7
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 152
+        width: 54
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a166af46edc380ac0800000000000000
+      internalID: -3888791352359885286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 45
+        width: 77
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e775179a55f63b20800000000000000
+      internalID: 3113945961803904992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_9
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 4
+        width: 81
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c01cc23e8c77d0b0800000000000000
+      internalID: -5703953452862009143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_10
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 37
+        width: 39
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af5b013dd9d9d8570800000000000000
+      internalID: 8470599775330285050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_11
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 4
+        width: 80
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1edf2b64f30df1540800000000000000
+      internalID: 4980928683082710497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_12
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 37
+        width: 39
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f4404f8fa4dc2490800000000000000
+      internalID: -7769601406633229070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_laurels_01_13
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 45
+        width: 77
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c466e63148477ad0800000000000000
+      internalID: -2704613606281550650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      T_icon_laurels_01_0: -5138328339563373077
+      T_icon_laurels_01_1: -6998785516554316670
+      T_icon_laurels_01_10: 8470599775330285050
+      T_icon_laurels_01_11: 4980928683082710497
+      T_icon_laurels_01_12: -7769601406633229070
+      T_icon_laurels_01_13: -2704613606281550650
+      T_icon_laurels_01_2: -1801339351717964077
+      T_icon_laurels_01_3: 5686110269022663046
+      T_icon_laurels_01_4: 1873643027545543733
+      T_icon_laurels_01_5: -6502510288361447388
+      T_icon_laurels_01_6: -1900618411806878890
+      T_icon_laurels_01_7: -3888791352359885286
+      T_icon_laurels_01_8: 3113945961803904992
+      T_icon_laurels_01_9: -5703953452862009143
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,765 @@
+fileFormatVersion: 2
+guid: 44f888e7b789b8f489f5d66e798d02ce
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3600914418344606422
+    second: Tex_Archer_42_01_0
+  - first:
+      213: -9074181415263727032
+    second: Tex_Archer_42_01_1
+  - first:
+      213: 1792017573075711261
+    second: Tex_Archer_42_01_2
+  - first:
+      213: 5193954478740094479
+    second: Tex_Archer_42_01_3
+  - first:
+      213: 5111409580844078561
+    second: Tex_Archer_42_01_4
+  - first:
+      213: -3746310443856780078
+    second: Tex_Archer_42_01_5
+  - first:
+      213: 5034777389634491926
+    second: Tex_Archer_42_01_6
+  - first:
+      213: -2161160386539562582
+    second: Tex_Archer_42_01_7
+  - first:
+      213: -9101924538147457988
+    second: Tex_Archer_42_01_8
+  - first:
+      213: -1827060915435510776
+    second: Tex_Archer_42_01_9
+  - first:
+      213: -7090388238889453981
+    second: Tex_Archer_42_01_10
+  - first:
+      213: 6006447948739417019
+    second: Tex_Archer_42_01_11
+  - first:
+      213: 4350467658064679361
+    second: Tex_Archer_42_01_12
+  - first:
+      213: -7150054877231704207
+    second: Tex_Archer_42_01_13
+  - first:
+      213: 7151612412322534723
+    second: Tex_Archer_42_01_14
+  - first:
+      213: 1444664111371186433
+    second: Tex_Archer_42_01_15
+  - first:
+      213: 5838186761442389500
+    second: Tex_Archer_42_01_16
+  - first:
+      213: 912521083960980701
+    second: Tex_Archer_42_01_17
+  - first:
+      213: -9067639528614358497
+    second: Tex_Archer_42_01_18
+  - first:
+      213: 815520402599341911
+    second: Tex_Archer_42_01_19
+  - first:
+      213: 2427964369494777203
+    second: Tex_Archer_42_01_20
+  - first:
+      213: -1929630623676618189
+    second: Tex_Archer_42_01_21
+  - first:
+      213: 7565216859402970210
+    second: Tex_Archer_42_01_22
+  - first:
+      213: 3525731448394731076
+    second: Tex_Archer_42_01_23
+  - first:
+      213: 1350121602423979720
+    second: Tex_Archer_42_01_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 378
+        width: 102
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6da3304c59409f130800000000000000
+      internalID: 3600914418344606422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_1
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 464
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84211c37418021280800000000000000
+      internalID: -9074181415263727032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_2
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 218
+        width: 177
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d157f6afc768ed810800000000000000
+      internalID: 1792017573075711261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_3
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 345
+        width: 198
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0e3ad46412a41840800000000000000
+      internalID: 5193954478740094479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_4
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 248
+        width: 59
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e55dbfaeef5fe640800000000000000
+      internalID: 5111409580844078561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_5
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 198
+        width: 55
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d4a497008e620cc0800000000000000
+      internalID: -3746310443856780078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_6
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 206
+        width: 194
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61615584c5f1fd540800000000000000
+      internalID: 5034777389634491926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_7
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 195
+        width: 100
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa9d9a924140202e0800000000000000
+      internalID: -2161160386539562582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_8
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 271
+        width: 23
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c343f4b4bd77fa180800000000000000
+      internalID: -9101924538147457988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_9
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 174
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 804677017c9f4a6e0800000000000000
+      internalID: -1827060915435510776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_10
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 173
+        width: 61
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 366f2659671e99d90800000000000000
+      internalID: -7090388238889453981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_11
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 47
+        width: 90
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb39c7af5903b5350800000000000000
+      internalID: 6006447948739417019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_12
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 107
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c155c50947ff5c30800000000000000
+      internalID: 4350467658064679361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_13
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 11
+        width: 99
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1771e06c8f6e5cc90800000000000000
+      internalID: -7150054877231704207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_14
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 92
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34552cf1991af3360800000000000000
+      internalID: 7151612412322534723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_15
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 0
+        width: 22
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 101f80aea5a7c0410800000000000000
+      internalID: 1444664111371186433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_16
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 86
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfd69207de7650150800000000000000
+      internalID: 5838186761442389500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_17
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 0
+        width: 26
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd47c83571de9ac00800000000000000
+      internalID: 912521083960980701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_18
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 0
+        width: 32
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1296a124e5492280800000000000000
+      internalID: -9067639528614358497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_19
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 0
+        width: 36
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75f64004c7f415b00800000000000000
+      internalID: 815520402599341911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_20
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 0
+        width: 16
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37d9a0beabcd1b120800000000000000
+      internalID: 2427964369494777203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_21
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 31
+        width: 31
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33a2a00eb239835e0800000000000000
+      internalID: -1929630623676618189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_22
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 0
+        width: 24
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 264a281c6ac0df860800000000000000
+      internalID: 7565216859402970210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_23
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 0
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44ecdfa721aede030800000000000000
+      internalID: 3525731448394731076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Archer_42_01_24
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 0
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ceff04b1789cb210800000000000000
+      internalID: 1350121602423979720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Tex_Archer_42_01_0: 3600914418344606422
+      Tex_Archer_42_01_1: -9074181415263727032
+      Tex_Archer_42_01_10: -7090388238889453981
+      Tex_Archer_42_01_11: 6006447948739417019
+      Tex_Archer_42_01_12: 4350467658064679361
+      Tex_Archer_42_01_13: -7150054877231704207
+      Tex_Archer_42_01_14: 7151612412322534723
+      Tex_Archer_42_01_15: 1444664111371186433
+      Tex_Archer_42_01_16: 5838186761442389500
+      Tex_Archer_42_01_17: 912521083960980701
+      Tex_Archer_42_01_18: -9067639528614358497
+      Tex_Archer_42_01_19: 815520402599341911
+      Tex_Archer_42_01_2: 1792017573075711261
+      Tex_Archer_42_01_20: 2427964369494777203
+      Tex_Archer_42_01_21: -1929630623676618189
+      Tex_Archer_42_01_22: 7565216859402970210
+      Tex_Archer_42_01_23: 3525731448394731076
+      Tex_Archer_42_01_24: 1350121602423979720
+      Tex_Archer_42_01_3: 5193954478740094479
+      Tex_Archer_42_01_4: 5111409580844078561
+      Tex_Archer_42_01_5: -3746310443856780078
+      Tex_Archer_42_01_6: 5034777389634491926
+      Tex_Archer_42_01_7: -2161160386539562582
+      Tex_Archer_42_01_8: -9101924538147457988
+      Tex_Archer_42_01_9: -1827060915435510776
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

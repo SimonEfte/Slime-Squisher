@@ -1,0 +1,515 @@
+fileFormatVersion: 2
+guid: 365fe1e0c40b3d843ab376fdfefb88ce
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5992942442716166504
+    second: T_icon_coinJewel_02_0
+  - first:
+      213: -4960441007725247498
+    second: T_icon_coinJewel_02_1
+  - first:
+      213: 1222054029492181823
+    second: T_icon_coinJewel_02_2
+  - first:
+      213: -4964706780141967574
+    second: T_icon_coinJewel_02_3
+  - first:
+      213: -7163187538006410944
+    second: T_icon_coinJewel_02_4
+  - first:
+      213: -3073446279350506827
+    second: T_icon_coinJewel_02_5
+  - first:
+      213: -1903615314490838852
+    second: T_icon_coinJewel_02_6
+  - first:
+      213: 7371432036096015581
+    second: T_icon_coinJewel_02_7
+  - first:
+      213: -8437665655896737307
+    second: T_icon_coinJewel_02_8
+  - first:
+      213: 5479039468645023319
+    second: T_icon_coinJewel_02_9
+  - first:
+      213: -744660614329619251
+    second: T_icon_coinJewel_02_10
+  - first:
+      213: 5828392460574799475
+    second: T_icon_coinJewel_02_11
+  - first:
+      213: 3065957379562766215
+    second: T_icon_coinJewel_02_12
+  - first:
+      213: 8634153941001160223
+    second: T_icon_coinJewel_02_13
+  - first:
+      213: 3894378139097150947
+    second: T_icon_coinJewel_02_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 119
+        width: 75
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 869757156653b2350800000000000000
+      internalID: 5992942442716166504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_1
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 162
+        width: 118
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f3814d5f29f82bb0800000000000000
+      internalID: -4960441007725247498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_2
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 138
+        width: 27
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3b57344aab95f010800000000000000
+      internalID: 1222054029492181823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_3
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 118
+        width: 30
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a272aa3dc71d91bb0800000000000000
+      internalID: -4964706780141967574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_4
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 119
+        width: 102
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0497f99e2ee379c90800000000000000
+      internalID: -7163187538006410944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_5
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 118
+        width: 33
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ba211b84ece855d0800000000000000
+      internalID: -3073446279350506827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_6
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 91
+        width: 75
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb0b7ce05fff495e0800000000000000
+      internalID: -1903615314490838852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_7
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 75
+        width: 57
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddcff6d91669c4660800000000000000
+      internalID: 7371432036096015581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_8
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 107
+        width: 32
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e9f2c66ac367ea80800000000000000
+      internalID: -8437665655896737307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_9
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 44
+        width: 65
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75e7ee61e55790c40800000000000000
+      internalID: 5479039468645023319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_10
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 118
+        width: 63
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcca8acdd1f6aa5f0800000000000000
+      internalID: -744660614329619251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_11
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 45
+        width: 67
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3763020101c92e050800000000000000
+      internalID: 5828392460574799475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 63
+        width: 75
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78f73591ef77c8a20800000000000000
+      internalID: 3065957379562766215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_13
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 48
+        width: 75
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f16c96d734da2d770800000000000000
+      internalID: 8634153941001160223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_coinJewel_02_14
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 35
+        width: 74
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e5bee1c84c9b0630800000000000000
+      internalID: 3894378139097150947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      T_icon_coinJewel_02_0: 5992942442716166504
+      T_icon_coinJewel_02_1: -4960441007725247498
+      T_icon_coinJewel_02_10: -744660614329619251
+      T_icon_coinJewel_02_11: 5828392460574799475
+      T_icon_coinJewel_02_12: 3065957379562766215
+      T_icon_coinJewel_02_13: 8634153941001160223
+      T_icon_coinJewel_02_14: 3894378139097150947
+      T_icon_coinJewel_02_2: 1222054029492181823
+      T_icon_coinJewel_02_3: -4964706780141967574
+      T_icon_coinJewel_02_4: -7163187538006410944
+      T_icon_coinJewel_02_5: -3073446279350506827
+      T_icon_coinJewel_02_6: -1903615314490838852
+      T_icon_coinJewel_02_7: 7371432036096015581
+      T_icon_coinJewel_02_8: -8437665655896737307
+      T_icon_coinJewel_02_9: 5479039468645023319
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

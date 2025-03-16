@@ -1,0 +1,515 @@
+fileFormatVersion: 2
+guid: 10ad9cf9ee505ea4a9479b1c60190c42
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3973494969500544697
+    second: Tex_Mage_30_02_0
+  - first:
+      213: -5757996206566231685
+    second: Tex_Mage_30_02_1
+  - first:
+      213: -1629662476902806807
+    second: Tex_Mage_30_02_2
+  - first:
+      213: 8915596125405874996
+    second: Tex_Mage_30_02_3
+  - first:
+      213: 851536317680024614
+    second: Tex_Mage_30_02_4
+  - first:
+      213: 4455488422526329579
+    second: Tex_Mage_30_02_5
+  - first:
+      213: 4603044116463176173
+    second: Tex_Mage_30_02_6
+  - first:
+      213: -3744339384531130814
+    second: Tex_Mage_30_02_7
+  - first:
+      213: -531966642025154352
+    second: Tex_Mage_30_02_8
+  - first:
+      213: 8830599737767371457
+    second: Tex_Mage_30_02_9
+  - first:
+      213: 6207957370662125543
+    second: Tex_Mage_30_02_10
+  - first:
+      213: -5109046157326759931
+    second: Tex_Mage_30_02_11
+  - first:
+      213: -8757635116700403968
+    second: Tex_Mage_30_02_12
+  - first:
+      213: -3913509480615670943
+    second: Tex_Mage_30_02_13
+  - first:
+      213: 1571192275568801424
+    second: Tex_Mage_30_02_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_0
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 273
+        width: 23
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7415e12b06f4bd8c0800000000000000
+      internalID: -3973494969500544697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_1
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 229
+        width: 50
+        height: 213
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b71b29115fc7710b0800000000000000
+      internalID: -5757996206566231685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_2
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 286
+        width: 22
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eacc609c964269e0800000000000000
+      internalID: -1629662476902806807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_3
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 242
+        width: 49
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43b8aaf607f8abb70800000000000000
+      internalID: 8915596125405874996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_4
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 114
+        width: 89
+        height: 362
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62c79a0f4c341db00800000000000000
+      internalID: 851536317680024614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_5
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 275
+        width: 29
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be22c853d1315dd30800000000000000
+      internalID: 4455488422526329579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_6
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 296
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de94d376c3c41ef30800000000000000
+      internalID: 4603044116463176173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_7
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 251
+        width: 49
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 246648a0b2f690cc0800000000000000
+      internalID: -3744339384531130814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_8
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 272
+        width: 27
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d8bbb558231e98f0800000000000000
+      internalID: -531966642025154352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_9
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 188
+        width: 138
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c2284bcca79c8a70800000000000000
+      internalID: 8830599737767371457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_10
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 247
+        width: 36
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ef75136658172650800000000000000
+      internalID: 6207957370662125543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_11
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 238
+        width: 95
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 508c67bb6950919b0800000000000000
+      internalID: -5109046157326759931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_12
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 55
+        width: 235
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 007f594e241a67680800000000000000
+      internalID: -8757635116700403968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_13
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 167
+        width: 33
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16b87ceacdb60b9c0800000000000000
+      internalID: -3913509480615670943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_Mage_30_02_14
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 196
+        width: 27
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 096bd13dc0ffdc510800000000000000
+      internalID: 1571192275568801424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Tex_Mage_30_02_0: -3973494969500544697
+      Tex_Mage_30_02_1: -5757996206566231685
+      Tex_Mage_30_02_10: 6207957370662125543
+      Tex_Mage_30_02_11: -5109046157326759931
+      Tex_Mage_30_02_12: -8757635116700403968
+      Tex_Mage_30_02_13: -3913509480615670943
+      Tex_Mage_30_02_14: 1571192275568801424
+      Tex_Mage_30_02_2: -1629662476902806807
+      Tex_Mage_30_02_3: 8915596125405874996
+      Tex_Mage_30_02_4: 851536317680024614
+      Tex_Mage_30_02_5: 4455488422526329579
+      Tex_Mage_30_02_6: 4603044116463176173
+      Tex_Mage_30_02_7: -3744339384531130814
+      Tex_Mage_30_02_8: -531966642025154352
+      Tex_Mage_30_02_9: 8830599737767371457
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

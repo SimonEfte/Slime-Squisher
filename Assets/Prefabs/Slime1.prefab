@@ -166,12 +166,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1ed40770fe297449f17d1a54212b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRegularSlime: 0
+  isFastSlime: 0
+  isShootingslime: 0
+  isBigSlime: 0
+  isGreenSlime_Regular: 0
+  isBlueSlime_regular: 0
+  isYellowSlime_regular: 0
+  isRedSlime_regular: 0
+  isPurpleSlime_Regular: 0
+  isGreenSlime_fast: 0
+  isBlueSlime_fast: 0
+  isYellowSlime_fast: 0
+  isRedSlime_fast: 0
+  isPurpleSlime_fast: 0
+  isGreenSlime_shooting: 0
+  isBlueSlime_shooting: 0
+  isYellowSlime_shooting: 0
+  isRedSlime_shooting: 0
+  isPurpleSlime_shooting: 0
+  isGrenSlime_big: 0
+  isBlueSlime_big: 0
+  isYellowSlime_big: 0
+  isRedSlime_big: 0
+  isPurpleSlime_big: 0
   middleObject: {fileID: 0}
+  projectileParent: {fileID: 0}
   animator: {fileID: 5197471463400027525}
-  moveSpeed: 0.6
+  moveSpeed: 0.35
   slimeHealth: 0
   slimeCollider: {fileID: 0}
   targetObject: {fileID: 0}
+  slimeAnimation: {fileID: 0}
+  slimeNumber: 0
+  cursorMechanicsScript: {fileID: 0}
+  cursorScriptObject: {fileID: 0}
+  squishObject: {fileID: 0}
+  textureObject: {fileID: 0}
+  shootSpawnPos: {fileID: 0}
   isCollidingWithStrawberry: 0
 --- !u!50 &3139120822443041067
 Rigidbody2D:

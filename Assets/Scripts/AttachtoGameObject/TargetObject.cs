@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class TargetObject : MonoBehaviour
 {
+    public static int targetNumber;
+
     private void Awake()
     {
-        CursorMechanics.AddSlime(gameObject);
+        if(gameObject.name.Contains("TargetObject"))
+        {
+            targetNumber += 1;
+            CursorMechanics.AddSlimeTargetObject(gameObject);
+            gameObject.name = "TargetObject" + targetNumber;
+        }
+        else
+        {
+            CursorMechanics.AddSlime(gameObject);
+        }
     }
 }

@@ -1,0 +1,1015 @@
+fileFormatVersion: 2
+guid: a1d34d3a519ebf842a4913ca6fd3c98c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5074771988098080310
+    second: T_icon_Pattern_01_02_0
+  - first:
+      213: -9046819510423989511
+    second: T_icon_Pattern_01_02_1
+  - first:
+      213: 3922644987495780395
+    second: T_icon_Pattern_01_02_2
+  - first:
+      213: 3393899191525980928
+    second: T_icon_Pattern_01_02_3
+  - first:
+      213: 2226259137297266395
+    second: T_icon_Pattern_01_02_4
+  - first:
+      213: -4636009254921895995
+    second: T_icon_Pattern_01_02_5
+  - first:
+      213: 1060249335411682077
+    second: T_icon_Pattern_01_02_6
+  - first:
+      213: 4821823560022086991
+    second: T_icon_Pattern_01_02_7
+  - first:
+      213: -714590036943345557
+    second: T_icon_Pattern_01_02_8
+  - first:
+      213: 8295447732318157372
+    second: T_icon_Pattern_01_02_9
+  - first:
+      213: -6286971486236660191
+    second: T_icon_Pattern_01_02_10
+  - first:
+      213: -5337349897694613442
+    second: T_icon_Pattern_01_02_11
+  - first:
+      213: -2293644415532656455
+    second: T_icon_Pattern_01_02_12
+  - first:
+      213: 490718705945041723
+    second: T_icon_Pattern_01_02_13
+  - first:
+      213: -2346652471086330925
+    second: T_icon_Pattern_01_02_14
+  - first:
+      213: 1834290679227412645
+    second: T_icon_Pattern_01_02_15
+  - first:
+      213: -5701106246503216529
+    second: T_icon_Pattern_01_02_16
+  - first:
+      213: 3141521988751006323
+    second: T_icon_Pattern_01_02_17
+  - first:
+      213: -5219121739853569159
+    second: T_icon_Pattern_01_02_18
+  - first:
+      213: 217475929773994515
+    second: T_icon_Pattern_01_02_19
+  - first:
+      213: -4318969557352458282
+    second: T_icon_Pattern_01_02_20
+  - first:
+      213: -8398231107287465427
+    second: T_icon_Pattern_01_02_21
+  - first:
+      213: -7525105571778329393
+    second: T_icon_Pattern_01_02_22
+  - first:
+      213: 6828033500492033695
+    second: T_icon_Pattern_01_02_23
+  - first:
+      213: -7969210316583547187
+    second: T_icon_Pattern_01_02_24
+  - first:
+      213: 3006205244384270131
+    second: T_icon_Pattern_01_02_25
+  - first:
+      213: 3616207548617125360
+    second: T_icon_Pattern_01_02_26
+  - first:
+      213: 1151052340427604676
+    second: T_icon_Pattern_01_02_27
+  - first:
+      213: -1249059723599697506
+    second: T_icon_Pattern_01_02_28
+  - first:
+      213: -4511292958538863386
+    second: T_icon_Pattern_01_02_29
+  - first:
+      213: 6138479079429739505
+    second: T_icon_Pattern_01_02_30
+  - first:
+      213: -5066025667895400950
+    second: T_icon_Pattern_01_02_31
+  - first:
+      213: -5017619734485769494
+    second: T_icon_Pattern_01_02_32
+  - first:
+      213: -559894097828692562
+    second: T_icon_Pattern_01_02_33
+  - first:
+      213: 1142920178951252440
+    second: T_icon_Pattern_01_02_34
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_0
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 337
+        width: 62
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac1af4d93c9c299b0800000000000000
+      internalID: -5074771988098080310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_1
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 361
+        width: 67
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f2da1e569d337280800000000000000
+      internalID: -9046819510423989511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_2
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 383
+        width: 56
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2017a345d8007630800000000000000
+      internalID: 3922644987495780395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_3
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 390
+        width: 56
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00b3462455d891f20800000000000000
+      internalID: 3393899191525980928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_4
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 361
+        width: 54
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd63290e3e245ee10800000000000000
+      internalID: 2226259137297266395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_5
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 382
+        width: 57
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cff4f0352699afb0800000000000000
+      internalID: -4636009254921895995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_6
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 361
+        width: 69
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1bae823723c6be00800000000000000
+      internalID: 1060249335411682077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_7
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 339
+        width: 61
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f45d9b01bfe8ae240800000000000000
+      internalID: 4821823560022086991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_8
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 292
+        width: 86
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6865ffb5244516f0800000000000000
+      internalID: -714590036943345557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_9
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 281
+        width: 50
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3ab4a9e2c95f1370800000000000000
+      internalID: 8295447732318157372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_10
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 123
+        width: 242
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12eaad93eb030c8a0800000000000000
+      internalID: -6286971486236660191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_11
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 331
+        width: 58
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e30f1f9eb8cede5b0800000000000000
+      internalID: -5337349897694613442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_12
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 332
+        width: 58
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b81e1b6e865b20e0800000000000000
+      internalID: -2293644415532656455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_13
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 280
+        width: 49
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3b5e7820126fc600800000000000000
+      internalID: 490718705945041723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_14
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 290
+        width: 85
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3db4b99b2040f6fd0800000000000000
+      internalID: -2346652471086330925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 213
+        width: 93
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a0f82e77a5b47910800000000000000
+      internalID: 1834290679227412645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_16
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 165
+        width: 89
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6a4a66131a91e0b0800000000000000
+      internalID: -5701106246503216529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_17
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 214
+        width: 31
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37a1591ba9de89b20800000000000000
+      internalID: 3141521988751006323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_18
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 260
+        width: 65
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97362800e64f197b0800000000000000
+      internalID: -5219121739853569159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_19
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 214
+        width: 87
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3127065b431a40300800000000000000
+      internalID: 217475929773994515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_20
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 123
+        width: 85
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d7d74a0210ff04c0800000000000000
+      internalID: -4318969557352458282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_21
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 145
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d22ce7cbd4d737b80800000000000000
+      internalID: -8398231107287465427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_22
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 143
+        width: 50
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc407d82a54719790800000000000000
+      internalID: -7525105571778329393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_23
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 124
+        width: 85
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9e6b4fca4c02ce50800000000000000
+      internalID: 6828033500492033695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_24
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 165
+        width: 62
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcec8a3907da76190800000000000000
+      internalID: -7969210316583547187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_25
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 83
+        width: 63
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 337d0710ebf28b920800000000000000
+      internalID: 3006205244384270131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_26
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 37
+        width: 68
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fde8612b995f2230800000000000000
+      internalID: 3616207548617125360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_27
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 98
+        width: 57
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c2c11d410c59ff00800000000000000
+      internalID: 1151052340427604676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_28
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 89
+        width: 55
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e99a7979cc27aaee0800000000000000
+      internalID: -1249059723599697506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_29
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 100
+        width: 60
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ece190c4faa461c0800000000000000
+      internalID: -4511292958538863386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_30
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 38
+        width: 69
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f3939e1332403550800000000000000
+      internalID: 6138479079429739505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_31
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 82
+        width: 62
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a06651afe7cd1b9b0800000000000000
+      internalID: -5066025667895400950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_32
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 37
+        width: 57
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae26cfb9f65dd5ab0800000000000000
+      internalID: -5017619734485769494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_33
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 6
+        width: 54
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ead3513d84bda38f0800000000000000
+      internalID: -559894097828692562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_icon_Pattern_01_02_34
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 37
+        width: 56
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d9e309e8d77cdf00800000000000000
+      internalID: 1142920178951252440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      T_icon_Pattern_01_02_0: -5074771988098080310
+      T_icon_Pattern_01_02_1: -9046819510423989511
+      T_icon_Pattern_01_02_10: -6286971486236660191
+      T_icon_Pattern_01_02_11: -5337349897694613442
+      T_icon_Pattern_01_02_12: -2293644415532656455
+      T_icon_Pattern_01_02_13: 490718705945041723
+      T_icon_Pattern_01_02_14: -2346652471086330925
+      T_icon_Pattern_01_02_15: 1834290679227412645
+      T_icon_Pattern_01_02_16: -5701106246503216529
+      T_icon_Pattern_01_02_17: 3141521988751006323
+      T_icon_Pattern_01_02_18: -5219121739853569159
+      T_icon_Pattern_01_02_19: 217475929773994515
+      T_icon_Pattern_01_02_2: 3922644987495780395
+      T_icon_Pattern_01_02_20: -4318969557352458282
+      T_icon_Pattern_01_02_21: -8398231107287465427
+      T_icon_Pattern_01_02_22: -7525105571778329393
+      T_icon_Pattern_01_02_23: 6828033500492033695
+      T_icon_Pattern_01_02_24: -7969210316583547187
+      T_icon_Pattern_01_02_25: 3006205244384270131
+      T_icon_Pattern_01_02_26: 3616207548617125360
+      T_icon_Pattern_01_02_27: 1151052340427604676
+      T_icon_Pattern_01_02_28: -1249059723599697506
+      T_icon_Pattern_01_02_29: -4511292958538863386
+      T_icon_Pattern_01_02_3: 3393899191525980928
+      T_icon_Pattern_01_02_30: 6138479079429739505
+      T_icon_Pattern_01_02_31: -5066025667895400950
+      T_icon_Pattern_01_02_32: -5017619734485769494
+      T_icon_Pattern_01_02_33: -559894097828692562
+      T_icon_Pattern_01_02_34: 1142920178951252440
+      T_icon_Pattern_01_02_4: 2226259137297266395
+      T_icon_Pattern_01_02_5: -4636009254921895995
+      T_icon_Pattern_01_02_6: 1060249335411682077
+      T_icon_Pattern_01_02_7: 4821823560022086991
+      T_icon_Pattern_01_02_8: -714590036943345557
+      T_icon_Pattern_01_02_9: 8295447732318157372
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -14,11 +14,11 @@ GameObject:
   - component: {fileID: 8691838457468947803}
   m_Layer: 8
   m_Name: PaperClip
-  m_TagString: Untagged
+  m_TagString: PaperClip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7387663542987254797
 RectTransform:
   m_ObjectHideFlags: 0
@@ -83,16 +83,16 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 78.67734, y: 22.264412}
-      - {x: 47.41733, y: 37.34879}
-      - {x: -36.84507, y: 58.3613}
-      - {x: -55.385605, y: 38.83019}
+    - - {x: 77.711784, y: 16.471207}
+      - {x: 42.589657, y: 30.10729}
+      - {x: -51.810783, y: 58.844063}
+      - {x: -51.523453, y: 44.623383}
       - {x: -32.346626, y: -0.6006509}
-      - {x: -46.144543, y: -46.41226}
-      - {x: -29.800507, y: -61.409767}
+      - {x: -24.420046, y: -29.515425}
+      - {x: -11.455402, y: -51.27167}
       - {x: 48.645123, y: -27.436314}
-      - {x: 84.97643, y: -10.066218}
-      - {x: 93.81402, y: 6.2905593}
+      - {x: 84.97643, y: -9.583451}
+      - {x: 102.02105, y: 7.2560887}
   m_UseDelaunayMesh: 0
 --- !u!50 &4067981303044073462
 Rigidbody2D:
@@ -133,6 +133,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ed5cd2696820b42a41fd4c49fbbfe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPaperClip: 1
+  isLaser: 0
+  isPoisonDart: 0
+  isThorn: 0
+  isStaple: 0
+  isSkull: 0
 --- !u!1 &905583262429245854
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +166,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.3438236, w: 0.9390343}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 67.90716, y: 67.90716, z: 67.90716}
+  m_LocalScale: {x: 43.082096, y: 43.082096, z: 43.082096}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7387663542987254797}
@@ -206,7 +212,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 62fc03d752088ee4d80079eea8f843ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 55a358259706349458bea1092f1b7836, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

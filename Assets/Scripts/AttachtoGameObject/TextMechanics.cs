@@ -30,7 +30,9 @@ public class TextMechanics : MonoBehaviour
 
     IEnumerator FadeTextOut()
     {
+        yield return new WaitForSeconds(0.05f);
         Color initialColor = text.color;
+        text.color = new Color(initialColor.r, initialColor.g, initialColor.b, 1);
 
         yield return new WaitForSeconds(0.3f);
 
@@ -83,5 +85,10 @@ public class TextMechanics : MonoBehaviour
         ObjectPool.instance.ReturnTextFromPool(text);
     }
     #endregion
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
 
 }
