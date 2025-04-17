@@ -17,12 +17,12 @@ public class SteamIntgr : MonoBehaviour
         {
             try
             {
-                if(DemoScript.isDemo == false) { Steamworks.SteamClient.Init(3449900); }
-                else { Steamworks.SteamClient.Init(3535650); }
+                //if(DemoScript.isDemo == false) { Steamworks.SteamClient.Init(3449900); }
+                //else { Steamworks.SteamClient.Init(3535650); }
             }
             catch (System.Exception e)
             {
-                 Debug.Log(e);
+                 //Debug.Log(e);
             }
         }
     }
@@ -31,7 +31,7 @@ public class SteamIntgr : MonoBehaviour
     {
         if (noSteamInt == false)
         {
-            Steamworks.SteamClient.RunCallbacks();
+            //Steamworks.SteamClient.RunCallbacks();
         }
     }
 
@@ -39,7 +39,7 @@ public class SteamIntgr : MonoBehaviour
     {
         if (noSteamInt == false)
         {
-            Steamworks.SteamClient.Shutdown();
+            //Steamworks.SteamClient.Shutdown();
         }
     }
 }

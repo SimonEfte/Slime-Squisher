@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NonClickUpgrades : MonoBehaviour
 {
@@ -64,32 +65,33 @@ public class NonClickUpgrades : MonoBehaviour
 
     public void ShootLaser()
     {
-        if (PickUpgrade.isInChooseUpgrade == false && PickUpgrade.isInWonRunScene == false && StrawberryMechanics.isInDeathFrame == false)
-        {
-            int pos = 0;
-            bool isXPos = false;
-      
-            if (laserGunStartPos.x != 0) { pos = (int)laserGunStartPos.x; isXPos = true; }
-            else { pos = (int)laserGunStartPos.y; isXPos = false; }
-
-            int endPos = 0;
-            if (laserGunStartPos.x < 0 || laserGunStartPos.y < 0) { endPos = pos + 10; }
-            else if (laserGunStartPos.x > 0 || laserGunStartPos.y > 0) { endPos = pos - 10; }
-
-            StartCoroutine(ShootAnimAndParticle(isXPos, THE_laserGun, pos, endPos, false));
-
-            particleLaser.Play();
-
-            audioManager.Play("Laser");
-            ShootTheLaser(laserStartPos.transform.position);
-            int random2XLaser = Random.Range(0, 100);
-            if(random2XLaser < PickUpgrade.laser2XChance)
-            {
-                StartCoroutine(Shoot2XLaser());
-            }
-        }
-
         StartCoroutine(ChargeLaser());
+
+        if (PickUpgrade.isInWonRunScene == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (PickUpgrade.isInChooseUpgrade == true && SelectGameMode.choseRampage == false) { return; }
+
+        int pos = 0;
+        bool isXPos = false;
+
+        if (laserGunStartPos.x != 0) { pos = (int)laserGunStartPos.x; isXPos = true; }
+        else { pos = (int)laserGunStartPos.y; isXPos = false; }
+
+        int endPos = 0;
+        if (laserGunStartPos.x < 0 || laserGunStartPos.y < 0) { endPos = pos + 10; }
+        else if (laserGunStartPos.x > 0 || laserGunStartPos.y > 0) { endPos = pos - 10; }
+
+        StartCoroutine(ShootAnimAndParticle(isXPos, THE_laserGun, pos, endPos, false));
+
+        particleLaser.Play();
+
+        audioManager.Play("Laser");
+        ShootTheLaser(laserStartPos.transform.position);
+        int random2XLaser = Random.Range(0, 100);
+        if (random2XLaser < PickUpgrade.laser2XChance)
+        {
+            StartCoroutine(Shoot2XLaser());
+        }
     }
 
     public void ShootTheLaser(Vector2 pos)
@@ -129,12 +131,13 @@ public class NonClickUpgrades : MonoBehaviour
 
     public void ShootStapler()
     {
-        if (PickUpgrade.isInChooseUpgrade == false && PickUpgrade.isInWonRunScene == false && StrawberryMechanics.isInDeathFrame == false)
-        {
-            ShootTheStapler();
-        }
-
         StartCoroutine(ChargeStapler());
+
+        if (PickUpgrade.isInWonRunScene == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (PickUpgrade.isInChooseUpgrade == true && SelectGameMode.choseRampage == false) { return; }
+
+        ShootTheStapler();
     }
 
     public void ShootTheStapler()
@@ -189,12 +192,13 @@ public class NonClickUpgrades : MonoBehaviour
 
     public void ShootNail()
     {
-        if (PickUpgrade.isInChooseUpgrade == false && PickUpgrade.isInWonRunScene == false && StrawberryMechanics.isInDeathFrame == false)
-        {
-            ShootTheNail();
-        }
-
         StartCoroutine(ChargeNail());
+
+        if (PickUpgrade.isInWonRunScene == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (PickUpgrade.isInChooseUpgrade == true && SelectGameMode.choseRampage == false) { return; }
+
+        ShootTheNail();
     }
 
     public void ShootTheNail()
@@ -256,24 +260,25 @@ public class NonClickUpgrades : MonoBehaviour
 
     public void ShootBigLaser()
     {
-        if (PickUpgrade.isInChooseUpgrade == false && PickUpgrade.isInWonRunScene == false && StrawberryMechanics.isInDeathFrame == false)
-        {
-            int pos = 0;
-            bool isXPos = false;
-
-            if (bigLaserGunStartPos.x != 0) { pos = (int)bigLaserGunStartPos.x; isXPos = true; }
-            else { pos = (int)bigLaserGunStartPos.y; isXPos = false; }
-
-            int endPos = 0;
-            if (bigLaserGunStartPos.x < 0 || bigLaserGunStartPos.y < 0) { endPos = pos + 10; }
-            else if (bigLaserGunStartPos.x > 0 || bigLaserGunStartPos.y > 0) { endPos = pos - 10; }
-
-            StartCoroutine(ShootAnimAndParticle(isXPos, THE_BigLaser, pos, endPos, true));
-
-            StartCoroutine(SetBigLaserOff());
-        }
-
         StartCoroutine(BigLaserCountdown());
+
+        if (PickUpgrade.isInWonRunScene == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (PickUpgrade.isInChooseUpgrade == true && SelectGameMode.choseRampage == false) { return; }
+
+        int pos = 0;
+        bool isXPos = false;
+
+        if (bigLaserGunStartPos.x != 0) { pos = (int)bigLaserGunStartPos.x; isXPos = true; }
+        else { pos = (int)bigLaserGunStartPos.y; isXPos = false; }
+
+        int endPos = 0;
+        if (bigLaserGunStartPos.x < 0 || bigLaserGunStartPos.y < 0) { endPos = pos + 10; }
+        else if (bigLaserGunStartPos.x > 0 || bigLaserGunStartPos.y > 0) { endPos = pos - 10; }
+
+        StartCoroutine(ShootAnimAndParticle(isXPos, THE_BigLaser, pos, endPos, true));
+
+        StartCoroutine(SetBigLaserOff());
     }
 
     public Animation bigLaserAnim;
@@ -284,13 +289,14 @@ public class NonClickUpgrades : MonoBehaviour
         audioManager.Play("LaserCharge");
 
         bigLaserDeleteBullets.SetActive(false);
+        bigLaserAnim.gameObject.GetComponent<Image>().enabled = true;
         bigLaserAnim.Play("BigLaserAnim");
         yield return new WaitForSeconds(.3f);
         bigLaserDeleteBullets.SetActive(true);
         bigLaserCollider.enabled = true;
         yield return new WaitForSeconds(1.7f);
         bigLaserAnim.Play("BigLaserOff");
-        yield return new WaitForSeconds(0.14f);
+        yield return new WaitForSeconds(0.3f);
         bigLaserCollider.enabled = false;
         bigLaserDeleteBullets.SetActive(false);
     }
@@ -305,8 +311,8 @@ public class NonClickUpgrades : MonoBehaviour
 
         if (isBigLaser == true)
         {
-            duration = 0.5f;
-            halfDuration = 0.25f;
+            yield return new WaitForSeconds(0.05f);
+            halfDuration = 0.15f;
         }
 
         // Move from startPos to endPos
@@ -347,6 +353,11 @@ public class NonClickUpgrades : MonoBehaviour
 
     public void Reset()
     {
+        bigLaserAnim.gameObject.GetComponent<Image>().enabled = false;
+
+        bigLaserCollider.enabled = false;
+        bigLaserDeleteBullets.SetActive(false);
+
         laserCoroutine = null;
         bigLaserCoroutine = null;
         staplerCorotuine = null;

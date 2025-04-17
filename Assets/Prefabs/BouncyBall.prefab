@@ -66,7 +66,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!114 &7650711042737759504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +83,7 @@ MonoBehaviour:
   cursorMechanicsScript: {fileID: 0}
   cmScript: {fileID: 0}
   bounceAnim: {fileID: 0}
+  startPos: {x: 0, y: 0}
 --- !u!70 &4721001810305656697
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -194,7 +195,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 196f10ed8a8bf7e4e82735447ad03e74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -217,9 +218,9 @@ GameObject:
   - component: {fileID: 7694883163022479416}
   - component: {fileID: 3002166694604597419}
   - component: {fileID: 8880832791343699473}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Ball_icon
-  m_TagString: BouncyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -322,7 +323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6476899622868931025}
   - component: {fileID: 8448588639158246987}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: trailRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +390,7 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Time: 0.09
   m_PreviewTimeScale: 1
   m_Parameters:

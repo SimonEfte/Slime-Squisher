@@ -119,6 +119,12 @@ public class CursorMechanics : MonoBehaviour
                 else
                 {
                     boulderTargetPosition = selectedSlime.transform.position;
+
+                    if(ActiveMechanics.isFrenzyInUse == true)
+                    {
+                        int random = Random.Range(-1000, 1000);
+                        boulderTargetPosition = new Vector2(random, random);
+                    }
                 }
 
                 ShootBoulder();
@@ -194,22 +200,16 @@ public class CursorMechanics : MonoBehaviour
             }
             else if (projectileType == 3)
             {
-                if (activeSlimes.Count < 1)
-                {
-                    int random = Random.Range(-900, 900);
-                    bouncyBallTarget = new Vector2(random, random);
-                }
-                else
+                if (activeSlimes.Count > 1)
                 {
                     bouncyBallTarget = selectedSlime.transform.position;
+                    ShootBouncyBall(SlimeMechanics.bouncyBallStartPos, bouncyBallTarget);
                 }
             }
             if (projectileType == 4)
             {
-                if(ActiveMechanics.isFrenzyInUse == false)
-                {
-                    kunaiHitPos = selectedSlime.transform.position;
-                }
+                kunaiHitPos = selectedSlime.transform.position;
+
                 ShootKunai(kunaiHitPos); 
             }
 
@@ -223,6 +223,7 @@ public class CursorMechanics : MonoBehaviour
             int randomx = Random.Range(-900, 900);
             int randomy = Random.Range(-900, 900);
             paperClipHitPos = new Vector2(randomx, randomy);
+            poisonDartHitPos = new Vector2(randomx, randomy);
             //Debug.Log("No active slimes found.");
         }
     }
@@ -452,6 +453,8 @@ public class CursorMechanics : MonoBehaviour
     public void ShootPaperClip(Vector2 pos)
     {
         GameObject paperClip = ObjectPool.instance.GetPaperClipFromPool();
+        //get child names "shadow" from the paperClip. the paperClip is the parent
+
         GameObject shadow = ObjectPool.instance.GetShadowFromPool();
         shadow.transform.localScale = new Vector2(0.6f, 0.6f);
 
@@ -489,6 +492,7 @@ public class CursorMechanics : MonoBehaviour
 
     public void ShootKunaiDirection(GameObject objecToShoot, bool isShadow, Vector2 hitPos)
     {
+        if(MobileScript.isMobile == true && ActiveMechanics.isFrenzyInUse == true) { kunaiStartPos = new Vector2(0,0); }
         objecToShoot.transform.position = kunaiStartPos;
 
         Vector2 direction = (hitPos - (Vector2)objecToShoot.transform.position).normalized;
@@ -501,7 +505,7 @@ public class CursorMechanics : MonoBehaviour
         }
 
         Rigidbody2D rb = objecToShoot.GetComponent<Rigidbody2D>();
-        float speed = 10f;
+        float speed = 11f;
         rb.velocity = direction * speed;
     }
     #endregion
@@ -539,7 +543,7 @@ public class CursorMechanics : MonoBehaviour
         }
 
         Rigidbody2D rb = objecToShoot.GetComponent<Rigidbody2D>();
-        float speed = 9.5f;
+        float speed = 11f;
         rb.velocity = direction * speed;
     }
     #endregion
@@ -557,14 +561,10 @@ public class CursorMechanics : MonoBehaviour
         for (int i = 0; i < thornAmount; i++)
         {
             GameObject thorn = ObjectPool.instance.GetThornFromPool();
-
-            if (ActiveMechanics.isFrenzyInUse) { thorn.transform.position = pos; }
-            else { thorn.transform.localPosition = pos; }
-        
             GameObject shadow = ObjectPool.instance.GetShadowFromPool();
 
-            if (ActiveMechanics.isFrenzyInUse) { shadow.transform.position = new Vector2(pos.x, pos.y - 0.15f); }
-            else { shadow.transform.localPosition = new Vector2(pos.x, pos.y - 15); }
+            thorn.transform.localPosition = pos;
+            shadow.transform.localPosition = new Vector2(pos.x, pos.y - 17f);
 
             shadow.transform.localScale = new Vector2(0.4f, 0.4f);
 
@@ -615,7 +615,7 @@ public class CursorMechanics : MonoBehaviour
         Vector2 startPos = new Vector2(slimePos.x - 1100, slimePos.y + 1100);
         arrow.transform.localPosition = startPos;
 
-        float speed = 1850f; 
+        float speed = 2100f; 
 
         while ((Vector2)arrow.transform.localPosition != slimeHitPos)
         {
@@ -880,7 +880,7 @@ public class CursorMechanics : MonoBehaviour
         else
         {
             GameObject sawBlade = ObjectPool.instance.GetSawbladeFromPool();
-            sawBlade.transform.localPosition = pos;
+            sawBlade.transform.position = pos;
 
             Vector2 direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
 
@@ -897,12 +897,18 @@ public class CursorMechanics : MonoBehaviour
 
     public void ShootKatana()
     {
+        shootSpeed = 12;
+
         audioManager.Play("Katana");
 
         spinDuration = 0.35f;
 
         GameObject katana = ObjectPool.instance.GetKatanaFromPool();
         katana.transform.position = gameObject.transform.position;
+        if(MobileScript.isMobile == true && ActiveMechanics.isFrenzyInUse == true)
+        {
+            katana.transform.position = new Vector2(0,0);
+        }
 
         // Set a random initial Z rotation
         float randomZRotation = Random.Range(0f, 360f);
@@ -937,6 +943,8 @@ public class CursorMechanics : MonoBehaviour
     #region shoot log
     public void ShootLog(Vector2 pos)
     {
+        audioManager.Play("Log");
+      
         GameObject log = ObjectPool.instance.GetLogFromPool();
 
         log.transform.position = pos;
@@ -946,7 +954,19 @@ public class CursorMechanics : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         log.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        log.GetComponent<Rigidbody2D>().velocity = direction * 5.3f;
+        log.GetComponent<Rigidbody2D>().velocity = direction * 5f;
+    }
+    #endregion
+
+    #region shoot bouncy ball
+    public void ShootBouncyBall(Vector2 pos, Vector2 hitPosition)
+    {
+        GameObject bouncy = ObjectPool.instance.GetBouncyBallFromPool();
+        Rigidbody2D rb = bouncy.GetComponent<Rigidbody2D>();
+        bouncy.transform.position = pos;
+        Vector2 direction = (hitPosition - pos).normalized;
+        float speed = 6.25f;
+        rb.velocity = direction * speed;
     }
     #endregion
 }

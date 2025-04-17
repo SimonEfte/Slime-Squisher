@@ -21,6 +21,8 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
 
     public static int goldStartDropChance;
 
+    public Achivements achScript;
+
     private void Awake()
     {
         StrawberryMechanics.hitCooldownTimer = 3f;
@@ -41,24 +43,10 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         slowerSlimes_MAX = 5;
         slowerBullets_MAX = 5;
 
-        goldStartDropChance = 2;
+        goldStartDropChance = 3;
 
-        goldChanceIncrease_price = 5;
-        clickDamageIncrease_price = 5;
-        startHealth_price = 7;
-        critPrice = 12;
-        clickCooldownDecrease_price = 15;
-        healEveryWave_price = 20;
-        slotIncrease_price = 30;
-        rerolls_price = 30;
-        damagedCooldownIcrease_price = 20;
-        extraUpgradeChoises_price = 50;
-        onSlime_CD_ChanceIncrease_price = 35;
-        damageIncrease_price = 35;
-        activeTier_price = 75;
-        slowerSlimes_price = 20;
-        slowerBullets_price = 20;
-
+        int totalPriceOfAll = (goldChanceIncrease_price * 5) + (clickDamageIncrease_price * 5) + (startHealth_price * 3) + (critPrice * 5) + (clickCooldownDecrease_price * 5) + (healEveryWave_price * 4) + (slotIncrease_price * 4) + (rerolls_price * 3) + (damagedCooldownIcrease_price * 5) + (extraUpgradeChoises_price * 2) + (onSlime_CD_ChanceIncrease_price * 5) + (damageIncrease_price * 5) + (activeTier_price * 2) + (slowerSlimes_price * 5) + (slowerBullets_price * 5);
+        //Debug.Log(totalPriceOfAll);
         totalCoins = 0;
 
         upgradeChooseCount = 3;
@@ -73,13 +61,14 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
     {
         yield return new WaitForSeconds(0.5f);
 
-        upgradeName.text = "Select an upgrade";
+        upgradeSelected = -1;
+        upgradeName.text = LocalizationSCRIPT.selectAnUpgrade;
         upgradeStats.text = "";
         upgradePrice.text = "";
         priceGoldCoinObject.SetActive(false);
 
-        totalCoins = 341;
         SetUpgradeMaxNumbers();
+        //Easy coins = 23 + 20 if you win = 43. Somewhere between 40-50
     }
 
     #region Update
@@ -87,7 +76,7 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-        goldAvailableText.text = "Available: <color=yellow>" + totalCoins;
+        goldAvailableText.text = LocalizationSCRIPT.available + "<color=yellow>" + totalCoins;
 
         totalCoinsTexT.text = totalCoins.ToString("F0");
     }
@@ -107,7 +96,6 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
     public TextMeshProUGUI upgradeName, upgradeStats, upgradePrice;
 
     public ActiveMechanics activeScript;
-    public LocalizationSCRIPT locScript;
 
     public void SelectUpgrade(int selected)
     {
@@ -123,21 +111,23 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
 
     public void SetTexts(int selected)
     {
+        if(selected == -1) { upgradeName.text = LocalizationSCRIPT.selectAnUpgrade; }
+
         #region Gold drop chance
         if (selected == 0)
         {
-            upgradeName.text = "Gold coin drop chance";
+            upgradeName.text = LocalizationSCRIPT.coinDropChance;
 
             if (coinChance_PURCHASED == coinChance_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
                 upgradeStats.text = $"<color=green>{goldStartDropChance + goldChanceIncrease}%";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{goldChanceIncrease_price}";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{goldChanceIncrease_price}";
                 upgradeStats.text = $"<color=green>{goldStartDropChance + goldChanceIncrease}% -> {goldStartDropChance + goldChanceIncrease + 1f}%";
             }
         }
@@ -146,18 +136,18 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region Click damage increase
         if (selected == 1)
         {
-            upgradeName.text = "Start click damage";
+            upgradeName.text = LocalizationSCRIPT.startClickDamage;
 
             if (clickDamage_PURCHASED == clickDamage_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
                 upgradeStats.text = $"<color=green>{10 + clickDamageIncrease}";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{clickDamageIncrease_price}";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{clickDamageIncrease_price}";
                 upgradeStats.text = $"<color=green>{10 + clickDamageIncrease} -> {10 + clickDamageIncrease + 1}";
             }
         }
@@ -166,18 +156,18 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region Start health
         if (selected == 2)
         {
-            upgradeName.text = "Start health";
+            upgradeName.text = LocalizationSCRIPT.startHealth;
 
             if (healthIncrease_PURCHASED == healthIncrease_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
                 upgradeStats.text = $"<color=green>{2 + startHealth}";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{startHealth_price}";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{startHealth_price}";
                 upgradeStats.text = $"<color=green>{2 + startHealth} -> {2 + startHealth + 1}";
             }
         }
@@ -186,20 +176,20 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region Crit
         if (selected == 3)
         {
-            upgradeName.text = "Crit chance and crit increase";
+            upgradeName.text = LocalizationSCRIPT.critChanceAndIncrease;
 
             if (crit_PURCHASED == crit_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
                 upgradeStats.text = $"<color=green>{0 + critChanceIncrease}% & {(0 + critIncreaseIncrease) * 100}%";
 
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{critPrice}";
-                upgradeStats.text = $"<color=green>{0 + critChanceIncrease}% -> {0 + critChanceIncrease + 2}% & {(0 + critIncreaseIncrease) * 100}% -> {((0 + critIncreaseIncrease + 0.5) * 100).ToString("F0")}%";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{critPrice}";
+                upgradeStats.text = $"<color=green>{0 + critChanceIncrease}% -> {0 + critChanceIncrease + 2}% & {(0 + critIncreaseIncrease) * 100}% -> {((0 + critIncreaseIncrease + 0.2) * 100).ToString("F0")}%";
             }
 
             if (crit_PURCHASED == 0)
@@ -212,19 +202,19 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region Click cooldown
         if (selected == 4)
         {
-            upgradeName.text = "Start click cooldown";
+            upgradeName.text = LocalizationSCRIPT.clickCooldown;
 
             if (clickCooldown_PURCHASED == clickCooldown_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
-                upgradeStats.text = $"<color=green>{PickUpgrade.clickCooldown - clickCooldownDecrease} sec";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
+                upgradeStats.text = $"<color=green>{(0.75f - clickCooldownDecrease).ToString("F2")} {LocalizationSCRIPT.sec}";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{clickCooldownDecrease_price}";
-                upgradeStats.text = $"<color=green>{PickUpgrade.clickCooldown - clickCooldownDecrease} sec -> {PickUpgrade.clickCooldown - clickCooldownDecrease - 0.07f} sec";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{clickCooldownDecrease_price}";
+                upgradeStats.text = $"<color=green>{(0.75f - clickCooldownDecrease).ToString("F2")} {LocalizationSCRIPT.sec} -> {((0.75f - clickCooldownDecrease) - 0.07f).ToString("F2")} {LocalizationSCRIPT.sec}";
             }
         }
         #endregion //Done
@@ -232,24 +222,24 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region Heal every wave
         if (selected == 5)
         {
-            upgradeName.text = "Heal half a heart every";
-            
+            upgradeName.text = LocalizationSCRIPT.healHalfAHeart;
+
             if (regen_PURCHASED == regen_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
-                upgradeStats.text = $"<color=green>{healEveryWave} waves";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
+                upgradeStats.text = $"<color=green>{healEveryWave} {LocalizationSCRIPT.waves}";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{healEveryWave_price}";
-                upgradeStats.text = $"<color=green>{0 + healEveryWave} waves -> {0 + healEveryWave - 1} waves";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{healEveryWave_price}";
+                upgradeStats.text = $"<color=green>{0 + healEveryWave} {LocalizationSCRIPT.waves} -> {0 + healEveryWave - 1} {LocalizationSCRIPT.waves}";
             }
 
             if (healEveryWave == 0)
             {
-                upgradeStats.text = $"<color=green>{0} waves -> {7} waves";
+                upgradeStats.text = $"<color=green>{0} {LocalizationSCRIPT.waves} -> {7} {LocalizationSCRIPT.waves}";
             }
         }
         #endregion
@@ -257,19 +247,21 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region More upgrade slots
         if (selected == 6)
         {
-            upgradeName.text = "More upgrde slots";
+            upgradeName.text = LocalizationSCRIPT.moreUpgradeSlots;
+
+            ManageSlots.slotsAviable = 4 + slotIncrease;
 
             if (slots_PURCHASED == slots_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
-                upgradeStats.text = $"<color=green>{slotIncrease + ManageSlots.slotsAviable}";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
+                upgradeStats.text = $"<color=green>{ManageSlots.slotsAviable}";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{slotIncrease_price}";
-                upgradeStats.text = $"<color=green>{slotIncrease + ManageSlots.slotsAviable} -> {slotIncrease + ManageSlots.slotsAviable + 1}";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{slotIncrease_price}";
+                upgradeStats.text = $"<color=green>{ManageSlots.slotsAviable} -> {ManageSlots.slotsAviable + 1}";
             }
         }
         #endregion
@@ -277,19 +269,19 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region Rerolls
         if (selected == 7)
         {
-            upgradeName.text = "Rerolls";
+            upgradeName.text = LocalizationSCRIPT.rerolls;
 
             if (reroll_PURCHASED == reroll_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
                 upgradeStats.text = $"<color=green>{rerolls}";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{rerolls_price}";
-                upgradeStats.text = $"<color=green>{0 + rerolls} -> {rerolls + 3}";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{rerolls_price}";
+                upgradeStats.text = $"<color=green>{0 + rerolls} -> {rerolls + 4}";
             }
         }
         #endregion
@@ -297,19 +289,19 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region Damage cooldown
         if (selected == 8)
         {
-            upgradeName.text = "Invincibility after damaged";
+            upgradeName.text = LocalizationSCRIPT.invincibilityAfterDamage;
 
             if (damageCooldown_PURCHASED == damageCooldown_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
-                upgradeStats.text = $"<color=green>{StrawberryMechanics.hitCooldownTimer + damagedCooldownIcrease} sec";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
+                upgradeStats.text = $"<color=green>{StrawberryMechanics.hitCooldownTimer + damagedCooldownIcrease} {LocalizationSCRIPT.sec}";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{damagedCooldownIcrease_price}";
-                upgradeStats.text = $"<color=green>{StrawberryMechanics.hitCooldownTimer + damagedCooldownIcrease} sec -> {StrawberryMechanics.hitCooldownTimer + damagedCooldownIcrease + 0.5f} sec";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{damagedCooldownIcrease_price}";
+                upgradeStats.text = $"<color=green>{StrawberryMechanics.hitCooldownTimer + damagedCooldownIcrease} {LocalizationSCRIPT.sec} -> {StrawberryMechanics.hitCooldownTimer + damagedCooldownIcrease + 0.5f} {LocalizationSCRIPT.sec}";
             }
         }
         #endregion
@@ -317,18 +309,18 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region Upgrade choises
         if (selected == 9)
         {
-            upgradeName.text = "More upgrade choises";
+            upgradeName.text = LocalizationSCRIPT.moreUpgradEChoises;
 
             if (moreChoises_PURCHASED == moreChoises_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
                 upgradeStats.text = $"<color=green>{3 + extraUpgradeChoises}";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{extraUpgradeChoises_price}";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{extraUpgradeChoises_price}";
                 upgradeStats.text = $"<color=green>{3 + extraUpgradeChoises} -> {3 + extraUpgradeChoises + 1}";
             }
         }
@@ -337,18 +329,18 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region On slime click/death chance increase
         if (selected == 10)
         {
-            upgradeName.text = "On slime click/death trigger chance";
+            upgradeName.text = LocalizationSCRIPT.onSlimeClickDeathChance;
 
             if (onSlime_CD_PURCHASED == onSlime_CD_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
                 upgradeStats.text = $"<color=green>{onSlime_CD_ChanceIncrease}%";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{onSlime_CD_ChanceIncrease_price}";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{onSlime_CD_ChanceIncrease_price}";
                 upgradeStats.text = $"<color=green>{onSlime_CD_ChanceIncrease}% -> {onSlime_CD_ChanceIncrease + 1}%";
             }
         }
@@ -357,18 +349,18 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region Overall damage
         if (selected == 11)
         {
-            upgradeName.text = "all damage increase";
+            upgradeName.text = LocalizationSCRIPT.allDamageIncrease;
 
             if (damageIncrease_PURCHASED == damageIncrease_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max; ;
                 upgradeStats.text = $"<color=green>{damageIncrease}%";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{damageIncrease_price}";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{damageIncrease_price}";
                 upgradeStats.text = $"<color=green>{damageIncrease}% -> {damageIncrease + 3}%";
             }
         }
@@ -377,19 +369,19 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region Active tier
         if (selected == 12)
         {
-            upgradeName.text = "better active";
+            upgradeName.text = LocalizationSCRIPT.betterActive;
 
             if (activeTier_PURCHASED == activeTier_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
-                upgradeStats.text = $"<color=green>Tier {activeTier + 1}";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
+                upgradeStats.text = $"<color=green>{LocalizationSCRIPT.tier} {activeTier + 1}";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{activeTier_price}";
-                upgradeStats.text = $"<color=green>Tier {activeTier + 1} -> Tier {activeTier + 1 + 1}";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{activeTier_price}";
+                upgradeStats.text = $"<color=green>{LocalizationSCRIPT.tier} {activeTier + 1} -> {LocalizationSCRIPT.tier} {activeTier + 1 + 1}";
             }
         }
         #endregion
@@ -397,18 +389,18 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region Slower slimes
         if (selected == 13)
         {
-            upgradeName.text = "slower slimes";
+            upgradeName.text = LocalizationSCRIPT.slowerSlimes;
 
             if (slowerSlimes_PURCHASED == slowerSlimes_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
                 upgradeStats.text = $"<color=green>{slowerSlimes}%";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{slowerSlimes_price}";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{slowerSlimes_price}";
                 upgradeStats.text = $"<color=green>{slowerSlimes}% -> {slowerSlimes + 4}%";
             }
         }
@@ -417,18 +409,18 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
         #region Slower slime bullets
         if (selected == 14)
         {
-            upgradeName.text = "slower slime bullets";
+            upgradeName.text = LocalizationSCRIPT.slowerBullets;
 
             if (slowerBullets_PURCHASED == slowerBullets_MAX)
             {
                 priceGoldCoinObject.SetActive(false);
-                upgradePrice.text = "<color=red>MAX";
+                upgradePrice.text = "<color=red>" + LocalizationSCRIPT.max;
                 upgradeStats.text = $"<color=green>{slowerBullets}%";
             }
             else
             {
                 priceGoldCoinObject.SetActive(true);
-                upgradePrice.text = $"Price: <color=yellow>{slowerBullets_price}";
+                upgradePrice.text = $"{LocalizationSCRIPT.price}<color=yellow>{slowerBullets_price}";
                 upgradeStats.text = $"<color=green>{slowerBullets}% -> {slowerBullets + 5}%";
             }
         }
@@ -446,8 +438,9 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 PurchaseSound();
                 goldChanceIncrease += 1f;
                 totalCoins -= goldChanceIncrease_price;
+                goldChanceIncrease_price += 8;
             }
-            else { PlayError(); }
+            else { PlayError();  }
         }
         #endregion
 
@@ -460,6 +453,7 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 PurchaseSound();
                 clickDamageIncrease += 1;
                 totalCoins -= clickDamageIncrease_price;
+                clickDamageIncrease_price += 8;
             }
             else { PlayError(); }
         }
@@ -474,6 +468,7 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 PurchaseSound();
                 startHealth += 1;
                 totalCoins -= startHealth_price;
+                startHealth_price += 10;
             }
             else { PlayError(); }
         }
@@ -492,12 +487,13 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 else
                 {
                     critChanceIncrease += 2;
-                    critIncreaseIncrease += 0.5f;
+                    critIncreaseIncrease += 0.2f;
                 }
                 crit_PURCHASED += 1;
                 PurchaseSound();
                
                 totalCoins -= critPrice;
+                critPrice += 11;
             }
             else { PlayError(); }
         }
@@ -513,6 +509,7 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 clickCooldownDecrease += 0.07f;
 
                 totalCoins -= clickCooldownDecrease_price;
+                clickCooldownDecrease_price += 12;
             }
             else { PlayError(); }
         }
@@ -533,6 +530,7 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 }
 
                 totalCoins -= healEveryWave_price;
+                healEveryWave_price += 8;
             }
             else { PlayError(); }
         }
@@ -549,6 +547,7 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 slotIncrease += 1;
 
                 totalCoins -= slotIncrease_price;
+                slotIncrease_price += 10;
             }
             else { PlayError(); }
         }
@@ -561,9 +560,10 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
             {
                 reroll_PURCHASED += 1;
                 PurchaseSound();
-                rerolls += 3;
+                rerolls += 4;
 
                 totalCoins -= rerolls_price;
+                rerolls_price += 5;
             }
             else { PlayError(); }
         }
@@ -579,6 +579,7 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 damagedCooldownIcrease += 0.5f;
 
                 totalCoins -= damagedCooldownIcrease_price;
+                damagedCooldownIcrease_price += 5;
             }
             else { PlayError(); }
         }
@@ -594,6 +595,7 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 extraUpgradeChoises += 1;
 
                 totalCoins -= extraUpgradeChoises_price;
+                extraUpgradeChoises_price += 10;
             }
             else { PlayError(); }
         }
@@ -609,6 +611,7 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 onSlime_CD_ChanceIncrease += 1;
 
                 totalCoins -= onSlime_CD_ChanceIncrease_price;
+                onSlime_CD_ChanceIncrease_price += 6;
             }
             else { PlayError(); }
         }
@@ -624,6 +627,7 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 damageIncrease += 3;
 
                 totalCoins -= damageIncrease_price;
+                damageIncrease_price += 5;
             }
             else { PlayError(); }
         }
@@ -640,48 +644,8 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
 
                 activeScript.ActiveVariables();
 
-                if (LocalizationSCRIPT.languageSelected == 1) //English
-                {
-                    locScript.EnglishLanguage();
-                }
-                else if (LocalizationSCRIPT.languageSelected == 2) //German
-                {
-                    locScript.GermanLanguage();
-                }
-                else if (LocalizationSCRIPT.languageSelected == 3) //Japanese
-                {
-                    locScript.JapaneseLanguage();
-                }
-                else if (LocalizationSCRIPT.languageSelected == 4) //French
-                {
-                    locScript.FrenchLanguage();
-                }
-                else if (LocalizationSCRIPT.languageSelected == 5) //Spanish
-                {
-                    locScript.SpanishLanguage();
-                }
-                else if (LocalizationSCRIPT.languageSelected == 6) //Chinese
-                {
-                    locScript.ChineseLanguage();
-                }
-                else if (LocalizationSCRIPT.languageSelected == 7) //Korean
-                {
-                    locScript.KoreanLanguage();
-                }
-                else if (LocalizationSCRIPT.languageSelected == 8) //Russian
-                {
-                    locScript.RussianLanguage();
-                }
-                else if (LocalizationSCRIPT.languageSelected == 9) //Polish
-                {
-                    locScript.PolishLanguage();
-                }
-                else if (LocalizationSCRIPT.languageSelected == 10) //Portugese
-                {
-                    locScript.PortugeseLanguage();
-                }
-
                 totalCoins -= activeTier_price;
+                activeTier_price += 5;
             }
             else { PlayError(); }
         }
@@ -697,6 +661,7 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 slowerSlimes += 4;
 
                 totalCoins -= slowerSlimes_price;
+                slowerSlimes_price += 5;
             }
             else { PlayError(); }
         }
@@ -712,6 +677,7 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
                 slowerBullets += 5;
 
                 totalCoins -= slowerBullets_price;
+                slowerBullets_price += 5;
             }
             else { PlayError(); }
         }
@@ -771,88 +737,151 @@ public class MetaProgressionUpgrades : MonoBehaviour, IDataPersistence
 
     public void PurchaseSound()
     {
+        Achivements.totalShopUpgradesPurchased += 1;
         audioManager.Play("Purchase");
+
+        if (Achivements.totalShopUpgradesPurchased >= 63) { achScript.TriggerACH("shop_100percent"); Achivements.achievedAllUpgrades = true; }
+
+        if (coinChance_PURCHASED == coinChance_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (clickDamage_PURCHASED == clickDamage_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (healthIncrease_PURCHASED == healthIncrease_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (crit_PURCHASED == crit_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (clickCooldown_PURCHASED == clickCooldown_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (regen_PURCHASED == regen_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (slots_PURCHASED == slots_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (reroll_PURCHASED == reroll_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (damageCooldown_PURCHASED == damageCooldown_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (moreChoises_PURCHASED == moreChoises_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (onSlime_CD_PURCHASED == onSlime_CD_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (damageIncrease_PURCHASED == damageIncrease_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (activeTier_PURCHASED == activeTier_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (slowerSlimes_PURCHASED == slowerSlimes_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+        if (slowerBullets_PURCHASED == slowerBullets_MAX) { achScript.TriggerACH("shop_1max"); Achivements.achievedMaxUpgrade = true; }
+
+        if (coinChance_PURCHASED > 0 && clickDamage_PURCHASED > 0 && healthIncrease_PURCHASED > 0 && crit_PURCHASED > 0 && clickCooldown_PURCHASED > 0 && regen_PURCHASED > 0 && slots_PURCHASED > 0 && reroll_PURCHASED > 0 && damageCooldown_PURCHASED > 0 && moreChoises_PURCHASED > 0 && onSlime_CD_PURCHASED > 0 && damageIncrease_PURCHASED > 0 && activeTier_PURCHASED > 0 && slowerSlimes_PURCHASED > 0 && slowerBullets_PURCHASED > 0)
+        {
+            achScript.TriggerACH("shop1ofeach");
+            Achivements.achievedOneOfEachUpgrade = true;
+        }
     }
 
     #region Load Data
     public void LoadData(GameData data)
     {
-        totalCoins = data.totalCoins;
+        if (DemoScript.isDemo == false)
+        {
+            totalCoins = data.totalCoins;
 
-        coinChance_PURCHASED = data.coinChance_PURCHASED;
-        clickDamage_PURCHASED = data.clickDamage_PURCHASED;
-        healthIncrease_PURCHASED = data.healthIncrease_PURCHASED;
-        crit_PURCHASED = data.crit_PURCHASED;
-        clickCooldown_PURCHASED = data.clickCooldown_PURCHASED;
-        regen_PURCHASED = data.regen_PURCHASED;
-        slots_PURCHASED = data.slots_PURCHASED;
-        reroll_PURCHASED = data.reroll_PURCHASED;
-        damageCooldown_PURCHASED = data.damageCooldown_PURCHASED;
-        moreChoises_PURCHASED = data.moreChoises_PURCHASED;
-        onSlime_CD_PURCHASED = data.onSlime_CD_PURCHASED;
-        damageIncrease_PURCHASED = data.damageIncrease_PURCHASED;
-        activeTier_PURCHASED = data.activeTier_PURCHASED;
-        slowerSlimes_PURCHASED = data.slowerSlimes_PURCHASED;
-        slowerBullets_PURCHASED = data.slowerBullets_PURCHASED;
+            coinChance_PURCHASED = data.coinChance_PURCHASED;
+            clickDamage_PURCHASED = data.clickDamage_PURCHASED;
+            healthIncrease_PURCHASED = data.healthIncrease_PURCHASED;
+            crit_PURCHASED = data.crit_PURCHASED;
+            clickCooldown_PURCHASED = data.clickCooldown_PURCHASED;
+            regen_PURCHASED = data.regen_PURCHASED;
+            slots_PURCHASED = data.slots_PURCHASED;
+            reroll_PURCHASED = data.reroll_PURCHASED;
+            damageCooldown_PURCHASED = data.damageCooldown_PURCHASED;
+            moreChoises_PURCHASED = data.moreChoises_PURCHASED;
+            onSlime_CD_PURCHASED = data.onSlime_CD_PURCHASED;
+            damageIncrease_PURCHASED = data.damageIncrease_PURCHASED;
+            activeTier_PURCHASED = data.activeTier_PURCHASED;
+            slowerSlimes_PURCHASED = data.slowerSlimes_PURCHASED;
+            slowerBullets_PURCHASED = data.slowerBullets_PURCHASED;
 
-        clickDamageIncrease = data.clickDamageIncrease;
-        startHealth = data.startHealth;
-        healEveryWave = data.healEveryWave;
-        slotIncrease = data.slotIncrease;
-        rerolls = data.rerolls;
-        extraUpgradeChoises = data.extraUpgradeChoises;
-        onSlime_CD_ChanceIncrease = data.onSlime_CD_ChanceIncrease;
-        activeTier = data.activeTier;
+            clickDamageIncrease = data.clickDamageIncrease;
+            startHealth = data.startHealth;
+            healEveryWave = data.healEveryWave;
+            slotIncrease = data.slotIncrease;
+            rerolls = data.rerolls;
+            extraUpgradeChoises = data.extraUpgradeChoises;
+            onSlime_CD_ChanceIncrease = data.onSlime_CD_ChanceIncrease;
+            activeTier = data.activeTier;
 
-        goldChanceIncrease = data.goldChanceIncrease;
-        damageIncrease = data.damageIncrease;
-        critChanceIncrease = data.critChanceIncrease;
-        critIncreaseIncrease = data.critIncreaseIncrease;
-        clickCooldownDecrease = data.clickCooldownDecrease;
-        damagedCooldownIcrease = data.damagedCooldownIcrease;
-        slowerSlimes = data.slowerSlimes;
-        slowerBullets = data.slowerBullets;
+            goldChanceIncrease = data.goldChanceIncrease;
+            damageIncrease = data.damageIncrease;
+            critChanceIncrease = data.critChanceIncrease;
+            critIncreaseIncrease = data.critIncreaseIncrease;
+            clickCooldownDecrease = data.clickCooldownDecrease;
+            damagedCooldownIcrease = data.damagedCooldownIcrease;
+            slowerSlimes = data.slowerSlimes;
+            slowerBullets = data.slowerBullets;
+
+            goldChanceIncrease_price = data.goldChanceIncrease_price;
+            clickDamageIncrease_price = data.clickDamageIncrease_price;
+            startHealth_price = data.startHealth_price;
+            critPrice = data.critPrice;
+            clickCooldownDecrease_price = data.clickCooldownDecrease_price;
+            healEveryWave_price = data.healEveryWave_price;
+            slotIncrease_price = data.slotIncrease_price;
+            rerolls_price = data.rerolls_price;
+            damagedCooldownIcrease_price = data.damagedCooldownIcrease_price;
+            extraUpgradeChoises_price = data.extraUpgradeChoises_price;
+            onSlime_CD_ChanceIncrease_price = data.onSlime_CD_ChanceIncrease_price;
+            damageIncrease_price = data.damageIncrease_price;
+            activeTier_price = data.activeTier_price;
+            slowerSlimes_price = data.slowerSlimes_price;
+            slowerBullets_price = data.slowerBullets_price;
+        }
     }
     #endregion
 
     #region Save Data
     public void SaveData(ref GameData data)
     {
-        data.totalCoins = totalCoins;
+        if (DemoScript.isDemo == false)
+        {
+            data.totalCoins = totalCoins;
 
-        data.coinChance_PURCHASED = coinChance_PURCHASED;
-        data.clickDamage_PURCHASED = clickDamage_PURCHASED;
-        data.healthIncrease_PURCHASED = healthIncrease_PURCHASED;
-        data.crit_PURCHASED = crit_PURCHASED;
-        data.clickCooldown_PURCHASED = clickCooldown_PURCHASED;
-        data.regen_PURCHASED = regen_PURCHASED;
-        data.slots_PURCHASED = slots_PURCHASED;
-        data.reroll_PURCHASED = reroll_PURCHASED;
-        data.damageCooldown_PURCHASED = damageCooldown_PURCHASED;
-        data.moreChoises_PURCHASED = moreChoises_PURCHASED;
-        data.onSlime_CD_PURCHASED = onSlime_CD_PURCHASED;
-        data.damageIncrease_PURCHASED = damageIncrease_PURCHASED;
-        data.activeTier_PURCHASED = activeTier_PURCHASED;
-        data.slowerSlimes_PURCHASED = slowerSlimes_PURCHASED;
-        data.slowerBullets_PURCHASED = slowerBullets_PURCHASED;
+            data.coinChance_PURCHASED = coinChance_PURCHASED;
+            data.clickDamage_PURCHASED = clickDamage_PURCHASED;
+            data.healthIncrease_PURCHASED = healthIncrease_PURCHASED;
+            data.crit_PURCHASED = crit_PURCHASED;
+            data.clickCooldown_PURCHASED = clickCooldown_PURCHASED;
+            data.regen_PURCHASED = regen_PURCHASED;
+            data.slots_PURCHASED = slots_PURCHASED;
+            data.reroll_PURCHASED = reroll_PURCHASED;
+            data.damageCooldown_PURCHASED = damageCooldown_PURCHASED;
+            data.moreChoises_PURCHASED = moreChoises_PURCHASED;
+            data.onSlime_CD_PURCHASED = onSlime_CD_PURCHASED;
+            data.damageIncrease_PURCHASED = damageIncrease_PURCHASED;
+            data.activeTier_PURCHASED = activeTier_PURCHASED;
+            data.slowerSlimes_PURCHASED = slowerSlimes_PURCHASED;
+            data.slowerBullets_PURCHASED = slowerBullets_PURCHASED;
 
-        data.clickDamageIncrease = clickDamageIncrease;
-        data.startHealth = startHealth;
-        data.healEveryWave = healEveryWave;
-        data.slotIncrease = slotIncrease;
-        data.rerolls = rerolls;
-        data.extraUpgradeChoises = extraUpgradeChoises;
-        data.onSlime_CD_ChanceIncrease = onSlime_CD_ChanceIncrease;
-        data.activeTier = activeTier;
+            data.clickDamageIncrease = clickDamageIncrease;
+            data.startHealth = startHealth;
+            data.healEveryWave = healEveryWave;
+            data.slotIncrease = slotIncrease;
+            data.rerolls = rerolls;
+            data.extraUpgradeChoises = extraUpgradeChoises;
+            data.onSlime_CD_ChanceIncrease = onSlime_CD_ChanceIncrease;
+            data.activeTier = activeTier;
 
-        data.goldChanceIncrease = goldChanceIncrease;
-        data.damageIncrease = damageIncrease;
-        data.critChanceIncrease = critChanceIncrease;
-        data.critIncreaseIncrease = critIncreaseIncrease;
-        data.clickCooldownDecrease = clickCooldownDecrease;
-        data.damagedCooldownIcrease = damagedCooldownIcrease;
-        data.slowerSlimes = slowerSlimes;
-        data.slowerBullets = slowerBullets;
+            data.goldChanceIncrease = goldChanceIncrease;
+            data.damageIncrease = damageIncrease;
+            data.critChanceIncrease = critChanceIncrease;
+            data.critIncreaseIncrease = critIncreaseIncrease;
+            data.clickCooldownDecrease = clickCooldownDecrease;
+            data.damagedCooldownIcrease = damagedCooldownIcrease;
+            data.slowerSlimes = slowerSlimes;
+            data.slowerBullets = slowerBullets;
+
+            data.goldChanceIncrease_price = goldChanceIncrease_price;
+            data.clickDamageIncrease_price = clickDamageIncrease_price;
+            data.startHealth_price = startHealth_price;
+            data.critPrice = critPrice;
+            data.clickCooldownDecrease_price = clickCooldownDecrease_price;
+            data.healEveryWave_price = healEveryWave_price;
+            data.slotIncrease_price = slotIncrease_price;
+            data.rerolls_price = rerolls_price;
+            data.damagedCooldownIcrease_price = damagedCooldownIcrease_price;
+            data.extraUpgradeChoises_price = extraUpgradeChoises_price;
+            data.onSlime_CD_ChanceIncrease_price = onSlime_CD_ChanceIncrease_price;
+            data.damageIncrease_price = damageIncrease_price;
+            data.activeTier_price = activeTier_price;
+            data.slowerSlimes_price = slowerSlimes_price;
+            data.slowerBullets_price = slowerBullets_price;
+        }
     }
     #endregion
 }

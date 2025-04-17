@@ -4918,3 +4918,8 @@ MonoBehaviour:
   overlappingObject: {fileID: 0}
   isBullet: 0
   isParticle: 1
+  redBulletIcon: {fileID: 0}
+  greenBulletIcon: {fileID: 0}
+  rigidbody2d: {fileID: 0}
+  bulletCollider: {fileID: 0}
+  isFriendlyBullet: 0

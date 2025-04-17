@@ -98,4 +98,9 @@ public class AnvilMechanics : MonoBehaviour
 
         ObjectPool.instance.ReturnMeteorToPool(gameObject);
     }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
 }

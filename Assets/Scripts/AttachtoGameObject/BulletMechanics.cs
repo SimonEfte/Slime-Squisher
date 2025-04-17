@@ -18,6 +18,7 @@ public class BulletMechanics : MonoBehaviour
     public Collider2D bulletCollider;
 
     bool bulletKicked;
+    bool bulletReturned;
 
     private void Awake()
     {
@@ -40,18 +41,21 @@ public class BulletMechanics : MonoBehaviour
 
     private void Update()
     {
-        if(SelectGameMode.choseRampage == true && PickUpgrade.isInChooseUpgrade == true)
+        if(isFriendlyBullet == false)
         {
-            if (stopped == false)
+            if (SelectGameMode.choseRampage == true && PickUpgrade.isInChooseUpgrade == true)
             {
-                currentPos = gameObject.transform.position;
+                if (stopped == false)
+                {
+                    currentPos = gameObject.transform.position;
+                }
+                gameObject.transform.position = currentPos;
+                stopped = true;
             }
-            gameObject.transform.position = currentPos;
-            stopped = true;
-        }
-        else
-        {
-            stopped = false;
+            else
+            {
+                stopped = false;
+            }
         }
     }
 
@@ -63,7 +67,7 @@ public class BulletMechanics : MonoBehaviour
             {
                 if (collision.gameObject.layer == 7)
                 {
-                    ObjectPool.instance.ReturnEnemyBulletFromPool(gameObject);
+                    if (bulletReturned == false) { ObjectPool.instance.ReturnEnemyBulletFromPool(gameObject); bulletReturned = true; }
                 }
             }
 
@@ -75,14 +79,14 @@ public class BulletMechanics : MonoBehaviour
                     {
                         SpawnParticle();
                     }
-                    ObjectPool.instance.ReturnEnemyBulletFromPool(gameObject);
+                    if (bulletReturned == false) { ObjectPool.instance.ReturnEnemyBulletFromPool(gameObject); bulletReturned = true; }
                 }
                 if (collision.gameObject.layer == 11)
                 {
                     if(SelectGameMode.choseRampage == true && PickUpgrade.isInChooseUpgrade == true) { }
                     else
                     {
-                        ObjectPool.instance.ReturnEnemyBulletFromPool(gameObject);
+                        if (bulletReturned == false) { ObjectPool.instance.ReturnEnemyBulletFromPool(gameObject); bulletReturned = true; }
                         SpawnParticle();
                     }
                 }
@@ -97,7 +101,7 @@ public class BulletMechanics : MonoBehaviour
                             if(randomStuff < 10) 
                             {
                                 SpawnParticle();
-                                ObjectPool.instance.ReturnEnemyBulletFromPool(gameObject);
+                                if (bulletReturned == false) { ObjectPool.instance.ReturnEnemyBulletFromPool(gameObject); bulletReturned = true; }
                                 legsKicked = true; 
                             }
                             else if (randomStuff > 87)
@@ -152,10 +156,11 @@ public class BulletMechanics : MonoBehaviour
         particle.transform.localPosition = gameObject.transform.localPosition;
     }
 
-    bool isFriendlyBullet;
+    public bool isFriendlyBullet;
 
     private void OnEnable()
     {
+        bulletReturned = false;
         stopped = false;
         if (isParticle)
         {
@@ -169,7 +174,7 @@ public class BulletMechanics : MonoBehaviour
 
     IEnumerator Wait()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.15f);
         bulletKicked = false;
 
         if (gameObject.tag == "EnemyBullet")
@@ -178,11 +183,12 @@ public class BulletMechanics : MonoBehaviour
             redBulletIcon.gameObject.SetActive(true);
             greenBulletIcon.gameObject.SetActive(false);
             isFriendlyBullet = false;
+            if(ActiveMechanics.isDecoyPlaced == true) { StartCoroutine(SetBulletBack(10)); }
         }
         else if (gameObject.tag == "FriendlyBullet")
         {
             StartCoroutine(SetCollider()); bulletCollider.enabled = false;
-            StartCoroutine(SetBulletBack(4));
+            StartCoroutine(SetBulletBack(6));
             redBulletIcon.gameObject.SetActive(false);
             greenBulletIcon.gameObject.SetActive(true);
             isFriendlyBullet = true;
@@ -198,7 +204,7 @@ public class BulletMechanics : MonoBehaviour
     IEnumerator SetBulletBack(int seconds)
     {
         yield return new WaitForSeconds(seconds);
-        ObjectPool.instance.ReturnEnemyBulletFromPool(gameObject);
+        if(bulletReturned == false) { ObjectPool.instance.ReturnEnemyBulletFromPool(gameObject); bulletReturned = true; }
     }
 
     IEnumerator SetParticleBack()

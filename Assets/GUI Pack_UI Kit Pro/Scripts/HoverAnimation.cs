@@ -51,6 +51,11 @@ namespace GUIPack_CasualGame
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if(MobileScript.isMobile == true)
+            {
+                return;
+            }
+
             if (!animateOnHover)
                 return;
 
@@ -65,6 +70,11 @@ namespace GUIPack_CasualGame
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            if (MobileScript.isMobile == true)
+            {
+                return;
+            }
+
             if (gameObject.name == "resolutionText")
             {
                 return;

@@ -6,6 +6,10 @@ using TMPro;
 
 public class StrawberryMechanics : MonoBehaviour, IDataPersistence
 {
+    public DataPersistenceManeger saveScript;
+
+    public MainMenu mainMenuScript;
+
     public Image strawberryCooldown;
     public static float hitCooldownTimer;
     public static bool isDamageFullHeart;
@@ -22,6 +26,8 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
     public static int currentMaxHealth;
 
     public Animation leftLegAnim, rightLegAnim;
+
+    public Achivements achScript;
 
     private void Start()
     {
@@ -52,12 +58,15 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
         {
             if (BulletMechanics.bulletPos.x < 0)
             {
-                leftLegAnim.Play("LeftLegKick");
+                leftLegAnim.Play();
             }
             else
             {
-                rightLegAnim.Play("RightLegKick");
+                rightLegAnim.Play();
             }
+
+            achScript.TriggerACH("kick");
+            Achivements.achievedKickBullet = true;
 
             BulletMechanics.legsKicked = false;
         }
@@ -86,7 +95,10 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
     {
         if (collision.gameObject.layer == 12)
         {
-            DealDamageToStraweberry();
+            if(PickUpgrade.isInWonRunScene == false)
+            {
+                DealDamageToStraweberry();
+            }
         }
     }
 
@@ -111,6 +123,8 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
 
         if (hitStrawberry == false)
         {
+            tookDamage = true;
+
             strawberrySmile.SetActive(false);
             strawberryFrown.SetActive(true);
 
@@ -174,6 +188,11 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
 
     public void SetHealth()
     {
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            hearts[i].SetActive(false);
+        }
+
         currentMaxHealth = strawberryHealth;
 
         if (SelectGameMode.choseFragile == true)
@@ -250,21 +269,14 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
             return;
         }
 
-        if (strawberryHealth == currentMaxHealth)
+        if (strawberryHealth >= currentMaxHealth)
         {
             //If the HP is max, do not heal
         }
         else
         {
-            if(isDamageFullHeart == true)
-            {
-                strawberryHealth += 1;
-            }
-            else
-            {
-                if (isHalfHeart == true) { isHalfHeart = false; halfHeart.SetActive(false); strawberryHealth += 1; }
-                else { halfHeart.SetActive(true); isHalfHeart = true; }
-            }
+            if (isHalfHeart == true) { isHalfHeart = false; halfHeart.SetActive(false); strawberryHealth += 1; }
+            else { halfHeart.SetActive(true); isHalfHeart = true; }
 
             for (int i = 0; i < strawberryHealth; i++)
             {
@@ -281,10 +293,9 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
     IEnumerator MinusHeartTextAnim(bool halfHeart, bool negate)
     {
         TextMeshProUGUI texToSpawn = null;
+        Vector2 posSpawn = new Vector2(0, 0);
 
-        Vector2 posSpawn = new Vector2(0,0);
-
-        if (negate == true)
+        if (negate)
         {
             posSpawn = new Vector2(0, 120);
             texToSpawn = negatedText;
@@ -296,15 +307,23 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
         }
 
         texToSpawn.gameObject.SetActive(true);
-
         texToSpawn.transform.localPosition = posSpawn;
 
-        if (halfHeart == true) { halftHeart.gameObject.SetActive(true); fullHeart.gameObject.SetActive(false); }
-        else { halftHeart.gameObject.SetActive(false); fullHeart.gameObject.SetActive(true); }
-
-        if(negate == true)
+        if (halfHeart)
         {
-            halftHeart.gameObject.SetActive(false); fullHeart.gameObject.SetActive(false);
+            halftHeart.gameObject.SetActive(true);
+            fullHeart.gameObject.SetActive(false);
+        }
+        else
+        {
+            halftHeart.gameObject.SetActive(false);
+            fullHeart.gameObject.SetActive(true);
+        }
+
+        if (negate)
+        {
+            halftHeart.gameObject.SetActive(false);
+            fullHeart.gameObject.SetActive(false);
         }
 
         float duration = 1.1f;
@@ -315,8 +334,6 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
         Color initialColor = texToSpawn.color;
         Color initialHalfHeartColor = halftHeart.color;
         Color initialFullHeartColor = fullHeart.color;
-
-        Image activeHeart = isHalfHeart ? halftHeart : fullHeart;
 
         while (elapsedTime < duration)
         {
@@ -329,13 +346,16 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
 
                 texToSpawn.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
 
-                activeHeart.color = new Color(activeHeart.color.r, activeHeart.color.g, activeHeart.color.b, alpha);
+                // Apply fade to both hearts instead of just one
+                halftHeart.color = new Color(initialHalfHeartColor.r, initialHalfHeartColor.g, initialHalfHeartColor.b, alpha);
+                fullHeart.color = new Color(initialFullHeartColor.r, initialFullHeartColor.g, initialFullHeartColor.b, alpha);
             }
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
+        // Reset colors to full opacity
         halftHeart.color = new Color(initialHalfHeartColor.r, initialHalfHeartColor.g, initialHalfHeartColor.b, 1f);
         fullHeart.color = new Color(initialFullHeartColor.r, initialFullHeartColor.g, initialFullHeartColor.b, 1f);
         texToSpawn.color = new Color(initialColor.r, initialColor.g, initialColor.b, 1f);
@@ -349,7 +369,38 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
     #region reset strawberry
     public void ResetStrawberry(bool setHealthOff)
     {
-        if(setHealthOff == true)
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            hearts[i].SetActive(false);
+        }
+
+        halfHeart.SetActive(false);
+
+        waveToHeal = 0;
+
+        Color textColor = minusHealthText.color;
+        textColor.a = 1f; 
+        minusHealthText.color = textColor;
+
+        Color halfHeartColor = halftHeart.color;
+        halfHeartColor.a = 1f;
+        halftHeart.color = halfHeartColor;
+
+        Color fullHeartColor = fullHeart.color;
+        fullHeartColor.a = 1f;
+        fullHeart.color = fullHeartColor;
+
+        minusHealthText.gameObject.SetActive(false);
+        halftHeart.gameObject.SetActive(true);
+        fullHeart.gameObject.SetActive(false);
+
+        Color fullHeartColor2 = halfHeart.GetComponent<Image>().color;
+        fullHeartColor2.a = 1f;
+        halfHeart.GetComponent<Image>().color = fullHeartColor2;
+
+        halfHeart.SetActive(false);
+
+        if (setHealthOff == true)
         {
             halfHeart.SetActive(false);
             for (int i = 0; i < hearts.Length; i++)
@@ -363,17 +414,25 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
             SetHealth();
         }
 
+        if (SelectGameMode.choseFragile) { strawberryHealth = 0; isHalfHeart = true; halfHeart.SetActive(true); }
+        else 
+        {
+            strawberryHealth = startHealth + MetaProgressionUpgrades.startHealth;
+            halfHeart.SetActive(false);
+            for (int i = 0; i < strawberryHealth; i++)
+            {
+                hearts[i].SetActive(true);
+            }
+        }
+
         isDeath = false;
         hitStrawberry = false;
 
         strawberrySmile.SetActive(true);
         strawberryFrown.SetActive(false);
 
-        if(DemoScript.isDemo == true && isHalfHeart == true)
-        {
-            isHalfHeart = false;
-            halfHeart.SetActive(false);
-        }
+        if (SelectGameMode.choseFragile) { strawberryHealth = 0; isHalfHeart = true; halfHeart.SetActive(true); }
+        else { isHalfHeart = false; }
 
         strawberryCooldown.fillAmount = 0;
         if(cooldownCoroutine != null)
@@ -397,8 +456,18 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
 
     public GameObject resetRunBtn, mainMenuBtn;
 
+    public static bool tookDamage;
+
     public void Death()
     {
+        if(PickUpgrade.isInWonRunScene == true)
+        {
+            return;
+        }
+
+        achScript.TriggerACH("dieOnce");
+        Achivements.achievedDiedOnce = true;
+
         SpawnSlimes.isRampagePlaying = false;
 
         locScript.ChangingStrings(SpawnSlimes.slimeWave);
@@ -471,6 +540,11 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
 
         MetaProgressionUpgrades.totalCoins += PickUpgrade.coinsThisRound;
 
+        Achivements.totalGoldCoinsCollected += PickUpgrade.coinsThisRound;
+        if (Achivements.totalGoldCoinsCollected > 10) { achScript.TriggerACH("coins_10"); }
+        if (Achivements.totalGoldCoinsCollected > 100) { achScript.TriggerACH("coins_100"); }
+        if (Achivements.totalGoldCoinsCollected > 1000) { achScript.TriggerACH("coins_1000"); }
+
         totalCoinsAmount.text = "" + MetaProgressionUpgrades.totalCoins;
 
         waveReachedNumber.text = "" + SpawnSlimes.slimeWave;
@@ -484,8 +558,8 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
 
         if (SelectGameMode.choseRampage == true) 
         {
-            waveReached.text = "time reached:";
-            waveToReach.text = "time to reach:";
+            waveReached.text = LocalizationSCRIPT.timeReached;
+            waveToReach.text = LocalizationSCRIPT.timeToReach;
             waveToReachNumber.text = "" + SelectGameMode.rampage_MinuteToReach + ":00";
 
             int minutes = Mathf.FloorToInt(SpawnSlimes.waveTime / 60);
@@ -494,11 +568,12 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
         }
         else
         {
-            waveReached.text = "wave reached:";
-            waveToReach.text = "wave to reach:";
+            waveReached.text = LocalizationSCRIPT.waveReached;
+            waveToReach.text = LocalizationSCRIPT.waveToBeat;
         }
 
         yield return new WaitForSeconds(0.65f);
+        mainMenuScript.CheckSlimesOnScreen();
         waveReached.gameObject.SetActive(true); waveReachedNumber.gameObject.SetActive(true); audioManager.Play("Pop");
         yield return new WaitForSeconds(0.15f);
         waveToReach.gameObject.SetActive(true); waveToReachNumber.gameObject.SetActive(true); audioManager.Play("Pop");
@@ -508,6 +583,9 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
         totalCoins.gameObject.SetActive(true); totalCoinsAmount.gameObject.SetActive(true); audioManager.Play("Pop");
         yield return new WaitForSeconds(0.15f);
         resetRunBtn.SetActive(true); mainMenuBtn.SetActive(true); audioManager.Play("Pop");
+
+        saveScript.SaveGame();
+        mainMenuScript.CheckBulletsOnScreen();
     }
 
     public void PlayAgainBtn()
@@ -532,16 +610,22 @@ public class StrawberryMechanics : MonoBehaviour, IDataPersistence
     #region Load Data
     public void LoadData(GameData data)
     {
-        strawberryHealth = data.strawberryHealth;
-        isHalfHeart = data.isHalfHeart;
+        if(DemoScript.isDemo == false)
+        {
+            strawberryHealth = data.strawberryHealth;
+            isHalfHeart = data.isHalfHeart;
+        }
     }
     #endregion
 
     #region Save Data
     public void SaveData(ref GameData data)
     {
-        data.strawberryHealth = strawberryHealth;
-        data.isHalfHeart = isHalfHeart;
+        if (DemoScript.isDemo == false)
+        {
+            data.strawberryHealth = strawberryHealth;
+            data.isHalfHeart = isHalfHeart;
+        }
     }
     #endregion
 }

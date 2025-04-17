@@ -104,6 +104,11 @@ public class AudioManager : MonoBehaviour
         {
             s.pitch = Random.Range(0.9f, 1.1f);
         }
+        else if (name == "LaserCharge")
+        {
+            s.volume = Random.Range(0.57f, 0.63f);
+            s.pitch = Random.Range(1f, 1.15f);
+        }
 
         if (s == null)
         {

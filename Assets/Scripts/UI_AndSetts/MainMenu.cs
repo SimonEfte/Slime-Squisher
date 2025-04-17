@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    public DataPersistenceManeger saveScript;
+
     public static bool isTesting;
     public static bool isInMainMenu;
 
@@ -27,6 +29,8 @@ public class MainMenu : MonoBehaviour
     public SelectGameMode selectGamemodeScript;
 
     public GameObject mainMenuWishlistBtn;
+
+    public GameObject gamemodeAndActiveHover;
 
     private void Awake()
     {
@@ -60,29 +64,61 @@ public class MainMenu : MonoBehaviour
             tutArrow1.SetActive(false); tutArrow2.SetActive(false);
         }
 
-        //StartCoroutine(ResetPlayerPRefs());
+        StartCoroutine(ResetPlayerPRefs());
     }
+
+    public GameObject rightClickIcon, mobileUseActiveButton, mobileSettingsButton;
 
     IEnumerator ResetPlayerPRefs()
     {
-        yield return new WaitForSeconds(2);
-        PlayerPrefs.DeleteAll();
+        yield return new WaitForSeconds(1);
+
+        if (MobileScript.isMobile == true)
+        {
+            topLeftActive.transform.localPosition = new Vector2(-754, 650);
+
+            rightClickIcon.SetActive(false);
+            mobileUseActiveButton.SetActive(true);
+            mobileSettingsButton.SetActive(true);
+
+            deathToSlimes.transform.localPosition = new Vector2(-570, 209);
+            sharpClicks.transform.localPosition = new Vector2(-285, 209);
+            lucky.transform.localPosition = new Vector2(0, 209);
+            projectileFrency.transform.localPosition = new Vector2(285, 209);
+            antiSlimeBullets.transform.localPosition = new Vector2(570, 209);
+        }
+        else
+        {
+            topLeftActive.transform.localPosition = new Vector2(-847, 650);
+
+            rightClickIcon.SetActive(true);
+            mobileUseActiveButton.SetActive(false);
+            mobileSettingsButton.SetActive(false);
+        }
+
+        //PlayerPrefs.DeleteAll();
+    }
+
+    public void OpenSettings()
+    {
+        if (openSettingsCoroutine == null)
+        {
+            if (PickUpgrade.isInWonRunScene == false && StrawberryMechanics.isInDeathFrame == false)
+            {
+                UiClickSound();
+                openSettingsCoroutine = StartCoroutine(OpenSettings(false, false));
+            }
+        }
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && isInMainMenu == false)
         {
-            if (openSettingsCoroutine == null)
-            {
-                if(PickUpgrade.isInWonRunScene == false && StrawberryMechanics.isInDeathFrame == false)
-                {
-                    openSettingsCoroutine = StartCoroutine(OpenSettings(false, false));
-                }
-            }
+            OpenSettings();
         }
 
-        if(DemoScript.isDemo == false)
+        if (DemoScript.isDemo == false)
         {
             totalCoins_inShopScene.text = MetaProgressionUpgrades.totalCoins.ToString();
         }
@@ -108,6 +144,8 @@ public class MainMenu : MonoBehaviour
     #region Set main menu - Start
     public void SetMainMenu()
     {
+        if(DemoScript.isDemo == false) { rewardText.SetActive(false); }
+
         blockFrame.SetActive(false);
 
         if (isTesting == false)
@@ -209,7 +247,7 @@ public class MainMenu : MonoBehaviour
             chall_Cascace.SetActive(true);
             chall_Cascace.GetComponent<Animation>().Play("UiSpawnIn");
 
-            if(DemoScript.isDemo == false) { rewardText.SetActive(true); }
+            //if(DemoScript.isDemo == false) { rewardText.SetActive(true); }
            
             challengesText.SetActive(true);
             StartCoroutine(GameModeMovement());
@@ -279,12 +317,27 @@ public class MainMenu : MonoBehaviour
             sharpClicks.GetComponent<Animation>().Play("UiSpawnIn");
             lucky.SetActive(true); lucky.transform.localPosition = new Vector2(-135, 209);
             lucky.GetComponent<Animation>().Play("UiSpawnIn");
-            decoy.SetActive(true); decoy.transform.localPosition = new Vector2(135, 209);
-            decoy.GetComponent<Animation>().Play("UiSpawnIn");
+
+            if (MobileScript.isMobile == false)
+            {
+                decoy.SetActive(true); decoy.transform.localPosition = new Vector2(135, 209);
+                decoy.GetComponent<Animation>().Play("UiSpawnIn");
+            }
+
             projectileFrency.SetActive(true); projectileFrency.transform.localPosition = new Vector2(405, 209);
             projectileFrency.GetComponent<Animation>().Play("UiSpawnIn");
             antiSlimeBullets.SetActive(true); antiSlimeBullets.transform.localPosition = new Vector2(675, 209);
             antiSlimeBullets.GetComponent<Animation>().Play("UiSpawnIn");
+
+            if (MobileScript.isMobile == true)
+            {
+                deathToSlimes.transform.localPosition = new Vector2(-570, 209);
+                sharpClicks.transform.localPosition = new Vector2(-285, 209);
+                lucky.transform.localPosition = new Vector2(0, 209);
+                projectileFrency.transform.localPosition = new Vector2(285, 209);
+                antiSlimeBullets.transform.localPosition = new Vector2(570, 209);
+            }
+
             StartCoroutine(ActiveMovement());
 
             shopBtn.SetActive(true);
@@ -368,7 +421,6 @@ public class MainMenu : MonoBehaviour
             if (SelectGameMode.choseBullethell == true) { selectGamemodeScript.SelectTheGamemode(4); }
             if (SelectGameMode.choseFlash == true) { selectGamemodeScript.SelectTheGamemode(5); }
             if (SelectGameMode.choseFragile == true) { selectGamemodeScript.SelectTheGamemode(6); }
-            if (SelectGameMode.choseNarrow == true) { selectGamemodeScript.SelectTheGamemode(7); }
             if (SelectGameMode.choseRampage == true) { selectGamemodeScript.SelectTheGamemode(8); }
         }
 
@@ -385,8 +437,10 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame_AfterGameModeSelected(bool pressedPlay)
     {
-        if(pressedPlay == false)
+        if (pressedPlay == false)
         {
+            if (MobileScript.isMobile == true) { gamemodeAndActiveHover.SetActive(false); }
+
             if (DemoScript.isDemo == true)
             {
                 mainMenuWishlistBtn.SetActive(true);
@@ -411,10 +465,11 @@ public class MainMenu : MonoBehaviour
             StartCoroutine(SetObjectActiveOrInactive(false, selectGamemodeText, 0.33f));
             selectedGamemode.SetActive(false);
             StartCoroutine(SetBlockOff());
-            StartCoroutine(SetOBjecsOff());
         }
         else
         {
+            StartCoroutine(SetOBjecsOff());
+
             ActiveMechanics.justChangeStuff = true;
             if (DemoScript.isDemo == true) { activeScript.SelectActive(1); }
             else
@@ -465,6 +520,7 @@ public class MainMenu : MonoBehaviour
     IEnumerator SetOBjecsOff()
     {
         yield return new WaitForSeconds(0.33f);
+        if(MobileScript.isMobile == true) { gamemodeAndActiveHover.SetActive(false); }
     }
     #endregion
 
@@ -474,8 +530,11 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame_OnShopScreen(bool pressedPlay)
     {
+        StartCoroutine(SetOBjecsOff());
+
         if (pressedPlay == false)
         {
+            SpawnSlimes.normalBossKills = 0;
             UiClickSound();
             Vector2 startPos1 = new Vector2(0, 410);
             Vector2 endPos1 = new Vector2(0, 590);
@@ -495,7 +554,6 @@ public class MainMenu : MonoBehaviour
             PickUpgrade.clickCooldown = 0.75f - MetaProgressionUpgrades.clickCooldownDecrease;
             if(PickUpgrade.clickCooldown < 0.5f) { PickUpgrade.clickCooldownDecrease = 0.075f; }
             else { PickUpgrade.clickCooldownDecrease = 0.091f; }
-            
 
             manageSlotScript.SetSlotsPressPlay();
 
@@ -551,6 +609,19 @@ public class MainMenu : MonoBehaviour
             selectedActive.SetActive(false);
             SetShopSCreenStuffInactive("", false);
             SetSelectGameModeStuffOff("", true);
+
+            SelectGameMode.justSetStuff = true;
+            if (DemoScript.isDemo == true) { selectGamemodeScript.SelectTheGamemode(1); }
+            else
+            {
+                if (SelectGameMode.choseEasy == true) { selectGamemodeScript.SelectTheGamemode(1); }
+                if (SelectGameMode.choseNormal == true) { selectGamemodeScript.SelectTheGamemode(2); }
+                if (SelectGameMode.choseHard == true) { selectGamemodeScript.SelectTheGamemode(3); }
+                if (SelectGameMode.choseBullethell == true) { selectGamemodeScript.SelectTheGamemode(4); }
+                if (SelectGameMode.choseFlash == true) { selectGamemodeScript.SelectTheGamemode(5); }
+                if (SelectGameMode.choseFragile == true) { selectGamemodeScript.SelectTheGamemode(6); }
+                if (SelectGameMode.choseRampage == true) { selectGamemodeScript.SelectTheGamemode(8); }
+            }
         }
 
         StrawberryMechanics.isInDeathFrame = false;
@@ -681,9 +752,15 @@ public class MainMenu : MonoBehaviour
     public GameObject antiSlimeShop, shopDark;
     public bool isShopOpen;
 
+    public MetaProgressionUpgrades metaProgressionScript;
+
     public void OpenShop()
     {
-        if(DemoScript.isDemo == true) { audioManager.Play("Error"); return; }
+        if (MobileScript.isMobile == true) { gamemodeAndActiveHover.SetActive(false); }
+
+        saveScript.SaveGame();
+
+        if (DemoScript.isDemo == true) { audioManager.Play("Error"); return; }
 
         UiClickSound();
 
@@ -703,6 +780,9 @@ public class MainMenu : MonoBehaviour
             shopDark.GetComponent<Animation>().Play("shopDarkOut");
             StartCoroutine(SetShopInactive());
         }
+
+        if(MetaProgressionUpgrades.upgradeSelected == -1) { metaProgressionScript.SetTexts(-1); }
+        else { metaProgressionScript.SetTexts(MetaProgressionUpgrades.upgradeSelected); }
     }
      
     IEnumerator SetShopInactive()
@@ -742,7 +822,7 @@ public class MainMenu : MonoBehaviour
     {
         if(isInMainMenu == false)
         {
-          
+            UiClickSound();
             openSettingsCoroutine = StartCoroutine(OpenSettings(false, false));
         }
     }
@@ -789,6 +869,26 @@ public class MainMenu : MonoBehaviour
                     backExtiText.transform.localPosition = new Vector2(0, -415);
                 }
 
+                if(MobileScript.isMobile == true)
+                {
+                    resolution.SetActive(false);
+                    fullscreen.SetActive(false);
+
+                    socials.transform.localPosition = new Vector2(0, 293);
+                    music.transform.localPosition = new Vector2(0, 155);
+                    sounds.transform.localPosition = new Vector2(0, -0);
+                    background.transform.localPosition = new Vector2(0, -165);
+                    language.transform.localPosition = new Vector2(0, -284);
+                    backExtiText.transform.localPosition = new Vector2(0, -404);
+
+                    socials.transform.localScale = new Vector2(1.2f, 1.2f);
+                    music.transform.localScale = new Vector2(2, 2);
+                    sounds.transform.localScale = new Vector2(2, 2);
+                    background.transform.localScale = new Vector2(2, 2);
+                    language.transform.localScale = new Vector2(2, 2);
+                    backExtiText.transform.localScale = new Vector2(2, 2);
+                }
+
                 resetRunText.SetActive(false); mainMenuText.SetActive(false);
 
                 backExtiText.text = $"{LocalizationSCRIPT.back}";
@@ -828,7 +928,9 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-            bottomRightQuit.SetActive(true);
+            if(MobileScript.isMobile == false) { bottomRightQuit.SetActive(true); }
+            else { bottomRightQuit.SetActive(false); }
+            
             settings.gameObject.transform.localPosition = new Vector2(0,44);
 
             if (settings.gameObject.activeInHierarchy == true) 
@@ -876,21 +978,31 @@ public class MainMenu : MonoBehaviour
             resetRunText.transform.localPosition = new Vector2(0, -329);
             mainMenuText.transform.localPosition = new Vector2(0, -423);
             backExtiText.transform.localPosition = new Vector2(0, -518);
-            resetRunText.SetActive(true); mainMenuText.SetActive(true);
 
-            if (DemoScript.isLocalizationDone == false)
+            if (MobileScript.isMobile == true)
             {
-                socials.transform.localPosition = new Vector2(0, 369);
-                music.transform.localPosition = new Vector2(0, 270);
-                sounds.transform.localPosition = new Vector2(0, 160);
-                resolution.transform.localPosition = new Vector2(0, 43);
-                fullscreen.transform.localPosition = new Vector2(0, -86);
-                language.transform.localPosition = new Vector2(0, -136);
-                background.transform.localPosition = new Vector2(0, -181);
-                resetRunText.transform.localPosition = new Vector2(0, -275);
-                mainMenuText.transform.localPosition = new Vector2(0, -369);
-                backExtiText.transform.localPosition = new Vector2(0, -464);
+                resolution.SetActive(false);
+                fullscreen.SetActive(false);
+
+                socials.transform.localPosition = new Vector2(0, 291);
+                music.transform.localPosition = new Vector2(0, 193);
+                sounds.transform.localPosition = new Vector2(0, 83);
+                background.transform.localPosition = new Vector2(0, -152);
+                language.transform.localPosition = new Vector2(0, -53);
+                backExtiText.transform.localPosition = new Vector2(0, -435);
+                resetRunText.transform.localPosition = new Vector2(0, -246);
+                mainMenuText.transform.localPosition = new Vector2(0, -340);
+
+                socials.transform.localScale = new Vector2(0.9f, 0.9f);
+                music.transform.localScale = new Vector2(1.6f, 1.6f);
+                sounds.transform.localScale = new Vector2(1.6f, 1.6f);
+                background.transform.localScale = new Vector2(1.6f, 1.6f);
+                language.transform.localScale = new Vector2(1.6f, 1.6f);
+                backExtiText.transform.localScale = new Vector2(1.6f, 1.6f);
             }
+
+
+            resetRunText.SetActive(true); mainMenuText.SetActive(true);
         }
 
         openSettingsCoroutine = null;
@@ -917,8 +1029,15 @@ public class MainMenu : MonoBehaviour
     public bool openTut;
     public static bool isInTut;
 
+    public TextMeshProUGUI activeTutText, clickSlimeTutText, blockBulletsTutText;
+
+    public GameObject tutRightClick, tutActiveButton;
+
     public void OpenTurotial()
     {
+        StrawberryMechanics.isInDeathFrame = false;
+        PickUpgrade.isInWonRunScene = false;
+
         UiClickSound();
         if (openTut == false)
         {
@@ -943,14 +1062,7 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-            GameObject[] EnemyBullet = GameObject.FindGameObjectsWithTag("EnemyBullet");
-            foreach (GameObject enemyBullet in EnemyBullet)
-            {
-                if (enemyBullet.activeSelf)
-                {
-                    ObjectPool.instance.ReturnEnemyBulletFromPool(enemyBullet);
-                }
-            }
+            CheckBulletsOnScreen();
 
             isInTut = false;
             openTut = false;
@@ -966,6 +1078,73 @@ public class MainMenu : MonoBehaviour
 
             StartCoroutine(SetFalse());
             StartCoroutine(BlockOff());
+        }
+
+        if (MobileScript.isMobile == true)
+        {
+            tutRightClick.SetActive(false);
+            tutActiveButton.SetActive(true);
+
+            if (LocalizationSCRIPT.languageSelected == 1) //English
+            {
+                activeTutText.text = "Press the top right button to use your active when it is available";
+                clickSlimeTutText.text = "Tap the slimes to deal damage";
+                blockBulletsTutText.text = "Block bullets by placing your finger over them";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 2) //German
+            {
+                activeTutText.text = "Drücke den Button oben rechts, um deine aktive Fähigkeit zu nutzen, wenn sie verfügbar ist";
+                clickSlimeTutText.text = "Tippe auf die Schleime, um Schaden zu verursachen";
+                blockBulletsTutText.text = "Blockiere Kugeln, indem du deinen Finger darüber legst";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 3) //Japanese
+            {
+                activeTutText.text = "アクティブが利用可能な場合は、右上のボタンを押してアクティブを使用します。";
+                clickSlimeTutText.text = "スライムをタップしてダメージを与える";
+                blockBulletsTutText.text = "弾丸をタップしてドラッグしてブロックします";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 4) //French
+            {
+                activeTutText.text = "Appuyez sur le bouton en haut à droite pour utiliser votre active lorsqu'elle est disponible";
+                clickSlimeTutText.text = "Touchez les slimes pour infliger des dégâts";
+                blockBulletsTutText.text = "Bloquez les balles en posant votre doigt dessus";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 5) //Spanish
+            {
+                activeTutText.text = "Presiona el botón en la parte superior derecha para usar tu habilidad activa cuando esté disponible";
+                clickSlimeTutText.text = "Toca los slimes para causar daño";
+                blockBulletsTutText.text = "Bloquea las balas colocando tu dedo sobre ellas";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 6) //Chinese
+            {
+                activeTutText.text = "这会使用你的主动";
+                clickSlimeTutText.text = "点击史莱姆来造成伤害";
+                blockBulletsTutText.text = "点击以阻挡子弹";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 7) //Korean
+            {
+                activeTutText.text = "이것은 당신의 활동입니다.";
+                clickSlimeTutText.text = "슬라임을 클릭하여 데미지를 입힙니다.";
+                blockBulletsTutText.text = "드래그하여 총알을 막다";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 8) //Russian
+            {
+                activeTutText.text = "Нажмите кнопку в верхнем правом углу, чтобы использовать активное умение, когда оно доступно";
+                clickSlimeTutText.text = "Тапните по слизням, чтобы нанести урон";
+                blockBulletsTutText.text = "Блокируйте пули, положив палец на них";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 9) //Polish
+            {
+                activeTutText.text = "Naciśnij przycisk w prawym górnym rogu, aby użyć swojej aktywnej umiejętności, gdy będzie dostępna";
+                clickSlimeTutText.text = "Stuknij w śluzie, aby zadać obrażenia";
+                blockBulletsTutText.text = "Blokuj kule, przykładając palec do nich";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 10) //Portugese
+            {
+                activeTutText.text = "Toque no botão no canto superior direito para usar sua habilidade ativa quando estiver disponível";
+                clickSlimeTutText.text = "Toque nos slimes para causar dano";
+                blockBulletsTutText.text = "Bloqueie as balas colocando o dedo sobre elas";
+            }
         }
     }
 
@@ -984,12 +1163,12 @@ public class MainMenu : MonoBehaviour
     }
     #endregion
 
-
     #region Reset current run or go to main menu
     public static bool clickedResetRun;
 
     public void ResetCurrentRun()
     {
+        UiClickSound();
         clickedResetRun = true;
         resetYesOrNo.SetActive(true);
         mainMenuOrResetText.text = $"{LocalizationSCRIPT.reserCurrentRun}";
@@ -999,13 +1178,20 @@ public class MainMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        UiClickSound();
         clickedResetRun = false;
         resetYesOrNo.SetActive(true);
         mainMenuOrResetText.text = $"{LocalizationSCRIPT.backToMainMenu}";
     }
 
+    public GameObject wonScreen, loseScreen;
+
     public void ActuallyResetOrGoToMainMenu()
     {
+        wonScreen.SetActive(false); loseScreen.SetActive(false);
+
+        StrawberryMechanics.tookDamage = false;
+
         UiClickSound();
         SpawnSlimes.waveTime = 0;
 
@@ -1112,14 +1298,17 @@ public class MainMenu : MonoBehaviour
 
 
     #region Remove and set objects to object pool
-    public void CheckObjectsOnScreen()
+    public GameObject easyBoos, hardBoss;
+    public void CheckSlimesOnScreen()
     {
+        easyBoos.SetActive(false); hardBoss.SetActive(false);
+
         GameObject[] Slimes = GameObject.FindGameObjectsWithTag("Slime");
         foreach (GameObject slime in Slimes)
         {
             if (slime.activeSelf)
             {
-                if(slime.name.Contains("Green Basic")) { ObjectPool.instance.ReturnSlime1FromPool(slime); }
+                if (slime.name.Contains("Green Basic")) { ObjectPool.instance.ReturnSlime1FromPool(slime); }
                 else if (slime.name.Contains("RegularBlue")) { ObjectPool.instance.ReturnRegularBlueToPool(slime); }
                 else if (slime.name.Contains("RegularYellow")) { ObjectPool.instance.ReturnRegularYellowToPool(slime); }
                 else if (slime.name.Contains("RegularRed")) { ObjectPool.instance.ReturnRegularRedToPool(slime); }
@@ -1139,11 +1328,22 @@ public class MainMenu : MonoBehaviour
 
                 else if (slime.name.Contains("BigGreen")) { ObjectPool.instance.ReturnBigGreenToPool(slime); }
                 else if (slime.name.Contains("BigBlue")) { ObjectPool.instance.ReturnBigBlueToPool(slime); }
-                else if (slime.name.Contains("BigYellow")) { ObjectPool.instance.ReturnRedBigToPool(slime); }
-                else if (slime.name.Contains("BigRed")) { ObjectPool.instance.ReturnBigYellowToPool(slime); }
+                else if (slime.name.Contains("BigYellow")) { ObjectPool.instance.ReturnBigYellowToPool(slime); }
+                else if (slime.name.Contains("BigRed")) { ObjectPool.instance.ReturnRedBigToPool(slime); }
                 else if (slime.name.Contains("BigPurple")) { ObjectPool.instance.ReturnBigPurpleToPool(slime); }
+
+                else if (slime.name.Contains("Normal Boss")) { ObjectPool.instance.ReturnNormalBossToPool(slime); }
             }
         }
+    }
+
+    public GameObject hardBossGoo;
+
+    public void CheckObjectsOnScreen()
+    {
+        CheckSlimesOnScreen();
+
+        hardBossGoo.SetActive(false);
 
         GameObject[] Goo = GameObject.FindGameObjectsWithTag("Goo");
         foreach (GameObject goo in Goo)
@@ -1190,6 +1390,15 @@ public class MainMenu : MonoBehaviour
             }
         }
 
+        GameObject[] RainbowGoo = GameObject.FindGameObjectsWithTag("RainbowGoo");
+        foreach (GameObject rainbowGoo in RainbowGoo)
+        {
+            if (rainbowGoo.activeSelf)
+            {
+                ObjectPool.instance.ReturnNormalBossGooToPool(rainbowGoo);
+            }
+        }
+
         if (PickUpgrade.choseArrowRain == true)
         {
             GameObject[] Arrow = GameObject.FindGameObjectsWithTag("Arrow");
@@ -1198,18 +1407,6 @@ public class MainMenu : MonoBehaviour
                 if (arrow.activeSelf)
                 {
                     ObjectPool.instance.ReturnArrowFrompool(arrow);
-                }
-            }
-        }
-
-        if (PickUpgrade.choseBouncyBall == true)
-        {
-            GameObject[] BouncyBall = GameObject.FindGameObjectsWithTag("BouncyBall");
-            foreach (GameObject bouncyBall in BouncyBall)
-            {
-                if (bouncyBall.activeSelf)
-                {
-                    ObjectPool.instance.ReturnBouncyBallFromPool(bouncyBall);
                 }
             }
         }
@@ -1385,11 +1582,32 @@ public class MainMenu : MonoBehaviour
             }
         }
 
+        GameObject[] Shadow = GameObject.FindGameObjectsWithTag("Shadow");
+        foreach (GameObject shadow in Shadow)
+        {
+            if (shadow.activeSelf)
+            {
+                ObjectPool.instance.ReturnShadowToPool(shadow);
+            }
+        }
+
         RemoveSomeProjectiles();
     }
 
     public void RemoveSomeProjectiles()
     {
+        if (PickUpgrade.choseBouncyBall == true)
+        {
+            GameObject[] BouncyBall = GameObject.FindGameObjectsWithTag("BouncyBall");
+            foreach (GameObject bouncyBall in BouncyBall)
+            {
+                if (bouncyBall.activeSelf)
+                {
+                    ObjectPool.instance.ReturnBouncyBallFromPool(bouncyBall);
+                }
+            }
+        }
+
         if (PickUpgrade.choseScythe == true)
         {
             GameObject[] Scythe = GameObject.FindGameObjectsWithTag("Scythe");
@@ -1450,6 +1668,11 @@ public class MainMenu : MonoBehaviour
             }
         }
 
+        CheckBulletsOnScreen();
+    }
+
+    public void CheckBulletsOnScreen()
+    {
         GameObject[] Bullet = GameObject.FindGameObjectsWithTag("EnemyBulletKicked");
         foreach (GameObject bullet in Bullet)
         {
@@ -1465,6 +1688,15 @@ public class MainMenu : MonoBehaviour
             if (enemyBullet.activeSelf)
             {
                 ObjectPool.instance.ReturnEnemyBulletFromPool(enemyBullet);
+            }
+        }
+
+        GameObject[] FriendlyBullet = GameObject.FindGameObjectsWithTag("FriendlyBullet");
+        foreach (GameObject friendlyBullet in FriendlyBullet)
+        {
+            if (friendlyBullet.activeSelf)
+            {
+                ObjectPool.instance.ReturnEnemyBulletFromPool(friendlyBullet);
             }
         }
     }

@@ -61,6 +61,8 @@ public class Settings : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
 
+      
+
         if (!PlayerPrefs.HasKey("SaveFullScreen"))
         {
             fullscreenText.text = $"{LocalizationSCRIPT.fullscreen}{LocalizationSCRIPT.OFF}";
@@ -74,7 +76,6 @@ public class Settings : MonoBehaviour
         {
             fullscreenText.text = $"{LocalizationSCRIPT.fullscreen}{LocalizationSCRIPT.ON}";
         }
-
 
         triggerResolution = false;
     }

@@ -17,11 +17,19 @@ public class ProjectileMechanics : MonoBehaviour
 
     public Transform logAnimator;
 
+    public TrailRenderer logLine1, logLine2;
+
     private void Awake()
     {
         if (isLog)
         {
             logAnimator = transform.Find("LogIcon");
+
+            Transform renderer1 = transform.Find("TrailRenderer_1");
+            Transform renderer2 = transform.Find("TrailRenderer_2");
+
+            logLine1 = renderer1.gameObject.GetComponent<TrailRenderer>();
+            logLine2 = renderer2.gameObject.GetComponent<TrailRenderer>();
         }
 
         if(isKatana == true)
@@ -60,18 +68,24 @@ public class ProjectileMechanics : MonoBehaviour
     {
         if (collision.gameObject.layer == 7)
         {
-            if(corotuine != null && isSawblade == false && isKatana == false) { StopCoroutine(corotuine); }
+            if(isLog == true) { return; }
+            if (isSawblade == true) { return; }
+            if (isKatana == true) { return; }
 
-            if (isPaperClip == true) { ObjectPool.instance.ReturnPaperClipFromPool(gameObject); }
-            else if (isLaser == true) { ObjectPool.instance.ReturnLaserFromPool(gameObject); }
-            else if (isPoisonDart == true) { ObjectPool.instance.ReturnPoisonDartFromPool(gameObject); }
-            else if (isThorn == true) { ObjectPool.instance.ReturnThornFromPool(gameObject); }
-            else if (isShadow == true) { ObjectPool.instance.ReturnShadowToPool(gameObject); }
-            else if (isKunai == true) { ObjectPool.instance.ReturnKunaiToPool(gameObject); }
-            else if (isAntiSlimeBullet == true) { ObjectPool.instance.ReturnAntiSlimeBulletToPool(gameObject); }
-            else if (isFrenzy == true) { ObjectPool.instance.ReturnFrenzyProjectileToPool(gameObject); }
+            if (corotuine != null) { StopCoroutine(corotuine); }
+
+            if (isReturned == false)
+            {
+                if (isPaperClip == true) { ObjectPool.instance.ReturnPaperClipFromPool(gameObject); isReturned = true; }
+                else if (isLaser == true) { ObjectPool.instance.ReturnLaserFromPool(gameObject); isReturned = true; }
+                else if (isPoisonDart == true) { ObjectPool.instance.ReturnPoisonDartFromPool(gameObject); isReturned = true; }
+                else if (isThorn == true) { ObjectPool.instance.ReturnThornFromPool(gameObject); isReturned = true; }
+                else if (isShadow == true) { ObjectPool.instance.ReturnShadowToPool(gameObject); isReturned = true; }
+                else if (isKunai == true) { ObjectPool.instance.ReturnKunaiToPool(gameObject); isReturned = true; }
+                else if (isAntiSlimeBullet == true) { ObjectPool.instance.ReturnAntiSlimeBulletToPool(gameObject); isReturned = true; }
+                else if (isFrenzy == true) { ObjectPool.instance.ReturnFrenzyProjectileToPool(gameObject); isReturned = true; }
+            }
           
-
             if (isStaple == true)
             {
                 gameObject.transform.SetParent(collision.gameObject.transform);
@@ -92,11 +106,18 @@ public class ProjectileMechanics : MonoBehaviour
 
     public Coroutine corotuine;
 
+    public bool isReturned;
+
     private void OnEnable()
     {
+        isReturned = false;
+
         nailHit = false;
         if (isLog == true)
         {
+            logLine1.enabled = true;
+            logLine2.enabled = true;
+
             logAnimator.GetComponent<Animator>().SetTrigger("PlayLogAnim");
         }
 
@@ -156,31 +177,34 @@ public class ProjectileMechanics : MonoBehaviour
             else if (isLog) { yield return new WaitForSeconds(6); }
             else { yield return new WaitForSeconds(3); }
 
-            if (isPaperClip == true) { ObjectPool.instance.ReturnPaperClipFromPool(gameObject); }
-            else if (isLaser == true) { ObjectPool.instance.ReturnLaserFromPool(gameObject); }
-            else if (isPoisonDart == true) { ObjectPool.instance.ReturnPoisonDartFromPool(gameObject); }
-            else if (isThorn == true) { ObjectPool.instance.ReturnThornFromPool(gameObject); }
-            else if (isShadow == true) { ObjectPool.instance.ReturnShadowToPool(gameObject); }
-            else if (isStaple == true)
+            if(isReturned == false)
             {
-                if (stapleHit == false)
+                if (isPaperClip == true) { ObjectPool.instance.ReturnPaperClipFromPool(gameObject); isReturned = true; }
+                else if (isLaser == true) { ObjectPool.instance.ReturnLaserFromPool(gameObject); isReturned = true; }
+                else if (isPoisonDart == true) { ObjectPool.instance.ReturnPoisonDartFromPool(gameObject); isReturned = true; }
+                else if (isThorn == true) { ObjectPool.instance.ReturnThornFromPool(gameObject); isReturned = true; }
+                else if (isShadow == true) { ObjectPool.instance.ReturnShadowToPool(gameObject); isReturned = true; }
+                else if (isStaple == true)
                 {
-                    ObjectPool.instance.ReturnStapleToPool(gameObject);
+                    if (stapleHit == false)
+                    {
+                        ObjectPool.instance.ReturnStapleToPool(gameObject); isReturned = true;
+                    }
                 }
-            }
-            else if (isNail == true)
-            {
-                if (nailHit == false)
+                else if (isNail == true)
                 {
-                    ObjectPool.instance.ReturnNailFromPool(gameObject);
+                    if (nailHit == false)
+                    {
+                        ObjectPool.instance.ReturnNailFromPool(gameObject); isReturned = true;
+                    }
                 }
+                else if (isKunai == true) { ObjectPool.instance.ReturnKunaiToPool(gameObject); isReturned = true; }
+                else if (isAntiSlimeBullet == true) { ObjectPool.instance.ReturnAntiSlimeBulletToPool(gameObject); isReturned = true; }
+                else if (isFrenzy == true) { ObjectPool.instance.ReturnFrenzyProjectileToPool(gameObject); isReturned = true; }
+                else if (isSawblade == true) { ObjectPool.instance.ReturnSawbladeToPool(gameObject); isReturned = true; }
+                else if (isKatana == true) { ObjectPool.instance.ReturnKatanaToPool(gameObject); isReturned = true; }
+                else if (isLog == true) { ObjectPool.instance.ReturnLogToPool(gameObject); isReturned = true; }
             }
-            else if (isKunai == true) { ObjectPool.instance.ReturnKunaiToPool(gameObject); }
-            else if (isAntiSlimeBullet == true) { ObjectPool.instance.ReturnAntiSlimeBulletToPool(gameObject); }
-            else if (isFrenzy == true) { ObjectPool.instance.ReturnFrenzyProjectileToPool(gameObject); }
-            else if (isSawblade == true) { ObjectPool.instance.ReturnSawbladeToPool(gameObject);  }
-            else if (isKatana == true) { ObjectPool.instance.ReturnKatanaToPool(gameObject); }
-            else if (isLog == true) { ObjectPool.instance.ReturnLogToPool(gameObject); }
         }
         else
         {
@@ -191,6 +215,12 @@ public class ProjectileMechanics : MonoBehaviour
 
     private void OnDisable()
     {
+        if(isLog == true)
+        {
+            logLine1.enabled = false;
+            logLine2.enabled = false;
+        }
+
         StopAllCoroutines();
     }
 }

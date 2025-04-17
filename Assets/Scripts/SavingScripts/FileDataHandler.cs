@@ -82,7 +82,7 @@ public class FileDataHandler
                     }
                 }
             }
-            if (DataPersistenceManeger.saveIncrement == 2)
+            if (DataPersistenceManeger.saveIncrement == 2) //This is the backup save
             {
                 GameData verifiedGameData = Load(profileId); //(New)
                 if (verifiedGameData != null)

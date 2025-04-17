@@ -9,9 +9,8 @@ public class GameData
     {
         GamemodeSaves();
         ActiveSaves();
-        SlotsSaves();
         MetaProgressionSaves();
-        SpawnSlimesSaves();
+        AchievementsSaves();
     }
 
     #region Gamemode saves
@@ -70,13 +69,6 @@ public class GameData
     }
     #endregion
 
-    #region Slots saves
-
-    public void SlotsSaves()
-    {
-    }
-    #endregion
-
     #region Meta progression saves
     public int totalCoins;
 
@@ -85,6 +77,8 @@ public class GameData
     public float goldChanceIncrease, damageIncrease, critChanceIncrease, critIncreaseIncrease, clickCooldownDecrease, damagedCooldownIcrease, slowerSlimes, slowerBullets;
 
     public int clickDamageIncrease, startHealth, healEveryWave, slotIncrease, rerolls, extraUpgradeChoises, onSlime_CD_ChanceIncrease, activeTier;
+
+    public int clickDamageIncrease_price, startHealth_price, healEveryWave_price, slotIncrease_price, rerolls_price, extraUpgradeChoises_price, onSlime_CD_ChanceIncrease_price, activeTier_price, goldChanceIncrease_price, damageIncrease_price, critPrice, clickCooldownDecrease_price, damagedCooldownIcrease_price, slowerSlimes_price, slowerBullets_price;
 
     public void MetaProgressionSaves()
     {
@@ -123,15 +117,22 @@ public class GameData
         damagedCooldownIcrease = 0f;
         slowerSlimes = 0f;
         slowerBullets = 0f;
-    }
-    #endregion
 
-    #region Slime wave saves
-    public int slimeWave;
-
-    public void SpawnSlimesSaves()
-    {
-        this.slimeWave = 0;
+        goldChanceIncrease_price = 8;
+        clickDamageIncrease_price = 8;
+        startHealth_price = 10;
+        critPrice = 10;
+        clickCooldownDecrease_price = 20;
+        healEveryWave_price = 15;
+        slotIncrease_price = 15;
+        rerolls_price = 20;
+        damagedCooldownIcrease_price = 12;
+        extraUpgradeChoises_price = 35;
+        onSlime_CD_ChanceIncrease_price = 30;
+        damageIncrease_price = 25;
+        activeTier_price = 50;
+        slowerSlimes_price = 15;
+        slowerBullets_price = 20;
     }
     #endregion
 
@@ -145,4 +146,74 @@ public class GameData
         this.strawberryHealth = 0;
     }
     #endregion
+
+    #region ach saves
+    public bool achievedRegularEasy;
+    public bool achievedRegularNormal;
+    public bool achievedRegularHard;
+    public bool achievedBulletHell;
+    public bool achievedFlash;
+    public bool achievedFragile;
+    public bool achievedRampage;
+    public bool achievedAllGamemodes;
+    public bool achievedNoDamageRun;
+    public bool achievedPunchyClicks;
+    public bool achievedClover;
+    public bool achievedDecoy;
+    public bool achievedProjectileFrenzy;
+    public bool achievedAntiSlimeBullets;
+    public bool achievedCollect10Coins;
+    public bool achievedCollect100Coins;
+    public bool achievedCollect1000Coins;
+    public bool achievedMaxUpgrade;
+    public bool achievedAllUpgrades;
+    public bool achievedOneOfEachUpgrade;
+    public bool achievedAllGunOrbitals;
+    public bool achievedKickBullet;
+    public bool achievedFourClickUpgrades;
+    public bool achievedFiveClickUpgrades;
+    public bool achievedSixClickUpgrades;
+    public bool achievedSevenClickUpgrades;
+    public bool achievedEightClickUpgrades;
+    public bool achievedDiedOnce;
+
+    public int totalGoldCoinsCollected, totalShopUpgradesPurchased;
+
+    public void AchievementsSaves()
+    {
+        totalGoldCoinsCollected = 0;
+        totalShopUpgradesPurchased = 0;
+
+        achievedRegularEasy = false;
+        achievedRegularNormal = false;
+        achievedRegularHard = false;
+        achievedBulletHell = false;
+        achievedFlash = false;
+        achievedFragile = false;
+        achievedRampage = false;
+        achievedAllGamemodes = false;
+        achievedNoDamageRun = false;
+        achievedPunchyClicks = false;
+        achievedClover = false;
+        achievedDecoy = false;
+        achievedProjectileFrenzy = false;
+        achievedAntiSlimeBullets = false;
+        achievedCollect10Coins = false;
+        achievedCollect100Coins = false;
+        achievedCollect1000Coins = false;
+        achievedMaxUpgrade = false;
+        achievedAllUpgrades = false;
+        achievedOneOfEachUpgrade = false;
+        achievedAllGunOrbitals = false;
+        achievedKickBullet = false;
+        achievedFourClickUpgrades = false;
+        achievedFiveClickUpgrades = false;
+        achievedSixClickUpgrades = false;
+        achievedSevenClickUpgrades = false;
+        achievedEightClickUpgrades = false;
+        achievedDiedOnce = false;
+    }
+    #endregion
+
+
 }

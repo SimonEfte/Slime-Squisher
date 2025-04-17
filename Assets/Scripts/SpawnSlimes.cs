@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class SpawnSlimes : MonoBehaviour, IDataPersistence
+public class SpawnSlimes : MonoBehaviour
 {
     public static int slimesSquished;
     public static int slimesWaveSpawnCount;
@@ -51,8 +51,17 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         greenShooting_shotTimer = 4.2f; greenShooting_shotSpeed = 1.3f;
         blueShooting_shotTimer = 3.1f; blueShooting_shotSpeed = 1.7f;
         yellowShooting_shotTimer = 2.68f; yellowShooting_shotSpeed = 2.2f;
-        redShooting_shotTimer = 1.9f; redShooting_shotSpeed = 2.3f;
+        redShooting_shotTimer = 2.05f; redShooting_shotSpeed = 2.3f;
         purpleShooting_shotTimer = 2.1f; purpleShooting_shotSpeed = 2.7f;
+
+        if(MobileScript.isMobile == true)
+        {
+            greenShooting_shotTimer = 5f; greenShooting_shotSpeed = 1.2f;
+            blueShooting_shotTimer = 4f; blueShooting_shotSpeed = 1.7f;
+            yellowShooting_shotTimer = 3f; yellowShooting_shotSpeed = 1.9f;
+            redShooting_shotTimer = 2.3f; redShooting_shotSpeed = 2f;
+            purpleShooting_shotTimer = 2f; purpleShooting_shotSpeed = 2.2f;
+        }
 
         //Testing
         //greenRegular_health = 10; blueRegular_health = 10; yellowRegular_health = 10; redRegular_health = 10; purpleRegular_health = 10;
@@ -86,6 +95,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         timerText.gameObject.SetActive(false);
         StopAllCoroutines();
 
+        rampageTimesStopped = 0;
+
         greenRegular_spawnCount = 0; blueRegular_spawnCount = 0; yellowRegular_spawnCount = 0; redRegular_spawnCount = 0; purpleRegular_spawnCount = 0;
         greenShooting_spawnCount = 0; blueShooting_spawnCount = 0; yellowShooting_spawnCount = 0; redShooting_spawnCount = 0; purpleShooting_spawnCount = 0;
         greenFast_spawnCount = 0; blueFast_spawnCount = 0; yellowFast_spawnCount = 0; redFast_spawnCount = 0; purpleFast_spawnCount = 0;
@@ -118,6 +129,10 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         isYellowBigSpawning = false;
         redBigSpawning = false;
         isPurpleBigSpawning = false;
+
+        isEasyBossAlive = false;
+        isNormalBossAlive = false;
+        isHardBossAlive = false;
     }
     #endregion
 
@@ -137,6 +152,12 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         greenBigSpawned = 0; blueBigSpawned = 0; yellowBigSpawned = 0; redBigSpawned = 0; purpleBigSpawned = 0;
     }
     #endregion
+
+    public GameObject easyBoss, hardBoss;
+    public static bool isEasyBossAlive, isNormalBossAlive, isHardBossAlive;
+    public PickUpgrade upgradeScript;
+    public static bool isTesting;
+    public static int normalBossKills;
 
     //Regular gamemodes
     #region Easy gamemode - ALL waves
@@ -159,6 +180,14 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         //Fast = Green, blue and yellow
         //Shooting = Green, blue and yellow
         //Big = Green and blue. 1-3 red or yellow at the final wave
+
+        isTesting = false;
+
+        if (isTesting == true)
+        {
+            slimeWave = 25;
+            upgradeScript.GiveUpgrades();
+        }
 
         #region wave 1
         if (slimeWave == 1)
@@ -281,7 +310,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             greenShooting_spawnCount = 3;
 
             blueRegular_spawnCount = 31;
-            blueFast_spawnCount = 7;
+            blueFast_spawnCount = 6;
             blueShooting_spawnCount = 3;
 
             currentWaveTotalTime = 11f;
@@ -296,10 +325,10 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             greenShooting_spawnCount = 3;
 
             blueRegular_spawnCount = 23;
-            blueFast_spawnCount = 6;
+            blueFast_spawnCount = 5;
             blueShooting_spawnCount = 3;
 
-            currentWaveTotalTime = 11f;
+            currentWaveTotalTime = 11.5f;
         }
         #endregion
 
@@ -308,25 +337,25 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             greenRegular_spawnCount = 14;
             greenFast_spawnCount = 6;
-            greenShooting_spawnCount = 3;
+            greenShooting_spawnCount = 2;
             greenBig_spawnCount = 3;
 
             blueRegular_spawnCount = 22;
-            blueFast_spawnCount = 7;
+            blueFast_spawnCount = 5;
             blueShooting_spawnCount = 3;
 
-            currentWaveTotalTime = 11.5f;
+            currentWaveTotalTime = 12f;
         }
         #endregion
 
         #region wave 14
         else if (slimeWave == 14)
         {
-            greenFast_spawnCount = 13;
+            greenFast_spawnCount = 12;
             greenBig_spawnCount = 5;
 
             blueRegular_spawnCount = 23;
-            blueFast_spawnCount = 12;
+            blueFast_spawnCount = 11;
             blueShooting_spawnCount = 4;
 
             currentWaveTotalTime = 12f;
@@ -338,7 +367,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             blueBig_spawnCount = 8;
             blueRegular_spawnCount = 53;
-            blueFast_spawnCount = 7;
+            blueFast_spawnCount = 6;
 
             currentWaveTotalTime = 10f;
         }
@@ -375,15 +404,15 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 18
         else if (slimeWave == 18)
         {
-            greenFast_spawnCount = 20;
+            greenFast_spawnCount = 19;
             greenBig_spawnCount = 7;
 
             yellowRegular_spawnCount = 10;
 
-            blueFast_spawnCount = 21;
+            blueFast_spawnCount = 19;
             blueBig_spawnCount = 8;
 
-            currentWaveTotalTime = 12.5f;
+            currentWaveTotalTime = 13f;
         }
         #endregion
 
@@ -408,12 +437,12 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         else if (slimeWave == 20)
         {
             greenShooting_spawnCount = 8;
-            greenBig_spawnCount = 20;
+            greenBig_spawnCount = 15;
 
             blueShooting_spawnCount = 7;
-            blueBig_spawnCount = 20;
+            blueBig_spawnCount = 15;
 
-            currentWaveTotalTime = 13f;
+            currentWaveTotalTime = 13.2f;
         }
         #endregion
 
@@ -424,13 +453,13 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             greenBig_spawnCount = 5;
 
             blueRegular_spawnCount = 23;
-            blueFast_spawnCount = 14;
+            blueFast_spawnCount = 13;
             blueShooting_spawnCount = 3;
             blueBig_spawnCount = 5;
 
             redRegular_spawnCount = 7;
 
-            currentWaveTotalTime = 14f;
+            currentWaveTotalTime = 14.5f;
         }
         #endregion
 
@@ -453,11 +482,11 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 23
         else if (slimeWave == 23)
         {
-            greenShooting_spawnCount = 6;
-            blueShooting_spawnCount = 6;
+            greenShooting_spawnCount = 4;
+            blueShooting_spawnCount = 3;
             yellowShooting_spawnCount = 4;
 
-            redRegular_spawnCount = 24;
+            redRegular_spawnCount = 21;
 
             currentWaveTotalTime = 17f;
         }
@@ -466,34 +495,34 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 24
         else if (slimeWave == 24)
         {
-            blueRegular_spawnCount = 15;
-            yellowRegular_spawnCount = 15;
-            redRegular_spawnCount = 15;
+            blueRegular_spawnCount = 14;
+            yellowRegular_spawnCount = 14;
+            redRegular_spawnCount = 14;
 
-            blueFast_spawnCount = 7;
-            yellowFast_spawnCount = 5;
+            blueFast_spawnCount = 5;
+            yellowFast_spawnCount = 4;
 
-            blueShooting_spawnCount = 3;
+            blueShooting_spawnCount = 2;
             yellowShooting_spawnCount = 3;
 
-            blueBig_spawnCount = 12;
+            blueBig_spawnCount = 10;
 
-            currentWaveTotalTime = 17f;
+            currentWaveTotalTime = 18f;
         }
         #endregion
 
         //Final wave for the demo
         #region wave 25 
-        else if (slimeWave == 25)
+        else if (slimeWave == 25 && DemoScript.isDemo == true)
         {
             greenRegular_spawnCount = 20;
             blueRegular_spawnCount = 20;
             yellowRegular_spawnCount = 20;
             redRegular_spawnCount = 20;
 
-            greenFast_spawnCount = 9;
+            greenFast_spawnCount = 10;
             blueFast_spawnCount = 9;
-            yellowFast_spawnCount = 9;
+            yellowFast_spawnCount = 8;
 
             greenShooting_spawnCount = 3;
             blueShooting_spawnCount = 3;
@@ -504,16 +533,20 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
             redBig_spawnCount = 4;
 
-            currentWaveTotalTime = 18f;
+            currentWaveTotalTime = 19f;
         }
         #endregion
 
-        bool testWave = false;
-
-        #region test wave
-        if (testWave == true)
+        //Final wave for the full game
+        #region wave 25 
+        else if (slimeWave == 25 && DemoScript.isDemo == false)
         {
-            greenShooting_spawnCount = 2;
+            isEasyBossAlive = true;
+            easyBoss.SetActive(true);
+            blueRegular_spawnCount = 1;
+            blueFast_spawnCount = 1;
+            blueShooting_spawnCount = 1;
+            currentWaveTotalTime = 2;
         }
         #endregion
 
@@ -539,6 +572,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         if (slimeWave == 0) { slimeWave = 1; }
         else { slimeWave += 1; }
 
+        normalBossKills = 0;
+
         //Set all to 0 before starting a wave
         SetSpawnCountToZero();
 
@@ -547,6 +582,14 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         //Fast = Green, blue and yellow and red
         //Shooting = Green, blue and yellow
         //Big = Green, blue and yellow. 
+
+        isTesting = false;
+
+        if (isTesting == true)
+        {
+            slimeWave = 30;
+            upgradeScript.GiveUpgrades();
+        }
 
         //Ad waves here
         #region wave 1
@@ -688,7 +731,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redFast_spawnCount = 1;
             //purpleFast_spawnCount = 1;
 
-            greenShooting_spawnCount = 4;
+            greenShooting_spawnCount = 3;
             blueShooting_spawnCount = 4;
             //yellowShooting_spawnCount = 1;
             //redShooting_spawnCount = 1;
@@ -740,7 +783,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             //greenRegular_spawnCount = 7;
             //blueRegular_spawnCount = 6;
-            yellowRegular_spawnCount = 18;
+            yellowRegular_spawnCount = 21;
             //redRegular_spawnCount = 1;
             //purpleRegular_spawnCount = 1;
 
@@ -752,7 +795,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
             greenShooting_spawnCount = 4;
             blueShooting_spawnCount = 3;
-            yellowShooting_spawnCount = 3;
+            yellowShooting_spawnCount = 2;
             //redShooting_spawnCount = 1;
             //purpleShooting_spawnCount = 1;
 
@@ -762,7 +805,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 5f;
+            currentWaveTotalTime = 5.5f;
         }
         #endregion
 
@@ -776,7 +819,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //purpleRegular_spawnCount = 1;
 
             //greenFast_spawnCount = 16;
-            blueFast_spawnCount = 42;
+            blueFast_spawnCount = 36;
             //yellowFast_spawnCount = 1;
             //redFast_spawnCount = 1;
             //purpleFast_spawnCount = 1;
@@ -788,31 +831,31 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //purpleShooting_spawnCount = 1;
 
             //greenBig_spawnCount = 4;
-            blueBig_spawnCount = 4;
+            blueBig_spawnCount = 7;
             //yellowBig_spawnCount = 1;
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 9f;
+            currentWaveTotalTime = 11.7f;
         }
         #endregion
 
         #region wave 9
         if (slimeWave == 9)
         {
-            greenRegular_spawnCount = 12;
-            blueRegular_spawnCount = 12;
+            greenRegular_spawnCount = 20;
+            blueRegular_spawnCount = 25;
             //yellowRegular_spawnCount = 10;
             //redRegular_spawnCount = 1;
             //purpleRegular_spawnCount = 1;
 
-            greenFast_spawnCount = 9;
-            blueFast_spawnCount = 8;
-            yellowFast_spawnCount = 7;
+            greenFast_spawnCount = 13;
+            blueFast_spawnCount = 6;
+            yellowFast_spawnCount = 4;
             //redFast_spawnCount = 1;
             //purpleFast_spawnCount = 1;
 
-            greenShooting_spawnCount = 4;
+            greenShooting_spawnCount = 5;
             blueShooting_spawnCount = 4;
             //yellowShooting_spawnCount = 2;
             //redShooting_spawnCount = 1;
@@ -820,21 +863,21 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
             //greenBig_spawnCount = 5;
             //blueBig_spawnCount = 5;
-            yellowBig_spawnCount = 5;
+            yellowBig_spawnCount = 4;
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 8f;
+            currentWaveTotalTime = 8.3f;
         }
         #endregion
 
         #region wave 10
         if (slimeWave == 10)
         {
-            greenRegular_spawnCount = 33;
-            blueRegular_spawnCount = 33;
-            yellowRegular_spawnCount = 33;
-            //redRegular_spawnCount = 1;
+            greenRegular_spawnCount = 30;
+            blueRegular_spawnCount = 40;
+            yellowRegular_spawnCount = 45;
+            //redRegular_spawnCount = 4;
             //purpleRegular_spawnCount = 1;
 
             //greenFast_spawnCount = 2;
@@ -855,7 +898,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 8.5f;
+            currentWaveTotalTime = 9f;
         }
         #endregion
 
@@ -864,13 +907,13 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             //greenRegular_spawnCount = 30;
             //blueRegular_spawnCount = 25;
-            yellowRegular_spawnCount = 29;
+            yellowRegular_spawnCount = 33;
             //redRegular_spawnCount = 1;
             //purpleRegular_spawnCount = 1;
 
             //greenFast_spawnCount = 2;
             //blueFast_spawnCount = 3;
-            yellowFast_spawnCount = 16;
+            yellowFast_spawnCount = 15;
             //redFast_spawnCount = 1;
             //purpleFast_spawnCount = 1;
 
@@ -886,7 +929,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 8f;
+            currentWaveTotalTime = 9.5f;
         }
         #endregion
 
@@ -896,13 +939,13 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //greenRegular_spawnCount = 30;
             //blueRegular_spawnCount = 25;
             //yellowRegular_spawnCount = 25;
-            redRegular_spawnCount = 28;
+            redRegular_spawnCount = 38;
             //purpleRegular_spawnCount = 1;
 
             //greenFast_spawnCount = 2;
             //blueFast_spawnCount = 3;
             //yellowFast_spawnCount = 10;
-            redFast_spawnCount = 11;
+            redFast_spawnCount = 10;
             //purpleFast_spawnCount = 1;
 
             //greenShooting_spawnCount = 2;
@@ -931,7 +974,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //purpleRegular_spawnCount = 1;
 
             //greenFast_spawnCount = 2;
-            blueFast_spawnCount = 18;
+            blueFast_spawnCount = 20;
             yellowFast_spawnCount = 18;
             //redFast_spawnCount = 8;
             //purpleFast_spawnCount = 1;
@@ -943,12 +986,12 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //purpleShooting_spawnCount = 1;
 
             //greenBig_spawnCount = 5;
-            blueBig_spawnCount = 6;
-            yellowBig_spawnCount = 6;
+            blueBig_spawnCount = 7;
+            yellowBig_spawnCount = 7;
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 10f;
+            currentWaveTotalTime = 12f;
         }
         #endregion
 
@@ -964,7 +1007,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //greenFast_spawnCount = 2;
             //blueFast_spawnCount = 15;
             //yellowFast_spawnCount = 15;
-            redFast_spawnCount = 15;
+            redFast_spawnCount = 13;
             //purpleFast_spawnCount = 1;
 
             //greenShooting_spawnCount = 2;
@@ -979,7 +1022,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 9f;
+            currentWaveTotalTime = 10.4f;
         }
         #endregion
 
@@ -1024,9 +1067,9 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //purpleRegular_spawnCount = 1;
 
             greenFast_spawnCount = 20;
-            blueFast_spawnCount = 16;
+            blueFast_spawnCount = 15;
             yellowFast_spawnCount = 14;
-            redFast_spawnCount = 11;
+            redFast_spawnCount = 10;
             //purpleFast_spawnCount = 1;
 
             //greenShooting_spawnCount = 2;
@@ -1041,7 +1084,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 9f;
+            currentWaveTotalTime = 12f;
         }
         #endregion
 
@@ -1054,19 +1097,19 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redRegular_spawnCount = 25;
             //purpleRegular_spawnCount = 1;
 
-            greenFast_spawnCount = 23;
-            blueFast_spawnCount = 16;
-            yellowFast_spawnCount = 13;
+            greenFast_spawnCount = 18;
+            blueFast_spawnCount = 12;
+            yellowFast_spawnCount = 9;
             //redFast_spawnCount = 11;
             //purpleFast_spawnCount = 1;
 
             greenShooting_spawnCount = 4;
-            blueShooting_spawnCount = 4;
-            yellowShooting_spawnCount = 4;
+            blueShooting_spawnCount = 3;
+            yellowShooting_spawnCount = 3;
             //redShooting_spawnCount = 1;
             //purpleShooting_spawnCount = 1;
 
-            greenBig_spawnCount = 5;
+            greenBig_spawnCount = 4;
             blueBig_spawnCount = 4;
             yellowBig_spawnCount = 3;
             //redBig_spawnCount = 1;
@@ -1085,16 +1128,16 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redRegular_spawnCount = 25;
             //purpleRegular_spawnCount = 1;
 
-            greenFast_spawnCount = 27;
+            greenFast_spawnCount = 24;
             //blueFast_spawnCount = 16;
-            yellowFast_spawnCount = 18;
+            yellowFast_spawnCount = 17;
             //redFast_spawnCount = 11;
             //purpleFast_spawnCount = 1;
 
             //greenShooting_spawnCount = 6;
             //blueShooting_spawnCount = 5;
             //yellowShooting_spawnCount = 4;
-            redShooting_spawnCount = 5;
+            redShooting_spawnCount = 4;
             //purpleShooting_spawnCount = 1;
 
             //greenBig_spawnCount = 5;
@@ -1103,20 +1146,20 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 10f;
+            currentWaveTotalTime = 11.3f;
         }
         #endregion
 
         #region wave 19
         if (slimeWave == 19)
         {
-            greenRegular_spawnCount = 100;
+            greenRegular_spawnCount = 65;
             //blueRegular_spawnCount = 35;
             //yellowRegular_spawnCount = 35;
             //redRegular_spawnCount = 25;
             //purpleRegular_spawnCount = 1;
 
-            greenFast_spawnCount = 70;
+            greenFast_spawnCount = 85;
             //blueFast_spawnCount = 16;
             //yellowFast_spawnCount = 18;
             //redFast_spawnCount = 11;
@@ -1165,7 +1208,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 11f;
+            currentWaveTotalTime = 12f;
         }
         #endregion
 
@@ -1180,23 +1223,23 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
             //greenFast_spawnCount = 50;
             //blueFast_spawnCount = 45;
-            yellowFast_spawnCount = 15;
-            redFast_spawnCount = 16;
+            yellowFast_spawnCount = 12;
+            redFast_spawnCount = 10;
             //purpleFast_spawnCount = 1;
 
-            greenShooting_spawnCount = 7;
-            blueShooting_spawnCount = 7;
+            greenShooting_spawnCount = 5;
+            blueShooting_spawnCount = 5;
             //yellowShooting_spawnCount = 4;
             //redShooting_spawnCount = 5;
             //purpleShooting_spawnCount = 1;
 
             //greenBig_spawnCount = 5;
-            blueBig_spawnCount = 7;
-            yellowBig_spawnCount = 7;
+            blueBig_spawnCount = 6;
+            yellowBig_spawnCount = 6;
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 12f;
+            currentWaveTotalTime = 15f;
         }
         #endregion
 
@@ -1212,22 +1255,22 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             greenFast_spawnCount = 17;
             //blueFast_spawnCount = 45;
             //yellowFast_spawnCount = 15;
-            redFast_spawnCount = 19;
+            redFast_spawnCount = 10;
             //purpleFast_spawnCount = 1;
 
             greenShooting_spawnCount = 5;
             //blueShooting_spawnCount = 8;
             //yellowShooting_spawnCount = 4;
-            redShooting_spawnCount = 5;
+            redShooting_spawnCount = 3;
             //purpleShooting_spawnCount = 1;
 
-            greenBig_spawnCount = 10;
+            greenBig_spawnCount = 7;
             //blueBig_spawnCount = 7;
             //yellowBig_spawnCount = 7;
-            redBig_spawnCount = 8;
+            redBig_spawnCount = 4;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 13f;
+            currentWaveTotalTime = 13.5f;
         }
         #endregion
 
@@ -1240,10 +1283,10 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redRegular_spawnCount = 35;
             //purpleRegular_spawnCount = 1;
 
-            greenFast_spawnCount = 52;
-            blueFast_spawnCount = 42;
-            yellowFast_spawnCount = 33;
-            redFast_spawnCount = 22;
+            greenFast_spawnCount = 42;
+            blueFast_spawnCount = 34;
+            yellowFast_spawnCount = 23;
+            redFast_spawnCount = 14;
             //purpleFast_spawnCount = 1;
 
             //greenShooting_spawnCount = 7;
@@ -1258,7 +1301,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 8;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 15.5f;
+            currentWaveTotalTime = 17f;
         }
         #endregion
 
@@ -1269,7 +1312,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //blueRegular_spawnCount = 80;
             //yellowRegular_spawnCount = 35;
             //redRegular_spawnCount = 35;
-            purpleRegular_spawnCount = 18;
+            purpleRegular_spawnCount = 24;
 
             //greenFast_spawnCount = 55;
             //blueFast_spawnCount = 45;
@@ -1279,7 +1322,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
             //greenShooting_spawnCount = 7;
             blueShooting_spawnCount = 10;
-            yellowShooting_spawnCount = 8;
+            yellowShooting_spawnCount = 7;
             //redShooting_spawnCount = 7;
             //purpleShooting_spawnCount = 1;
 
@@ -1289,7 +1332,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 8;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 13f;
+            currentWaveTotalTime = 13.2f;
         }
         #endregion
 
@@ -1329,14 +1372,14 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             //greenRegular_spawnCount = 75;
             //blueRegular_spawnCount = 80;
-            yellowRegular_spawnCount = 25;
-            redRegular_spawnCount = 25;
-            purpleRegular_spawnCount = 25;
+            yellowRegular_spawnCount = 23;
+            redRegular_spawnCount = 23;
+            purpleRegular_spawnCount = 23;
 
             //greenFast_spawnCount = 55;
-            blueFast_spawnCount = 25;
-            yellowFast_spawnCount = 25;
-            redFast_spawnCount = 25;
+            blueFast_spawnCount = 20;
+            yellowFast_spawnCount = 17;
+            redFast_spawnCount = 15;
             //purpleFast_spawnCount = 1;
 
             //greenShooting_spawnCount = 7;
@@ -1351,7 +1394,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 8;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 15f;
+            currentWaveTotalTime = 16.3f;
         }
         #endregion
 
@@ -1364,16 +1407,16 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             redRegular_spawnCount = 15;
             purpleRegular_spawnCount = 15;
 
-            greenFast_spawnCount = 12;
+            greenFast_spawnCount = 13;
             blueFast_spawnCount = 12;
-            yellowFast_spawnCount = 12;
-            redFast_spawnCount = 12;
+            yellowFast_spawnCount = 11;
+            redFast_spawnCount = 10;
             //purpleFast_spawnCount = 1;
 
             //greenShooting_spawnCount = 7;
             //blueShooting_spawnCount = 8;
-            yellowShooting_spawnCount = 6;
-            redShooting_spawnCount = 6;
+            yellowShooting_spawnCount = 5;
+            redShooting_spawnCount = 4;
             //purpleShooting_spawnCount = 1;
 
             //greenBig_spawnCount = 20;
@@ -1382,7 +1425,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 8;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 16f;
+            currentWaveTotalTime = 18f;
         }
         #endregion
 
@@ -1398,12 +1441,12 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //greenFast_spawnCount = 18;
             //blueFast_spawnCount = 17;
             //yellowFast_spawnCount = 16;
-            redFast_spawnCount = 35;
+            redFast_spawnCount = 26;
             //purpleFast_spawnCount = 1;
 
-            greenShooting_spawnCount = 10;
-            blueShooting_spawnCount = 10;
-            yellowShooting_spawnCount = 5;
+            greenShooting_spawnCount = 9;
+            blueShooting_spawnCount = 8;
+            yellowShooting_spawnCount = 4;
             //redShooting_spawnCount = 6;
             //purpleShooting_spawnCount = 1;
 
@@ -1413,7 +1456,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             redBig_spawnCount = 7;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 17f;
+            currentWaveTotalTime = 19f;
         }
         #endregion
 
@@ -1444,38 +1487,24 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             redBig_spawnCount = 4;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 18f;
+            currentWaveTotalTime = 20f;
         }
         #endregion
 
         #region wave 30
         if (slimeWave == 30)
         {
-            greenRegular_spawnCount = 50;
-            blueRegular_spawnCount = 50;
-            yellowRegular_spawnCount = 50;
-            redRegular_spawnCount = 50;
-            purpleRegular_spawnCount = 15;
+            yellowRegular_spawnCount = 2;
 
-            greenFast_spawnCount = 45;
-            blueFast_spawnCount = 23;
-            yellowFast_spawnCount = 17;
-            redFast_spawnCount = 15;
-            //purpleFast_spawnCount = 1;
+            blueFast_spawnCount = 2;
+            yellowFast_spawnCount = 2;
 
-            greenShooting_spawnCount = 20;
-            blueShooting_spawnCount = 10;
-            yellowShooting_spawnCount = 7;
-            redShooting_spawnCount = 4;
-            //purpleShooting_spawnCount = 1;
+            yellowShooting_spawnCount = 2;
 
-            greenBig_spawnCount = 9;
-            blueBig_spawnCount = 7;
-            yellowBig_spawnCount = 5;
-            redBig_spawnCount = 3;
-            //purpleBig_spawnCount = 1;
+            currentWaveTotalTime = 2f;
 
-            currentWaveTotalTime = 21f;
+            isNormalBossAlive = true;
+            GameObject normalBoss = ObjectPool.instance.GetNormalBossFromPool();
         }
         #endregion
 
@@ -1499,6 +1528,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     #endregion
 
     #region Hard gamemode - ALL waves
+    public GameObject hardBossGoo;
+
     public void StartHardGameModeWave()
     {
         SetHardWaves();
@@ -1520,6 +1551,14 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         //Big = Green and blue. 1-3 red or yellow at the final wave
 
         //Ad waves here
+
+        isTesting = false;
+
+        if (isTesting == true)
+        {
+            slimeWave = 31;
+            upgradeScript.GiveUpgrades();
+        }
 
         #region wave 1
         if (slimeWave == 1)
@@ -1548,7 +1587,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 2f;
+            currentWaveTotalTime = 1f;
         }
         #endregion
 
@@ -1835,7 +1874,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         if (slimeWave == 11)
         {
             //greenRegular_spawnCount = 20;
-            blueRegular_spawnCount = 50;
+            blueRegular_spawnCount = 55;
             //yellowRegular_spawnCount = 18;
             //redRegular_spawnCount = 1;
             //purpleRegular_spawnCount = 1;
@@ -1847,7 +1886,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //purpleFast_spawnCount = 1;
 
             //greenShooting_spawnCount = 10;
-            blueShooting_spawnCount = 9;
+            blueShooting_spawnCount = 13;
             //yellowShooting_spawnCount = 1;
             //redShooting_spawnCount = 1;
             //purpleShooting_spawnCount = 1;
@@ -1865,9 +1904,9 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 12
         if (slimeWave == 12)
         {
-            greenRegular_spawnCount = 115;
-            blueRegular_spawnCount = 30;
-            //yellowRegular_spawnCount = 18;
+            greenRegular_spawnCount = 110;
+            blueRegular_spawnCount = 22;
+            yellowRegular_spawnCount = 20;
             //redRegular_spawnCount = 1;
             //purpleRegular_spawnCount = 1;
 
@@ -1911,7 +1950,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //greenShooting_spawnCount = 10;
             //blueShooting_spawnCount = 6;
             yellowShooting_spawnCount = 6;
-            redShooting_spawnCount = 5;
+            redShooting_spawnCount = 4;
             //purpleShooting_spawnCount = 1;
 
             //greenBig_spawnCount = 2;
@@ -1920,7 +1959,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 11f;
+            currentWaveTotalTime = 12f;
         }
         #endregion
 
@@ -1970,10 +2009,10 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redFast_spawnCount = 6;
             //purpleFast_spawnCount = 1;
 
-            //greenShooting_spawnCount = 10;
-            //blueShooting_spawnCount = 6;
-            yellowShooting_spawnCount = 6;
-            redShooting_spawnCount = 6;
+            greenShooting_spawnCount = 5;
+            blueShooting_spawnCount = 4;
+            yellowShooting_spawnCount = 7;
+            redShooting_spawnCount = 4;
             //purpleShooting_spawnCount = 1;
 
             greenBig_spawnCount = 15;
@@ -1982,7 +2021,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 12f;
+            currentWaveTotalTime = 10f;
         }
         #endregion
 
@@ -2002,7 +2041,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //purpleFast_spawnCount = 1;
 
             //greenShooting_spawnCount = 10;
-            blueShooting_spawnCount = 20;
+            blueShooting_spawnCount = 25;
             //yellowShooting_spawnCount = 6;
             //redShooting_spawnCount = 6;
             //purpleShooting_spawnCount = 1;
@@ -2013,7 +2052,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 13f;
+            currentWaveTotalTime = 12.5f;
         }
         #endregion
 
@@ -2044,7 +2083,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 13f;
+            currentWaveTotalTime = 12.7f;
         }
         #endregion
 
@@ -2059,9 +2098,9 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
             greenFast_spawnCount = 10;
             blueFast_spawnCount = 9;
-            yellowFast_spawnCount = 8;
-            redFast_spawnCount = 7;
-            purpleFast_spawnCount = 6;
+            yellowFast_spawnCount = 6;
+            redFast_spawnCount = 5;
+            purpleFast_spawnCount = 5;
 
             greenShooting_spawnCount = 2;
             blueShooting_spawnCount = 2;
@@ -2281,7 +2320,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //purpleFast_spawnCount = 10;
 
             //greenShooting_spawnCount = 16;
-            blueShooting_spawnCount = 34;
+            blueShooting_spawnCount = 30;
             //yellowShooting_spawnCount = 18;
             //redShooting_spawnCount = 6;
             //purpleShooting_spawnCount = 4;
@@ -2299,13 +2338,13 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 26
         if (slimeWave == 26)
         {
-            greenRegular_spawnCount = 100;
+            greenRegular_spawnCount = 75;
             //blueRegular_spawnCount = 100;
             //yellowRegular_spawnCount = 100;
             //redRegular_spawnCount = 35;
             //purpleRegular_spawnCount = 35;
 
-            greenFast_spawnCount = 65;
+            greenFast_spawnCount = 75;
             //blueFast_spawnCount = 25;
             //yellowFast_spawnCount = 28;
             //redFast_spawnCount = 15;
@@ -2520,13 +2559,13 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //blueRegular_spawnCount = 100;
             //yellowRegular_spawnCount = 65;
             redRegular_spawnCount = 60;
-            purpleRegular_spawnCount = 60;
+            purpleRegular_spawnCount = 50;
 
             //greenFast_spawnCount = 25;
             //blueFast_spawnCount = 25;
             //yellowFast_spawnCount = 15;
-            redFast_spawnCount = 22;
-            purpleFast_spawnCount = 22;
+            redFast_spawnCount = 18;
+            purpleFast_spawnCount = 20;
 
             //greenShooting_spawnCount = 25;
             //blueShooting_spawnCount = 15;
@@ -2540,7 +2579,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             redBig_spawnCount = 10;
             purpleBig_spawnCount = 10;
 
-            currentWaveTotalTime = 23f;
+            currentWaveTotalTime = 24f;
         }
         #endregion
 
@@ -2557,7 +2596,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             blueFast_spawnCount = 25;
             yellowFast_spawnCount = 20;
             redFast_spawnCount = 15;
-            purpleFast_spawnCount = 10;
+            purpleFast_spawnCount = 9;
 
             //greenShooting_spawnCount = 25;
             //blueShooting_spawnCount = 15;
@@ -2571,38 +2610,26 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 10;
             //purpleBig_spawnCount = 10;
 
-            currentWaveTotalTime = 25f;
+            currentWaveTotalTime = 25.3f;
         }
         #endregion
 
         #region wave 35
         if (slimeWave == 35)
         {
-            //greenRegular_spawnCount = 115;
-            //blueRegular_spawnCount = 110;
-            yellowRegular_spawnCount = 50;
-            redRegular_spawnCount = 50;
-            purpleRegular_spawnCount = 50;
+            redRegular_spawnCount = 2;
+            purpleRegular_spawnCount = 2;
 
-            greenFast_spawnCount = 45;
-            blueFast_spawnCount = 14;
-            yellowFast_spawnCount = 14;
-            redFast_spawnCount = 14;
-            purpleFast_spawnCount = 14;
+            redFast_spawnCount = 2;
 
-            //greenShooting_spawnCount = 25;
-            //blueShooting_spawnCount = 15;
-            yellowShooting_spawnCount = 5;
-            redShooting_spawnCount = 3;
-            purpleShooting_spawnCount = 2;
+            currentWaveTotalTime = 2f;
 
-            greenBig_spawnCount = 12;
-            //blueBig_spawnCount = 10;
-            yellowBig_spawnCount = 12;
-            //redBig_spawnCount = 10;
-            purpleBig_spawnCount = 12;
+            hardBossGoo.SetActive(true);
+            hardBossGoo.transform.localPosition = new Vector2(0, 1300);
+            StartCoroutine(SetBossGooBack());
 
-            currentWaveTotalTime = 27f;
+            SpawnSlimes.isHardBossAlive = true;
+            hardBoss.SetActive(true);
         }
         #endregion
 
@@ -2622,6 +2649,12 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         CheckSpawnCoroutines();
 
         isInGame = true;
+    }
+
+    IEnumerator SetBossGooBack()
+    {
+        yield return new WaitForSeconds(1f);
+        hardBossGoo.SetActive(false);
     }
     #endregion 
 
@@ -2685,7 +2718,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 5
         if (slimeWave == 5)
         {
-            greenShooting_spawnCount = 15;
+            greenShooting_spawnCount = 18;
             //yellowShooting_spawnCount = 3;
 
             currentWaveTotalTime = 5f;
@@ -2718,7 +2751,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         if (slimeWave == 8)
         {
             //greenShooting_spawnCount = 2;
-            blueShooting_spawnCount = 18;
+            blueShooting_spawnCount = 21;
             //yellowShooting_spawnCount = 7;
 
             currentWaveTotalTime = 6f;
@@ -2743,7 +2776,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //greenShooting_spawnCount = 3;
             //blueShooting_spawnCount = 3;
             //yellowShooting_spawnCount = 3;
-            redShooting_spawnCount = 7;
+            redShooting_spawnCount = 8;
 
             currentWaveTotalTime = 6.2f;
         }
@@ -2764,12 +2797,12 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 12
         if (slimeWave == 12)
         {
-            greenShooting_spawnCount = 36;
+            greenShooting_spawnCount = 48;
             //blueShooting_spawnCount = 4;
             //yellowShooting_spawnCount = 4;
             //redShooting_spawnCount = 4;
 
-            currentWaveTotalTime = 7.5f;
+            currentWaveTotalTime = 9f;
         }
         #endregion
 
@@ -2777,11 +2810,11 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         if (slimeWave == 13)
         {
             //greenShooting_spawnCount = 25;
-            blueShooting_spawnCount = 23;
+            blueShooting_spawnCount = 32;
             //yellowShooting_spawnCount = 4;
             //redShooting_spawnCount = 4;
 
-            currentWaveTotalTime = 7.7f;
+            currentWaveTotalTime = 9f;
         }
         #endregion
 
@@ -2790,10 +2823,10 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             //greenShooting_spawnCount = 25;
             //blueShooting_spawnCount = 23;
-            yellowShooting_spawnCount = 17;
+            yellowShooting_spawnCount = 19;
             //redShooting_spawnCount = 4;
 
-            currentWaveTotalTime = 8f;
+            currentWaveTotalTime = 10f;
         }
         #endregion
 
@@ -2818,16 +2851,16 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redShooting_spawnCount = 14;
             purpleShooting_spawnCount = 11;
 
-            currentWaveTotalTime = 9f;
+            currentWaveTotalTime = 10f;
         }
         #endregion
 
         #region wave 17
         if (slimeWave == 17)
         {
-            greenShooting_spawnCount = 4;
-            blueShooting_spawnCount = 4;
-            yellowShooting_spawnCount = 4;
+            greenShooting_spawnCount = 7;
+            blueShooting_spawnCount = 6;
+            yellowShooting_spawnCount = 5;
             redShooting_spawnCount = 4;
             purpleShooting_spawnCount = 4;
 
@@ -2838,39 +2871,39 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 18
         if (slimeWave == 18)
         {
-            greenShooting_spawnCount = 6;
+            greenShooting_spawnCount = 8;
             blueShooting_spawnCount = 6;
-            yellowShooting_spawnCount = 5;
-            redShooting_spawnCount = 5;
-            purpleShooting_spawnCount = 4;
+            yellowShooting_spawnCount = 4;
+            redShooting_spawnCount = 6;
+            purpleShooting_spawnCount = 5;
 
-            currentWaveTotalTime = 12f;
+            currentWaveTotalTime = 14f;
         }
         #endregion
 
         #region wave 19
         if (slimeWave == 19)
         {
-            greenShooting_spawnCount = 5;
-            blueShooting_spawnCount = 5;
+            greenShooting_spawnCount = 3;
+            blueShooting_spawnCount = 4;
             yellowShooting_spawnCount = 5;
             redShooting_spawnCount = 5;
-            purpleShooting_spawnCount = 8;
+            purpleShooting_spawnCount = 7;
 
-            currentWaveTotalTime = 13f;
+            currentWaveTotalTime = 15f;
         }
         #endregion
 
         #region wave 20
         if (slimeWave == 20)
         {
-            greenShooting_spawnCount = 15;
-            blueShooting_spawnCount = 10;
-            yellowShooting_spawnCount = 7;
+            greenShooting_spawnCount = 10;
+            blueShooting_spawnCount = 8;
+            yellowShooting_spawnCount = 6;
             redShooting_spawnCount = 6;
-            purpleShooting_spawnCount = 7;
+            purpleShooting_spawnCount = 6;
 
-            currentWaveTotalTime = 16f;
+            currentWaveTotalTime = 20f;
         }
         #endregion
 
@@ -2930,8 +2963,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 3
         if (slimeWave == 3)
         {
-            greenFast_spawnCount = 10;
-            blueFast_spawnCount = 3;
+            greenFast_spawnCount = 12;
+            blueFast_spawnCount = 4;
 
             currentWaveTotalTime = 3f;
         }
@@ -2941,7 +2974,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         if (slimeWave == 4)
         {
             greenFast_spawnCount = 8;
-            blueFast_spawnCount = 6;
+            blueFast_spawnCount = 8;
 
             currentWaveTotalTime = 4f;
         }
@@ -2950,8 +2983,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 5
         if (slimeWave == 5)
         {
-            greenFast_spawnCount = 12;
-            blueFast_spawnCount = 7;
+            greenFast_spawnCount = 15;
+            blueFast_spawnCount = 9;
             //yellowFast_spawnCount = 2;
 
             currentWaveTotalTime = 4.5f;
@@ -2961,11 +2994,11 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 6
         if (slimeWave == 6)
         {
-            greenFast_spawnCount = 7;
-            blueFast_spawnCount = 5;
+            greenFast_spawnCount = 8;
+            blueFast_spawnCount = 6;
             yellowFast_spawnCount = 6;
 
-            currentWaveTotalTime = 4.5f;
+            currentWaveTotalTime = 4.6f;
         }
         #endregion
 
@@ -2973,21 +3006,21 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         if (slimeWave == 7)
         {
             greenFast_spawnCount = 14;
-            blueFast_spawnCount = 8;
-            yellowFast_spawnCount = 6;
+            blueFast_spawnCount = 11;
+            yellowFast_spawnCount = 8;
 
-            currentWaveTotalTime = 5;
+            currentWaveTotalTime = 5.1f;
         }
         #endregion
 
         #region wave 8
         if (slimeWave == 8)
         {
-            greenFast_spawnCount = 6;
-            blueFast_spawnCount = 7;
-            yellowFast_spawnCount = 13;
+            greenFast_spawnCount = 8;
+            blueFast_spawnCount = 8;
+            yellowFast_spawnCount = 14;
 
-            currentWaveTotalTime = 6.2f;
+            currentWaveTotalTime = 6.4f;
         }
         #endregion
 
@@ -2995,10 +3028,10 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         if (slimeWave == 9)
         {
             //greenFast_spawnCount = 12;
-            blueFast_spawnCount = 38;
+            blueFast_spawnCount = 47;
             //yellowFast_spawnCount = 12;
 
-            currentWaveTotalTime = 8f;
+            currentWaveTotalTime = 7.6f;
         }
         #endregion
 
@@ -3007,10 +3040,10 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             //greenFast_spawnCount = 12;
             //blueFast_spawnCount = 25;
-            yellowFast_spawnCount = 11;
-            redFast_spawnCount = 8;
+            yellowFast_spawnCount = 12;
+            redFast_spawnCount = 10;
 
-            currentWaveTotalTime = 9;
+            currentWaveTotalTime = 9.3f;
         }
         #endregion
 
@@ -3022,7 +3055,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //yellowFast_spawnCount = 10;
             redFast_spawnCount = 13;
 
-            currentWaveTotalTime = 10;
+            currentWaveTotalTime = 10.2f;
         }
         #endregion
 
@@ -3030,11 +3063,11 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         if (slimeWave == 12)
         {
             greenFast_spawnCount = 60;
-            blueFast_spawnCount = 10;
+            blueFast_spawnCount = 20;
             //yellowFast_spawnCount = 10;
             //redFast_spawnCount = 15;
 
-            currentWaveTotalTime = 10;
+            currentWaveTotalTime = 10.15f;
         }
         #endregion
 
@@ -3046,7 +3079,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             yellowFast_spawnCount = 19;
             redFast_spawnCount = 14;
 
-            currentWaveTotalTime = 10.5f;
+            currentWaveTotalTime = 10.6f;
         }
         #endregion
 
@@ -3055,10 +3088,10 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             greenFast_spawnCount = 15;
             blueFast_spawnCount = 15;
-            yellowFast_spawnCount = 14;
-            redFast_spawnCount = 14;
+            yellowFast_spawnCount = 13;
+            redFast_spawnCount = 13;
 
-            currentWaveTotalTime = 10;
+            currentWaveTotalTime = 10.2f;
         }
         #endregion
 
@@ -3067,23 +3100,23 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             greenFast_spawnCount = 25;
             blueFast_spawnCount = 17;
-            yellowFast_spawnCount = 16;
-            redFast_spawnCount = 14;
+            yellowFast_spawnCount = 15;
+            redFast_spawnCount = 13;
 
-            currentWaveTotalTime = 12.3f;
+            currentWaveTotalTime = 13f;
         }
         #endregion
 
         #region wave 16
         if (slimeWave == 16)
         {
-            greenFast_spawnCount = 55;
+            greenFast_spawnCount = 62;
             //blueFast_spawnCount = 20;
             //yellowFast_spawnCount = 17;
             //redFast_spawnCount = 16;
-            purpleFast_spawnCount = 10;
+            purpleFast_spawnCount = 12;
 
-            currentWaveTotalTime = 13;
+            currentWaveTotalTime = 13.2f;
         }
         #endregion
 
@@ -3096,7 +3129,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             redFast_spawnCount = 13;
             purpleFast_spawnCount = 11;
 
-            currentWaveTotalTime = 14;
+            currentWaveTotalTime = 14.25f;
         }
         #endregion
 
@@ -3104,12 +3137,12 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         if (slimeWave == 18)
         {
             greenFast_spawnCount = 25;
-            blueFast_spawnCount = 25;
-            yellowFast_spawnCount = 18;
-            redFast_spawnCount = 9;
-            purpleFast_spawnCount = 9;
+            blueFast_spawnCount = 22;
+            yellowFast_spawnCount = 14;
+            redFast_spawnCount = 8;
+            purpleFast_spawnCount = 7;
 
-            currentWaveTotalTime = 15;
+            currentWaveTotalTime = 16.25f;
         }
         #endregion
 
@@ -3118,11 +3151,11 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             //greenFast_spawnCount = 32;
             //blueFast_spawnCount = 65;
-            yellowFast_spawnCount = 35;
+            yellowFast_spawnCount = 32;
             //redFast_spawnCount = 20;
-            purpleFast_spawnCount = 13;
+            purpleFast_spawnCount = 11;
 
-            currentWaveTotalTime = 16;
+            currentWaveTotalTime = 16.25f;
         }
         #endregion
 
@@ -3130,12 +3163,12 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         if (slimeWave == 20)
         {
             greenFast_spawnCount = 17;
-            blueFast_spawnCount = 16;
-            yellowFast_spawnCount = 15;
-            redFast_spawnCount = 14;
-            purpleFast_spawnCount = 13;
+            blueFast_spawnCount = 15;
+            yellowFast_spawnCount = 14;
+            redFast_spawnCount = 13;
+            purpleFast_spawnCount = 12;
 
-            currentWaveTotalTime = 18;
+            currentWaveTotalTime = 18.7f;
         }
         #endregion
 
@@ -3174,8 +3207,6 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         SetSpawnCountToZero();
 
         //Ad waves here
-
-        slimeWave = 15;
 
         #region wave 1
         if (slimeWave == 1)
@@ -3223,7 +3254,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redFast_spawnCount = 1;
             //purpleFast_spawnCount = 1;
 
-            greenShooting_spawnCount = 3;
+            greenShooting_spawnCount = 4;
             //blueShooting_spawnCount = 1;
             //yellowShooting_spawnCount = 1;
             //redShooting_spawnCount = 1;
@@ -3273,20 +3304,20 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 4
         if (slimeWave == 4)
         {
-            greenRegular_spawnCount = 3;
-            blueRegular_spawnCount = 3;
+            greenRegular_spawnCount = 7;
+            blueRegular_spawnCount = 7;
             //yellowRegular_spawnCount = 1;
             //redRegular_spawnCount = 1;
             //purpleRegular_spawnCount = 1;
 
-            greenFast_spawnCount = 5;
-            blueFast_spawnCount = 5;
+            greenFast_spawnCount = 7;
+            blueFast_spawnCount = 6;
             //yellowFast_spawnCount = 1;
             //redFast_spawnCount = 1;
             //purpleFast_spawnCount = 1;
 
             greenShooting_spawnCount = 4;
-            blueShooting_spawnCount = 1;
+            blueShooting_spawnCount = 2;
             //yellowShooting_spawnCount = 1;
             //redShooting_spawnCount = 1;
             //purpleShooting_spawnCount = 1;
@@ -3310,14 +3341,14 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redRegular_spawnCount = 1;
             //purpleRegular_spawnCount = 1;
 
-            greenFast_spawnCount = 2;
-            blueFast_spawnCount = 2;
-            yellowFast_spawnCount = 2;
+            greenFast_spawnCount = 5;
+            blueFast_spawnCount = 5;
+            yellowFast_spawnCount = 5;
             //redFast_spawnCount = 1;
             //purpleFast_spawnCount = 1;
 
             //greenShooting_spawnCount = 3;
-            blueShooting_spawnCount = 4;
+            blueShooting_spawnCount = 6;
             //yellowShooting_spawnCount = 1;
             //redShooting_spawnCount = 1;
             //purpleShooting_spawnCount = 1;
@@ -3337,19 +3368,19 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             //greenRegular_spawnCount = 4;
             //blueRegular_spawnCount = 4;
-            yellowRegular_spawnCount = 10;
+            yellowRegular_spawnCount = 15;
             //redRegular_spawnCount = 1;
             //purpleRegular_spawnCount = 1;
 
             //greenFast_spawnCount = 2;
             //blueFast_spawnCount = 2;
-            yellowFast_spawnCount = 6;
+            yellowFast_spawnCount = 8;
             //redFast_spawnCount = 1;
             //purpleFast_spawnCount = 1;
 
             //greenShooting_spawnCount = 3;
             //blueShooting_spawnCount = 4;
-            yellowShooting_spawnCount = 3;
+            yellowShooting_spawnCount = 4;
             //redShooting_spawnCount = 1;
             //purpleShooting_spawnCount = 1;
 
@@ -3366,27 +3397,27 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 7
         if (slimeWave == 7)
         {
-            greenRegular_spawnCount = 17;
-            blueRegular_spawnCount = 17;
+            greenRegular_spawnCount = 22;
+            blueRegular_spawnCount = 22;
             //yellowRegular_spawnCount = 10;
             //redRegular_spawnCount = 1;
             //purpleRegular_spawnCount = 1;
 
             //greenFast_spawnCount = 2;
-            blueFast_spawnCount = 7;
+            blueFast_spawnCount = 12;
             //yellowFast_spawnCount = 4;
             //redFast_spawnCount = 1;
             //purpleFast_spawnCount = 1;
 
-            greenShooting_spawnCount = 3;
-            blueShooting_spawnCount = 2;
-            yellowShooting_spawnCount = 2;
+            greenShooting_spawnCount = 2;
+            blueShooting_spawnCount = 3;
+            yellowShooting_spawnCount = 4;
             //redShooting_spawnCount = 1;
             //purpleShooting_spawnCount = 1;
 
             //greenBig_spawnCount = 1;
             //blueBig_spawnCount = 1;
-            yellowBig_spawnCount = 2;
+            yellowBig_spawnCount = 3;
             //redBig_spawnCount = 1;
             //purpleBig_spawnCount = 1;
 
@@ -3397,21 +3428,21 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         #region wave 8
         if (slimeWave == 8)
         {
-            greenRegular_spawnCount = 30;
-            blueRegular_spawnCount = 15;
-            //yellowRegular_spawnCount = 10;
+            greenRegular_spawnCount = 34;
+            blueRegular_spawnCount = 35;
+            yellowRegular_spawnCount = 10;
             //redRegular_spawnCount = 1;
             //purpleRegular_spawnCount = 1;
 
-            greenFast_spawnCount = 4;
+            greenFast_spawnCount = 8;
             blueFast_spawnCount = 5;
-            yellowFast_spawnCount = 1;
+            yellowFast_spawnCount = 5;
             //redFast_spawnCount = 1;
             //purpleFast_spawnCount = 1;
 
-            greenShooting_spawnCount = 1;
-            blueShooting_spawnCount = 2;
-            yellowShooting_spawnCount = 3;
+            greenShooting_spawnCount = 3;
+            blueShooting_spawnCount = 4;
+            yellowShooting_spawnCount = 4;
             //redShooting_spawnCount = 1;
             //purpleShooting_spawnCount = 1;
 
@@ -3430,18 +3461,18 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             //greenRegular_spawnCount = 15;
             //blueRegular_spawnCount = 15;
-            yellowRegular_spawnCount = 6;
-            redRegular_spawnCount = 6;
+            yellowRegular_spawnCount = 8;
+            redRegular_spawnCount = 12;
             //purpleRegular_spawnCount = 1;
 
             //greenFast_spawnCount = 2;
             //blueFast_spawnCount = 6;
-            yellowFast_spawnCount = 6;
-            redFast_spawnCount = 2;
+            yellowFast_spawnCount = 7;
+            redFast_spawnCount = 6;
             //purpleFast_spawnCount = 1;
 
             greenShooting_spawnCount = 5;
-            blueShooting_spawnCount = 1;
+            blueShooting_spawnCount = 3;
             yellowShooting_spawnCount = 1;
             //redShooting_spawnCount = 1;
             //purpleShooting_spawnCount = 1;
@@ -3461,26 +3492,26 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         {
             //greenRegular_spawnCount = 15;
             //blueRegular_spawnCount = 15;
-            yellowRegular_spawnCount = 8;
-            redRegular_spawnCount = 8;
+            yellowRegular_spawnCount = 13;
+            redRegular_spawnCount = 13;
             //purpleRegular_spawnCount = 1;
 
             //greenFast_spawnCount = 2;
             //blueFast_spawnCount = 6;
             yellowFast_spawnCount = 7;
-            redFast_spawnCount = 3;
+            redFast_spawnCount = 6;
             //purpleFast_spawnCount = 1;
 
-            greenShooting_spawnCount = 3;
-            blueShooting_spawnCount = 3;
-            yellowShooting_spawnCount = 3;
+            greenShooting_spawnCount = 6;
+            blueShooting_spawnCount = 5;
+            yellowShooting_spawnCount = 4;
             //redShooting_spawnCount = 1;
             //purpleShooting_spawnCount = 1;
 
             greenBig_spawnCount = 4;
             blueBig_spawnCount = 3;
             yellowBig_spawnCount = 2;
-            redBig_spawnCount = 1;
+            redBig_spawnCount = 2;
             //purpleBig_spawnCount = 1;
 
             currentWaveTotalTime = 7f;
@@ -3498,8 +3529,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
             //greenFast_spawnCount = 2;
             //blueFast_spawnCount = 6;
-            yellowFast_spawnCount = 7;
-            redFast_spawnCount = 7;
+            yellowFast_spawnCount = 20;
+            redFast_spawnCount = 12;
             //purpleFast_spawnCount = 1;
 
             //greenShooting_spawnCount = 3;
@@ -3535,9 +3566,9 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
             //greenShooting_spawnCount = 3;
             //blueShooting_spawnCount = 3;
-            yellowShooting_spawnCount = 2;
+            yellowShooting_spawnCount = 3;
             redShooting_spawnCount = 2;
-            purpleShooting_spawnCount = 1;
+            purpleShooting_spawnCount = 2;
 
             //greenBig_spawnCount = 4;
             //blueBig_spawnCount = 3;
@@ -3545,7 +3576,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             redBig_spawnCount = 2;
             purpleBig_spawnCount = 2;
 
-            currentWaveTotalTime = 7.5f;
+            currentWaveTotalTime = 8f;
         }
         #endregion
 
@@ -3555,8 +3586,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //greenRegular_spawnCount = 15;
             //blueRegular_spawnCount = 15;
             //yellowRegular_spawnCount = 4;
-            redRegular_spawnCount = 10;
-            purpleRegular_spawnCount = 10;
+            redRegular_spawnCount = 22;
+            purpleRegular_spawnCount = 22;
 
             //greenFast_spawnCount = 2;
             //blueFast_spawnCount = 6;
@@ -3567,8 +3598,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //greenShooting_spawnCount = 3;
             //blueShooting_spawnCount = 3;
             //yellowShooting_spawnCount = 2;
-            redShooting_spawnCount = 3;
-            purpleShooting_spawnCount = 3;
+            redShooting_spawnCount = 4;
+            purpleShooting_spawnCount = 4;
 
             //greenBig_spawnCount = 4;
             //blueBig_spawnCount = 3;
@@ -3576,18 +3607,18 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 2;
             purpleBig_spawnCount = 6;
 
-            currentWaveTotalTime = 7.5f;
+            currentWaveTotalTime = 9f;
         }
         #endregion
 
         #region wave 14
         if (slimeWave == 14)
         {
-            greenRegular_spawnCount = 30;
+            greenRegular_spawnCount = 32;
             blueRegular_spawnCount = 25;
-            yellowRegular_spawnCount = 12;
-            redRegular_spawnCount = 7;
-            purpleRegular_spawnCount = 5;
+            yellowRegular_spawnCount = 22;
+            redRegular_spawnCount = 18;
+            purpleRegular_spawnCount = 16;
 
             //greenFast_spawnCount = 2;
             //blueFast_spawnCount = 6;
@@ -3597,7 +3628,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
             greenShooting_spawnCount = 6;
             blueShooting_spawnCount = 5;
-            yellowShooting_spawnCount = 4;
+            yellowShooting_spawnCount = 5;
             //redShooting_spawnCount = 3;
             //purpleShooting_spawnCount = 3;
 
@@ -3607,7 +3638,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             //redBig_spawnCount = 2;
             purpleBig_spawnCount = 6;
 
-            currentWaveTotalTime = 7.5f;
+            currentWaveTotalTime = 10f;
         }
         #endregion
 
@@ -3638,7 +3669,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
             redBig_spawnCount = 2;
             purpleBig_spawnCount = 1;
 
-            currentWaveTotalTime = 11f;
+            currentWaveTotalTime = 12f;
         }
         #endregion
 
@@ -3718,6 +3749,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
     private IEnumerator UpdateTimer()
     {
+        SetSpawnCountToZero();
         zeroTime = 0;
         isInGame = true;
         stopTime = 20;
@@ -3735,7 +3767,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                 StopCoroutine(rampageCoroutine);
             }
 
-            if (isRampageDone == false)
+            if (isRampageDone == false && StrawberryMechanics.isInDeathFrame == false)
             {
                 waveTime += Time.deltaTime;
                 UpdateTimerDisplay();
@@ -3747,15 +3779,15 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                     isRampageStop = true;
                     rampageTimesStopped += 1;
 
-                    Debug.Log(rampageTimesStopped);
+                    //Debug.Log(rampageTimesStopped);
 
                     SetSpawnCountToZero();
 
                     #region Stop 1
                     if (rampageTimesStopped == 1)
                     {
-                        greenRegular_spawnCount = 9;
-                        blueRegular_spawnCount = 9;
+                        greenRegular_spawnCount = 12;
+                        blueRegular_spawnCount = 12;
                         //yellowRegular_spawnCount = 1;
                         //redRegular_spawnCount = 1;
                         //purpleRegular_spawnCount = 1;
@@ -3883,7 +3915,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //purpleFast_spawnCount = 1;
 
                         greenShooting_spawnCount = 3;
-                        blueShooting_spawnCount = 2;
+                        blueShooting_spawnCount = 3;
                         //yellowShooting_spawnCount = 1;
                         //redShooting_spawnCount = 1;
                         //purpleShooting_spawnCount = 1;
@@ -3900,13 +3932,13 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                     if (rampageTimesStopped == 6)
                     {
                         //greenRegular_spawnCount = 25;
-                        blueRegular_spawnCount = 35;
+                        blueRegular_spawnCount = 42;
                         //yellowRegular_spawnCount = 1;
                         //redRegular_spawnCount = 1;
                         //purpleRegular_spawnCount = 1;
 
                         //greenFast_spawnCount = 4;
-                        blueFast_spawnCount = 8;
+                        blueFast_spawnCount = 11;
                         //yellowFast_spawnCount = 1;
                         //redFast_spawnCount = 1;
                         //purpleFast_spawnCount = 1;
@@ -3935,7 +3967,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //purpleRegular_spawnCount = 1;
 
                         //greenFast_spawnCount = 4;
-                        blueFast_spawnCount = 12;
+                        blueFast_spawnCount = 22;
                         //yellowFast_spawnCount = 1;
                         //redFast_spawnCount = 1;
                         //purpleFast_spawnCount = 1;
@@ -3970,12 +4002,12 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //purpleFast_spawnCount = 1;
 
                         //greenShooting_spawnCount = 4;
-                        blueShooting_spawnCount = 3;
+                        blueShooting_spawnCount = 6;
                         //yellowShooting_spawnCount = 1;
                         //redShooting_spawnCount = 1;
                         //purpleShooting_spawnCount = 1;
 
-                        greenBig_spawnCount = 10;
+                        greenBig_spawnCount = 12;
                         //blueBig_spawnCount = 1;
                         //yellowBig_spawnCount = 1;
                         //redBig_spawnCount = 1;
@@ -3992,15 +4024,15 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //redRegular_spawnCount = 1;
                         //purpleRegular_spawnCount = 1;
 
-                        greenFast_spawnCount = 8;
-                        blueFast_spawnCount = 8;
+                        greenFast_spawnCount = 20;
+                        blueFast_spawnCount = 12;
                         //yellowFast_spawnCount = 1;
                         //redFast_spawnCount = 1;
                         //purpleFast_spawnCount = 1;
 
-                        greenShooting_spawnCount = 2;
-                        blueShooting_spawnCount = 2;
-                        yellowShooting_spawnCount = 4;
+                        greenShooting_spawnCount = 3;
+                        blueShooting_spawnCount = 4;
+                        yellowShooting_spawnCount = 5;
                         //redShooting_spawnCount = 1;
                         //purpleShooting_spawnCount = 1;
 
@@ -4074,8 +4106,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                     if (rampageTimesStopped == 12)
                     {
                         greenRegular_spawnCount = 6;
-                        blueRegular_spawnCount = 5;
-                        yellowRegular_spawnCount = 5;
+                        blueRegular_spawnCount = 7;
+                        yellowRegular_spawnCount = 7;
                         redRegular_spawnCount = 8;
                         //purpleRegular_spawnCount = 1;
 
@@ -4086,7 +4118,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //purpleFast_spawnCount = 1;
 
                         greenShooting_spawnCount = 4;
-                        blueShooting_spawnCount = 2;
+                        blueShooting_spawnCount = 3;
                         yellowShooting_spawnCount = 2;
                         //redShooting_spawnCount = 1;
                         //purpleShooting_spawnCount = 1;
@@ -4196,13 +4228,13 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //purpleRegular_spawnCount = 1;
 
                         greenFast_spawnCount = 20;
-                        blueFast_spawnCount = 20;
+                        blueFast_spawnCount = 23;
                         //yellowFast_spawnCount = 5;
                         //redFast_spawnCount = 1;
                         //purpleFast_spawnCount = 1;
 
                         //greenShooting_spawnCount = 6;
-                        blueShooting_spawnCount = 2;
+                        blueShooting_spawnCount = 3;
                         yellowShooting_spawnCount = 2;
                         //redShooting_spawnCount = 1;
                         //purpleShooting_spawnCount = 1;
@@ -4225,12 +4257,12 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //purpleRegular_spawnCount = 1;
 
                         greenFast_spawnCount = 6;
-                        blueFast_spawnCount = 9;
+                        blueFast_spawnCount = 11;
                         //yellowFast_spawnCount = 5;
                         //redFast_spawnCount = 1;
                         //purpleFast_spawnCount = 1;
 
-                        greenShooting_spawnCount = 10;
+                        greenShooting_spawnCount = 12;
                         //blueShooting_spawnCount = 2;
                         //yellowShooting_spawnCount = 2;
                         //redShooting_spawnCount = 1;
@@ -4265,7 +4297,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //redShooting_spawnCount = 1;
                         //purpleShooting_spawnCount = 1;
 
-                        greenBig_spawnCount = 2;
+                        greenBig_spawnCount = 4;
                         blueBig_spawnCount = 2;
                         yellowBig_spawnCount = 2;
                         redBig_spawnCount = 2;
@@ -4288,8 +4320,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //redFast_spawnCount = 1;
                         //purpleFast_spawnCount = 1;
 
-                        greenShooting_spawnCount = 2;
-                        blueShooting_spawnCount = 2;
+                        greenShooting_spawnCount = 4;
+                        blueShooting_spawnCount = 3;
                         yellowShooting_spawnCount = 2;
                         //redShooting_spawnCount = 1;
                         //purpleShooting_spawnCount = 1;
@@ -4297,7 +4329,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //greenBig_spawnCount = 2;
                         //blueBig_spawnCount = 2;
                         //yellowBig_spawnCount = 2;
-                        redBig_spawnCount = 5;
+                        redBig_spawnCount = 6;
                         //purpleBig_spawnCount = 1;
                     }
                     #endregion
@@ -4399,19 +4431,19 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //purpleRegular_spawnCount = 1;
 
                         greenFast_spawnCount = 17;
-                        blueFast_spawnCount = 8;
-                        yellowFast_spawnCount = 8;
+                        blueFast_spawnCount = 10;
+                        yellowFast_spawnCount = 9;
                         //redFast_spawnCount = 1;
                         //purpleFast_spawnCount = 1;
 
-                        greenShooting_spawnCount =2;
+                        greenShooting_spawnCount = 2;
                         blueShooting_spawnCount = 2;
                         //yellowShooting_spawnCount = 2;
                         //redShooting_spawnCount = 1;
                         //purpleShooting_spawnCount = 1;
 
                         greenBig_spawnCount = 2;
-                        blueBig_spawnCount = 2;
+                        blueBig_spawnCount = 3;
                         yellowBig_spawnCount = 2;
                         //redBig_spawnCount = 6;
                         //purpleBig_spawnCount = 1;
@@ -4428,12 +4460,12 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         purpleRegular_spawnCount = 8;
 
                         greenFast_spawnCount = 3;
-                        blueFast_spawnCount = 3;
+                        blueFast_spawnCount = 5;
                         yellowFast_spawnCount = 3;
                         //redFast_spawnCount = 1;
-                        purpleFast_spawnCount = 3;
+                        purpleFast_spawnCount = 4;
 
-                        greenShooting_spawnCount = 3;
+                        greenShooting_spawnCount = 4;
                         //blueShooting_spawnCount = 2;
                         //yellowShooting_spawnCount = 2;
                         //redShooting_spawnCount = 1;
@@ -4456,19 +4488,19 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         redRegular_spawnCount = 2;
                         purpleRegular_spawnCount = 2;
 
-                        greenFast_spawnCount = 2;
+                        greenFast_spawnCount = 4;
                         blueFast_spawnCount = 2;
                         yellowFast_spawnCount = 2;
                         //redFast_spawnCount = 1;
                         purpleFast_spawnCount = 2;
 
-                        greenShooting_spawnCount = 2;
+                        greenShooting_spawnCount = 3;
                         //blueShooting_spawnCount = 2;
                         //yellowShooting_spawnCount = 2;
                         //redShooting_spawnCount = 1;
                         //purpleShooting_spawnCount = 1;
 
-                        greenBig_spawnCount = 6;
+                        greenBig_spawnCount = 8;
                         blueBig_spawnCount = 7;
                         yellowBig_spawnCount = 6;
                         redBig_spawnCount = 4;
@@ -4482,12 +4514,12 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //greenRegular_spawnCount = 40;
                         //blueRegular_spawnCount = 20;
                         //yellowRegular_spawnCount = 40;
-                        redRegular_spawnCount = 6;
+                        redRegular_spawnCount = 8;
                         purpleRegular_spawnCount = 6;
 
-                        greenFast_spawnCount = 10;
+                        greenFast_spawnCount = 16;
                         blueFast_spawnCount = 20;
-                        yellowFast_spawnCount = 3;
+                        yellowFast_spawnCount = 5;
                         //redFast_spawnCount = 1;
                         //purpleFast_spawnCount = 2;
 
@@ -4511,7 +4543,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //greenRegular_spawnCount = 40;
                         //blueRegular_spawnCount = 20;
                         yellowRegular_spawnCount = 55;
-                        redRegular_spawnCount = 3;
+                        redRegular_spawnCount = 5;
                         purpleRegular_spawnCount = 3;
 
                         greenFast_spawnCount = 25;
@@ -4521,7 +4553,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //purpleFast_spawnCount = 2;
 
                         greenShooting_spawnCount = 2;
-                        blueShooting_spawnCount = 2;
+                        blueShooting_spawnCount = 4;
                         yellowShooting_spawnCount = 3;
                         //redShooting_spawnCount = 1;
                         //purpleShooting_spawnCount = 1;
@@ -4545,7 +4577,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
                         greenFast_spawnCount = 5;
                         blueFast_spawnCount = 5;
-                        yellowFast_spawnCount = 5;
+                        yellowFast_spawnCount = 7;
                         //redFast_spawnCount = 1;
                         //purpleFast_spawnCount = 2;
 
@@ -4569,11 +4601,11 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         greenRegular_spawnCount = 100;
                         blueRegular_spawnCount = 100;
                         yellowRegular_spawnCount = 100;
-                        redRegular_spawnCount = 15;
-                        purpleRegular_spawnCount = 15;
+                        redRegular_spawnCount = 18;
+                        purpleRegular_spawnCount = 18;
 
-                        greenFast_spawnCount = 15;
-                        blueFast_spawnCount = 15;
+                        greenFast_spawnCount = 18;
+                        blueFast_spawnCount = 22;
                         //yellowFast_spawnCount = 5;
                         //redFast_spawnCount = 1;
                         //purpleFast_spawnCount = 2;
@@ -4584,7 +4616,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         //redShooting_spawnCount = 1;
                         //purpleShooting_spawnCount = 1;
 
-                        greenBig_spawnCount = 10;
+                        greenBig_spawnCount = 12;
                         //blueBig_spawnCount = 4;
                         //yellowBig_spawnCount = 4;
                         //redBig_spawnCount = 4;
@@ -4601,15 +4633,15 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
                         redRegular_spawnCount = 15;
                         purpleRegular_spawnCount = 5;
 
-                        greenFast_spawnCount = 10;
-                        blueFast_spawnCount = 10;
-                        yellowFast_spawnCount = 10;
-                        redFast_spawnCount = 10;
+                        greenFast_spawnCount = 14;
+                        blueFast_spawnCount = 13;
+                        yellowFast_spawnCount = 12;
+                        redFast_spawnCount = 11;
                         //purpleFast_spawnCount = 2;
 
                         //greenShooting_spawnCount = 2;
-                        blueShooting_spawnCount = 3;
-                        yellowShooting_spawnCount = 3;
+                        blueShooting_spawnCount = 4;
+                        yellowShooting_spawnCount = 5;
                         redShooting_spawnCount = 3;
                         //purpleShooting_spawnCount = 1;
 
@@ -4652,9 +4684,6 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
         //Set all to 0 before starting a wave
         SetSpawnCountToZero();
-
-       
-
 
         bool testWave = false;
 
@@ -4719,7 +4748,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     {
         while (true)
         {
-            if (greenRegular_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
+            if (greenRegular_spawnCount == 0) { yield return new WaitForSeconds(0.1f);  }
             else { yield return new WaitForSeconds(currentWaveTotalTime / greenRegular_spawnCount); }
             SpawnGreenSlime();
         }
@@ -4728,9 +4757,9 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnGreenSlime()
     {
         if(greenRegular_spawnCount == 0) { return; }
-        if(StrawberryMechanics.isInDeathFrame == true) { return; }
-
-        if (greenBasicSpawned < greenRegular_spawnCount) 
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
+       
+        if (greenBasicSpawned < greenRegular_spawnCount)
         {
             GameObject slime = ObjectPool.instance.GetSlime1FromPool();
             greenBasicSpawned += 1;
@@ -4747,7 +4776,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     {
         while (true)
         {
-            if (blueRegular_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
+            if (isEasyBossAlive == true) { yield return new WaitForSeconds(Random.Range(0.6f, 1.3f)); }
+            else if(blueRegular_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
             else { yield return new WaitForSeconds(currentWaveTotalTime / blueRegular_spawnCount); }
             SpawnBlueSlime();
         }
@@ -4755,13 +4785,23 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
 
     public void SpawnBlueSlime()
     {
-        if (blueRegular_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (blueRegular_spawnCount == 0 ) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
-        if (blueRegularSpawned < blueRegular_spawnCount)
+        if (isEasyBossAlive == true) 
         {
             GameObject slime = ObjectPool.instance.GetRegularBlueFromPool();
             blueRegularSpawned += 1;
+            if(blueRegularSpawned > 1) { blueRegular_spawnCount += 1; }
+            TotalSlimesToSpawn();
+        }
+        else
+        {
+            if (blueRegularSpawned < blueRegular_spawnCount)
+            {
+                GameObject slime = ObjectPool.instance.GetRegularBlueFromPool();
+                blueRegularSpawned += 1;
+            }
         }
     }
     #endregion
@@ -4775,7 +4815,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     {
         while (true)
         {
-            if (yellowRegular_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
+            if (isNormalBossAlive == true) { yield return new WaitForSeconds(Random.Range(1f, 1.6f)); }
+            else if  (yellowRegular_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
             else { yield return new WaitForSeconds(currentWaveTotalTime / yellowRegular_spawnCount); }
             SpawnYellowSlime();
         }
@@ -4784,12 +4825,22 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnYellowSlime()
     {
         if (yellowRegular_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
-        if (yellowRegularSpawned < yellowRegular_spawnCount)
+        if (isNormalBossAlive == true)
         {
             GameObject slime = ObjectPool.instance.GetRegularYellowFromPool();
             yellowRegularSpawned += 1;
+            if (yellowRegularSpawned > 1) { yellowRegular_spawnCount += 1; }
+            TotalSlimesToSpawn();
+        }
+        else
+        {
+            if (yellowRegularSpawned < yellowRegular_spawnCount)
+            {
+                GameObject slime = ObjectPool.instance.GetRegularYellowFromPool();
+                yellowRegularSpawned += 1;
+            }
         }
     }
     #endregion
@@ -4803,7 +4854,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     {
         while (true)
         {
-            if (redRegular_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
+            if (isHardBossAlive == true) { yield return new WaitForSeconds(Random.Range(1f, 2.3f)); }
+            else if (redRegular_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
             else { yield return new WaitForSeconds(currentWaveTotalTime / redRegular_spawnCount); }
             SpawnRedSlime();
         }
@@ -4812,12 +4864,22 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnRedSlime()
     {
         if (redRegular_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
-        if (redRegularSpawned < redRegular_spawnCount)
+        if (isHardBossAlive == true)
         {
             GameObject slime = ObjectPool.instance.GetRegularRedFromPool();
             redRegularSpawned += 1;
+            if (redRegularSpawned > 1) { redRegular_spawnCount += 1; }
+            TotalSlimesToSpawn();
+        }
+        else
+        {
+            if (redRegularSpawned < redRegular_spawnCount)
+            {
+                GameObject slime = ObjectPool.instance.GetRegularRedFromPool();
+                redRegularSpawned += 1;
+            }
         }
     }
     #endregion
@@ -4831,7 +4893,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     {
         while (true)
         {
-            if (purpleRegular_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
+            if (isHardBossAlive == true) { yield return new WaitForSeconds(Random.Range(1.2f, 3.5f)); }
+            else if (purpleRegular_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
             else { yield return new WaitForSeconds(currentWaveTotalTime / purpleRegular_spawnCount); }
             SpawnPurpleSlime();
         }
@@ -4840,12 +4903,22 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnPurpleSlime()
     {
         if (purpleRegular_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
-        if (purpleRegularSpawned < purpleRegular_spawnCount)
+        if (isHardBossAlive == true)
         {
             GameObject slime = ObjectPool.instance.GetRegularPurpleFromPool();
             purpleRegularSpawned += 1;
+            if (purpleRegularSpawned > 1) { purpleRegular_spawnCount += 1; }
+            TotalSlimesToSpawn();
+        }
+        else
+        {
+            if (purpleRegularSpawned < purpleRegular_spawnCount)
+            {
+                GameObject slime = ObjectPool.instance.GetRegularPurpleFromPool();
+                purpleRegularSpawned += 1;
+            }
         }
     }
     #endregion
@@ -4869,7 +4942,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnGreenSlimeFast()
     {
         if (greenFast_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
         if (greenFastSpawned < greenFast_spawnCount)
         {
@@ -4888,7 +4961,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     {
         while (true)
         {
-            if (blueFast_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
+            if (isEasyBossAlive == true || isNormalBossAlive == true) { yield return new WaitForSeconds(Random.Range(1f, 3.2f)); }
+            else if(blueFast_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
             else { yield return new WaitForSeconds(currentWaveTotalTime / blueFast_spawnCount); }
             SpawnBlueSlimeFast();
         }
@@ -4897,12 +4971,22 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnBlueSlimeFast()
     {
         if (blueFast_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
-        if (blueFastSpawned < blueFast_spawnCount)
+        if (isEasyBossAlive == true || isNormalBossAlive == true)
         {
             GameObject slime = ObjectPool.instance.GetFastBlueFromPool();
             blueFastSpawned += 1;
+            if (blueFastSpawned > 1) { blueFast_spawnCount += 1; }
+            TotalSlimesToSpawn();
+        }
+        else
+        {
+            if (blueFastSpawned < blueFast_spawnCount)
+            {
+                GameObject slime = ObjectPool.instance.GetFastBlueFromPool();
+                blueFastSpawned += 1;
+            }
         }
     }
     #endregion
@@ -4916,7 +5000,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     {
         while (true)
         {
-            if (yellowFast_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
+            if (isEasyBossAlive == true || isNormalBossAlive == true) { yield return new WaitForSeconds(Random.Range(1.1f, 3.2f)); }
+            else if(yellowFast_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
             else { yield return new WaitForSeconds(currentWaveTotalTime / yellowFast_spawnCount); }
             SpawnYellowSlimeFast();
         }
@@ -4925,12 +5010,22 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnYellowSlimeFast()
     {
         if (yellowFast_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
-        if (yellowFastSpawned < yellowFast_spawnCount)
+        if (isEasyBossAlive == true || isNormalBossAlive == true)
         {
             GameObject slime = ObjectPool.instance.GetFastYellowFromPool();
             yellowFastSpawned += 1;
+            if (yellowFastSpawned > 1) { yellowFast_spawnCount += 1; }
+            TotalSlimesToSpawn();
+        }
+        else
+        {
+            if (yellowFastSpawned < yellowFast_spawnCount)
+            {
+                GameObject slime = ObjectPool.instance.GetFastYellowFromPool();
+                yellowFastSpawned += 1;
+            }
         }
     }
     #endregion
@@ -4944,7 +5039,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     {
         while (true)
         {
-            if (redFast_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
+            if (isHardBossAlive) { yield return new WaitForSeconds(Random.Range(1.1f, 2.6f)); }
+            else if (redFast_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
             else { yield return new WaitForSeconds(currentWaveTotalTime / redFast_spawnCount); }
             SpawnRedSlimeFast();
         }
@@ -4953,12 +5049,22 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnRedSlimeFast()
     {
         if (redFast_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
-        if (redFastSpawned < redFast_spawnCount)
+        if (isHardBossAlive == true)
         {
             GameObject slime = ObjectPool.instance.GetFastRedFromPool();
             redFastSpawned += 1;
+            if (redFastSpawned > 1) { redFast_spawnCount += 1; }
+            TotalSlimesToSpawn();
+        }
+        else
+        {
+            if (redFastSpawned < redFast_spawnCount)
+            {
+                GameObject slime = ObjectPool.instance.GetFastRedFromPool();
+                redFastSpawned += 1;
+            }
         }
     }
     #endregion
@@ -4981,7 +5087,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnPurpleSlimeFast()
     {
         if (purpleFast_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
         if (purpleFastSpawned < purpleFast_spawnCount)
         {
@@ -5012,7 +5118,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     {
 
         if (greenShooting_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
         if (greenShootingSpawned < greenShooting_spawnCount)
         {
@@ -5031,7 +5137,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     {
         while (true)
         {
-            if (blueShooting_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
+            if (isEasyBossAlive == true) { yield return new WaitForSeconds(Random.Range(2.1f, 4f)); }
+            else if (blueShooting_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
             else { yield return new WaitForSeconds(currentWaveTotalTime / blueShooting_spawnCount); }
             SpawnBlueShootingSlime();
         }
@@ -5040,12 +5147,22 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnBlueShootingSlime()
     {
         if (blueShooting_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
-        if (blueShootingSpawned < blueShooting_spawnCount)
+        if (isEasyBossAlive == true)
         {
             GameObject blueShootingSlime = ObjectPool.instance.GetBlueShootingFromPool();
             blueShootingSpawned += 1;
+            if (blueShootingSpawned > 1) { blueShooting_spawnCount += 1; }
+            TotalSlimesToSpawn();
+        }
+        else
+        {
+            if (blueShootingSpawned < blueShooting_spawnCount)
+            {
+                GameObject blueShootingSlime = ObjectPool.instance.GetBlueShootingFromPool();
+                blueShootingSpawned += 1;
+            }
         }
     }
     #endregion
@@ -5059,7 +5176,8 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     {
         while (true)
         {
-            if (yellowShooting_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
+            if (isNormalBossAlive == true) { yield return new WaitForSeconds(Random.Range(3.7f, 6.3f)); }
+            else if (yellowShooting_spawnCount == 0) { yield return new WaitForSeconds(0.1f); }
             else { yield return new WaitForSeconds(currentWaveTotalTime / yellowShooting_spawnCount); }
             SpawnYellowSlimeShooting();
         }
@@ -5068,12 +5186,22 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnYellowSlimeShooting()
     {
         if (yellowShooting_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene) { return; }
 
-        if (yellowShootingSpawned < yellowShooting_spawnCount)
+        if (isNormalBossAlive == true)
         {
             GameObject slime = ObjectPool.instance.GetShootingYellowFromPool();
             yellowShootingSpawned += 1;
+            if (yellowShootingSpawned > 1) { yellowShooting_spawnCount += 1; }
+            TotalSlimesToSpawn();
+        }
+        else
+        {
+            if (yellowShootingSpawned < yellowShooting_spawnCount)
+            {
+                GameObject slime = ObjectPool.instance.GetShootingYellowFromPool();
+                yellowShootingSpawned += 1;
+            }
         }
     }
     #endregion
@@ -5096,7 +5224,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnRedSlimeShooting()
     {
         if (redShooting_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
         if (redShootingSpawned < redShooting_spawnCount)
         {
@@ -5124,7 +5252,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnPurpleSlimeShooting()
     {
         if (purpleShooting_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
         if (purpleShootingSpawned < purpleShooting_spawnCount)
         {
@@ -5153,7 +5281,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnGreenSlimeBig()
     {
         if (greenBig_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
         if (greenBigSpawned < greenBig_spawnCount)
         {
@@ -5181,7 +5309,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnBlueSlimeBig()
     {
         if (blueBig_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
         if (blueBigSpawned < blueBig_spawnCount)
         {
@@ -5209,7 +5337,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnYellowSlimeBig()
     {
         if (yellowBig_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
         if (yellowBigSpawned < yellowBig_spawnCount)
         {
@@ -5237,7 +5365,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnRedBigSlime()
     {
         if (redBig_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
         if (redBigSpawned < redBig_spawnCount)
         {
@@ -5265,7 +5393,7 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
     public void SpawnPurpleSlimeBig()
     {
         if (purpleBig_spawnCount == 0) { return; }
-        if (StrawberryMechanics.isInDeathFrame == true) { return; }
+        if (StrawberryMechanics.isInDeathFrame == true || PickUpgrade.isInWonRunScene == true) { return; }
 
         if (purpleBigSpawned < purpleBig_spawnCount)
         {
@@ -5374,25 +5502,11 @@ public class SpawnSlimes : MonoBehaviour, IDataPersistence
         health += (redBig_spawnCount * redBig_health);
         health += (purpleBig_spawnCount * purpleBig_health);
 
-        Debug.Log($"Wave {slimeWave} has a total of {health} health");
+       // Debug.Log($"Wave {slimeWave} has a total of {health} health");
     }
 
     public void AllSpawnDoThis()
     {
 
     }
-
-    #region Load Data
-    public void LoadData(GameData data)
-    {
-        slimeWave = data.slimeWave;
-    }
-    #endregion
-
-    #region Save Data
-    public void SaveData(ref GameData data)
-    {
-        data.slimeWave = slimeWave;
-    }
-    #endregion
 }

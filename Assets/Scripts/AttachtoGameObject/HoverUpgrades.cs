@@ -38,6 +38,8 @@ public class HoverUpgrades : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public bool isDice;
 
+    public GameObject chooseButton;
+
     private void Awake()
     {
         if (isUpgrade) { btn = gameObject.GetComponent<Button>(); }
@@ -117,14 +119,14 @@ public class HoverUpgrades : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
                 rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + SelectGameMode.flashReward;
             }
-            else if (isHoveringFragile == true && SelectGameMode.fragileCompleted == false)
+            else if (isHoveringFragile == true)
             {
                 if (SelectGameMode.fragileCompleted == false) { isCompleted = false; rewardText.gameObject.SetActive(true); }
                 else { isCompleted = true; rewardText.gameObject.SetActive(false); }
 
                 rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + SelectGameMode.fragileReward;
             }
-            else if (isHoveringRampage == true && SelectGameMode.rampageCompleted == false)
+            else if (isHoveringRampage == true)
             {
                 if (SelectGameMode.rampageCompleted == false) { isCompleted = false; rewardText.gameObject.SetActive(true); }
                 else { isCompleted = true; rewardText.gameObject.SetActive(false); }
@@ -132,9 +134,11 @@ public class HoverUpgrades : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + SelectGameMode.rampageReward;
             }
 
-            if(isCompleted == true)
+         
+
+            if (isCompleted == true)
             {
-                selectedGameModeText.gameObject.transform.localPosition = new Vector2(0, -312);
+                selectedGameModeText.gameObject.transform.localPosition = new Vector2(0, -225);
                 rewardText.gameObject.SetActive(false);
             }
             else
@@ -146,8 +150,21 @@ public class HoverUpgrades : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     #endregion
 
+    public static string mobileUpgradeHover;
+
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if(MobileScript.isMobile == true & isUpgrade == true)
+        {
+            chooseButton.SetActive(true);
+            if(isDice == true)
+            {
+                chooseButton.SetActive(false);
+            }
+
+            mobileUpgradeHover = gameObject.name;
+        }
+
         audioManager.Play("HoverUI_1");
 
         if (isSelectGameMode == true || isSelectGameModeChallenges == true || isSelectActive == true || isActiveIcon == true)
@@ -220,7 +237,7 @@ public class HoverUpgrades : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 {
                     activePriceText.text = "<color=yellow>" + ActiveMechanics.punchyClicksPrice.ToString("F0");
                     activePriceText.gameObject.transform.position = new Vector2(gameObject.transform.position.x - 0.15f, gameObject.transform.position.y + 0.82f);
-                    activePriceText.gameObject.SetActive(true);
+                    if (MobileScript.isMobile == false) { activePriceText.gameObject.SetActive(true); }
                 }
             }
             if (gameObject.name == "Clover")
@@ -231,8 +248,7 @@ public class HoverUpgrades : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 {
                     activePriceText.text = "<color=yellow>" + ActiveMechanics.cloverPrice.ToString("F0");
                     activePriceText.gameObject.transform.position = new Vector2(gameObject.transform.position.x - 0.15f, gameObject.transform.position.y + 0.82f);
-                    activePriceText.gameObject.SetActive(true);
-
+                    if (MobileScript.isMobile == false) { activePriceText.gameObject.SetActive(true); }
                 }
             }
             if (gameObject.name == "Decoy")
@@ -243,7 +259,7 @@ public class HoverUpgrades : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 {
                     activePriceText.text = "<color=yellow>" + ActiveMechanics.decoyPrice.ToString("F0");
                     activePriceText.gameObject.transform.position = new Vector2(gameObject.transform.position.x - 0.15f, gameObject.transform.position.y + 0.82f);
-                    activePriceText.gameObject.SetActive(true);
+                    if (MobileScript.isMobile == false) { activePriceText.gameObject.SetActive(true); }
                 }
             }
             if (gameObject.name == "ProjectileFrency")
@@ -254,7 +270,7 @@ public class HoverUpgrades : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 {
                     activePriceText.text = "<color=yellow>" + ActiveMechanics.frenzyPrice.ToString("F0");
                     activePriceText.gameObject.transform.position = new Vector2(gameObject.transform.position.x - 0.15f, gameObject.transform.position.y + 0.82f);
-                    activePriceText.gameObject.SetActive(true);
+                    if (MobileScript.isMobile == false) { activePriceText.gameObject.SetActive(true); }
                 }
             }
             if (gameObject.name == "AntiSlimeBullets")
@@ -265,7 +281,7 @@ public class HoverUpgrades : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 {
                     activePriceText.text = "<color=yellow>" + ActiveMechanics.antiSlimeBulletPrice.ToString("F0");
                     activePriceText.gameObject.transform.position = new Vector2(gameObject.transform.position.x - 0.15f, gameObject.transform.position.y + 0.82f);
-                    activePriceText.gameObject.SetActive(true);
+                    if (MobileScript.isMobile == false) { activePriceText.gameObject.SetActive(true); }
                 }
             }
 
@@ -752,6 +768,47 @@ public class HoverUpgrades : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             {
                 selectedGameModeText.text = $"{LocalizationSCRIPT.rampageDescription} {LocalizationSCRIPT.SELECTED}";
                 rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + SelectGameMode.rampageReward;
+            }
+
+            bool isCompleted = false;
+
+            if (SelectGameMode.choseEasy && SelectGameMode.easyCompleted) { isCompleted = true; }
+            if (SelectGameMode.choseEasy && SelectGameMode.easyCompleted == false) { isCompleted = false; }
+
+            if (SelectGameMode.choseNormal && SelectGameMode.normalCompleted) { isCompleted = true; }
+            if (SelectGameMode.choseNormal && SelectGameMode.normalCompleted == false) { isCompleted = false; }
+
+            if (SelectGameMode.choseHard && SelectGameMode.hardCompleted) { isCompleted = true; }
+            if (SelectGameMode.choseHard && SelectGameMode.hardCompleted == false) { isCompleted = false; }
+
+            if (SelectGameMode.choseBullethell && SelectGameMode.bullethellCompleted) { isCompleted = true; }
+            if (SelectGameMode.choseBullethell && SelectGameMode.bullethellCompleted == false) { isCompleted = false; }
+
+            if (SelectGameMode.choseFlash && SelectGameMode.flashCompleted) { isCompleted = true; }
+            if (SelectGameMode.choseFlash && SelectGameMode.flashCompleted == false) { isCompleted = false; }
+
+            if (SelectGameMode.choseFragile && SelectGameMode.fragileCompleted) { isCompleted = true; }
+            if (SelectGameMode.choseFragile && SelectGameMode.fragileCompleted == false) { isCompleted = false; }
+
+            if (SelectGameMode.choseRampage && SelectGameMode.rampageCompleted) { isCompleted = true; }
+            if (SelectGameMode.choseRampage && SelectGameMode.rampageCompleted == false) { isCompleted = false; }
+
+            if (isCompleted == true)
+            {
+                selectedGameModeText.gameObject.transform.localPosition = new Vector2(0, -225);
+                rewardText.gameObject.SetActive(false);
+            }
+            else
+            {
+                selectedGameModeText.gameObject.transform.localPosition = new Vector2(0, -208);
+                rewardText.gameObject.transform.localPosition = new Vector2(4, -306);
+                rewardText.gameObject.SetActive(true);
+            }
+
+            if(DemoScript.isDemo == true)
+            {
+                selectedGameModeText.gameObject.transform.localPosition = new Vector2(0, -225);
+                rewardText.gameObject.SetActive(false);
             }
         }
 

@@ -47,6 +47,8 @@ TagManager:
   - EnemyBulletKicked
   - THEBearTrap
   - FriendlyBullet
+  - RainbowGoo
+  - Shadow
   layers:
   - Default
   - TransparentFX

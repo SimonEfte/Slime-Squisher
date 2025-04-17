@@ -54,6 +54,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1ed40770fe297449f17d1a54212b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBossEASY: 0
+  isBossNORMAL: 0
+  isBossHARD: 0
+  isTutoritalSlime: 0
   isRegularSlime: 1
   isFastSlime: 0
   isShootingslime: 0
@@ -80,8 +84,11 @@ MonoBehaviour:
   isPurpleSlime_big: 0
   middleObject: {fileID: 0}
   projectileParent: {fileID: 0}
+  decoy: {fileID: 0}
+  hardGoo: {fileID: 0}
   animator: {fileID: 0}
   moveSpeed: 0
+  originalMoveSpeed: 0
   slimeHealth: 0
   slimeCollider: {fileID: 0}
   targetObject: {fileID: 0}
@@ -92,9 +99,15 @@ MonoBehaviour:
   squishObject: {fileID: 0}
   textureObject: {fileID: 0}
   shootSpawnPos: {fileID: 0}
+  shootSpawnPos2: {fileID: 0}
+  shootSpawnPos3: {fileID: 0}
+  shootSpawnPos4: {fileID: 0}
   audioManager: {fileID: 0}
   audioGameobject: {fileID: 0}
+  overlappingSound: {fileID: 0}
+  overlappingObject: {fileID: 0}
   isCollidingWithStrawberry: 0
+  timesHardBossShot: 0
 --- !u!50 &1281146558203567209
 Rigidbody2D:
   serializedVersion: 4

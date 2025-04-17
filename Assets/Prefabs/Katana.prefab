@@ -72,7 +72,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 54.682266, y: 0.7241974}
+  m_Offset: {x: 54.682266, y: 0.19572067}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -83,7 +83,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 121.36435, y: 13.089783}
+  m_Size: {x: 121.36435, y: 14.146736}
   m_EdgeRadius: 0
 --- !u!50 &579685597470920507
 Rigidbody2D:
@@ -152,6 +152,8 @@ MonoBehaviour:
   friendlyBullet: {fileID: 0}
   katanaTrailRenderer: {fileID: 0}
   logAnimator: {fileID: 0}
+  logLine1: {fileID: 0}
+  logLine2: {fileID: 0}
 --- !u!1 &5098964711998372672
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +329,7 @@ RectTransform:
   m_GameObject: {fileID: 5240204900890412586}
   m_LocalRotation: {x: -0, y: -0, z: -0.72319853, w: 0.6906403}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 28.377098, y: 23.04271, z: 23.04271}
+  m_LocalScale: {x: 30.77427, y: 23.330744, z: 23.04271}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2994516179190199185}

@@ -1,10 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class PickUpgrade : MonoBehaviour, IDataPersistence
 {
+    public DataPersistenceManeger saveScript;
+
     public static int coinsThisRound;
     public static int totalCoins;
     public TextMeshProUGUI coinThisRoundText;
@@ -14,6 +16,8 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public AudioManager audioManager;
     public MainMenu mainMenuScript;
     public CursorMechanics cursorScript;
+
+    public Achivements achScript;
 
     private void Awake()
     {
@@ -32,6 +36,20 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         if (SelectGameMode.flashCompleted == true) { flashCrown.SetActive(true); }
         if (SelectGameMode.fragileCompleted == true) { fragileCrown.SetActive(true); }
         if (SelectGameMode.rampageCompleted == true) { rampageCrown.SetActive(true); }
+
+        if(MobileScript.isMobile == true)
+        {
+            upgradeDescText.enableAutoSizing = true;
+            upgradeDescText.fontSizeMin = 10;
+
+            upgradeDescText.transform.localPosition = new Vector2(0, -212);
+            upgradeDescText.transform.localScale = new Vector2(2.5f, 2.5f);
+
+            upgradeNameText.transform.localPosition = new Vector2(0, -57);
+            upgradeLevelText.transform.localPosition = new Vector2(0, -129);
+        }
+
+        SetDemoUpgradeStats();
     }
 
     #region Check bullets on screen
@@ -66,21 +84,25 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         clickCooldown = 0.75f;
         clickCooldownDecrease = 0.091f;
 
+        clickCooldown = 0.75f - MetaProgressionUpgrades.clickCooldownDecrease;
+        if (clickCooldown < 0.5f) { clickCooldownDecrease = 0.075f; }
+        else { clickCooldownDecrease = 0.091f; }
+
         critChance = 0;
         critIncrease = 0;
-        critChanceIncrease = 10;
+        critChanceIncrease = 8;
         critIncreaseIncrease = 2;
 
-        cursorSlashDamage = 1;
-        cursorSlashDamageIncrease = 0.4f;
+        cursorSlashDamage = 1.4f;
+        cursorSlashDamageIncrease = 0.6f;
 
-        paperShotDamage = 8;
+        paperShotDamage = 9;
         paperShotDamageIncrease = 2;
 
         arrowRainDamage = 4;
         arrowRainDamageIncrease = 1;
 
-        knifeStabDamage = 6;
+        knifeStabDamage = 8;
         knifeStabDamageIncrease = 2;
 
         scytheDamage = 5;
@@ -99,17 +121,18 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         poisonDartDamage = 6;
         poisonDartDamageIncrease = 2;
         poisonDamage = 1;
-        poisonDamageIncrease = 0.2f;
+        poisonDamageIncrease = 0.4f;
 
-        spikyShieldDamage = 3;
+        spikyShieldDamage = 4;
         spikyShieldDamageIncrease = 1;
+        spikyShieldSizeIncrease = 0;
 
         chainBallDamage = 4;
         chainBallDamageIncrease = 1;
         chainBallSpeed = -210;
         chainBallSpeedIncrease = -30;
 
-        bladeInstaKillChance = 15;
+        bladeInstaKillChance = 9;
         bladeInstaKillChanceIncrease = 3;
         bladeBleedDamage = 2f;
         bladeBleedDamageIncrease = 0.5f;
@@ -122,13 +145,13 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         bigLaserTimer = 5;
         bigLaserTimerDecrease = 0.4f;
 
-        boulderDamage = 4;
+        boulderDamage = 5;
         boulderDamageIncrease = 2;
 
         bouncyBallDamage = 5;
         bouncyBallDamageIncrease = 1;
 
-        meteorDamage = 10;
+        meteorDamage = 9;
         meteorDamageIncrease = 2;
 
         staplerDamage = 6;
@@ -140,19 +163,19 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
         kunaiDamage = 3;
         kunaiDamageIncrease = 1;
-        kunaiInstaKill = 12;
-        kunaiIntaKillIncrease = 4;
+        kunaiInstaKill = 10;
+        kunaiIntaKillIncrease = 3;
 
         friendlyBulletsDamage = 6;
         friendlyBulletsIncrease = 2;
 
-        sawBladeDamage = 3;
+        sawBladeDamage = 4;
         sawBladeDamageIncrease = 2;
 
         katanaDamage = 6;
         katanaDamageIncrease = 2;
 
-        spikeDamage = 1;
+        spikeDamage = 2;
         spikeDamageIncrease = 1;
 
         nailGunBleedDamage = 2;
@@ -178,6 +201,8 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         totalChanceIncreaseLOW = 0f; 
         totalChanceIncreaseMID = 0f; 
         totalChanceIncreaseHIGH = 0f;
+
+        totalIncreaseDamage = 0;
     }
     #endregion
 
@@ -220,9 +245,9 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
                 isInWonRunScene = true; WonRunPopUp("Rampage");
             }
         }
-        else if (SpawnSlimes.slimesSquished >= SpawnSlimes.slimesWaveSpawnCount && SpawnSlimes.isInGame == true)
+        else if (SpawnSlimes.slimesSquished >= SpawnSlimes.slimesWaveSpawnCount && SpawnSlimes.isInGame == true && SpawnSlimes.isEasyBossAlive == false && SpawnSlimes.isNormalBossAlive == false && SpawnSlimes.isHardBossAlive == false)
         {
-            if(spawnedRandomUpgrade == false)
+            if(spawnedRandomUpgrade == false && isInWonRunScene == false && StrawberryMechanics.isInDeathFrame == false)
             {
                 isInChooseUpgrade = true;
 
@@ -284,6 +309,7 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
         if(choseUpgrade == true)
         {
+            CoinMechanics.playSoundOnce = false;
             strawberryScript.Heal();
 
             if (ActiveMechanics.isDecoyPlaced == true)
@@ -497,10 +523,44 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
                 randomUpgrade = Random.Range(1, 34 + extraChance);
             } while (randomUpgrade == upgrade1Number || randomUpgrade == upgrade2Number || randomUpgrade == upgrade3Number || randomUpgrade == upgrade4Number);
 
-            if(SelectGameMode.choseFragile == true)
+            int randomBullethell = Random.Range(1, 6);
+            int randomFlash = Random.Range(1, 7);
+
+            if (SelectGameMode.choseFragile == true)
             {
-                if(randomUpgrade == 4) { Debug.Log("Health"); SpawnRandomUpgrade(); return; } //Health
+                if(randomUpgrade == 4) {SpawnRandomUpgrade(); return; } //Health
             }
+
+            #region Check bullethell or flash duplicate
+            if (SelectGameMode.choseBullethell == true)
+            {
+                if (strawberryShieldUpgrade.activeInHierarchy == true) { if (randomUpgrade == 9 || randomBullethell == 1) { SpawnRandomUpgrade();  return; } }
+                if (bigLaserUpgrade.activeInHierarchy == true) { if (randomUpgrade == 18 || randomBullethell == 2) { SpawnRandomUpgrade(); return; } }
+                if (spikyShieldUpgrade.activeInHierarchy == true) { if (randomUpgrade == 24 || randomBullethell == 3) { SpawnRandomUpgrade();  return; } }
+                if (laserUpgrade.activeInHierarchy == true) { if (randomUpgrade == 8 || randomBullethell == 4) { SpawnRandomUpgrade();  return; } }
+                if (legsUpgrade.activeInHierarchy == true) { if (randomUpgrade == 33 || randomBullethell == 5) { SpawnRandomUpgrade();  return; } }
+
+                if (strawberryShieldUpgrade.activeInHierarchy == true || bigLaserUpgrade.activeInHierarchy == true || spikyShieldUpgrade.activeInHierarchy == true || laserUpgrade.activeInHierarchy == true || legsUpgrade.activeInHierarchy == true)
+                {
+                    if (randomUpgrade == 34 || randomUpgrade == 35) { SpawnRandomUpgrade(); return; }
+                }
+            }
+
+            if (SelectGameMode.choseFlash == true)
+            {
+                if (knifeOrbitalUpgrade.activeInHierarchy == true) { if (randomUpgrade == 7 || randomFlash == 1) { SpawnRandomUpgrade(); return; } }
+                if (chainBallUpgrade.activeInHierarchy == true) { if (randomUpgrade == 16 || randomFlash == 2) { SpawnRandomUpgrade(); return; } }
+                if (staplerUpgrade.activeInHierarchy == true) { if (randomUpgrade == 22 || randomFlash == 3) { SpawnRandomUpgrade(); return; } }
+                if (spikyShieldUpgrade.activeInHierarchy == true) { if (randomUpgrade == 24 || randomFlash == 4) { SpawnRandomUpgrade(); return; } }
+                if (nailGunUpgrade.activeInHierarchy == true) { if (randomUpgrade == 30 || randomFlash == 5) { SpawnRandomUpgrade(); return; } }
+                if (bladeUpgrade.activeInHierarchy == true) { if (randomUpgrade == 29 || randomFlash == 6) { SpawnRandomUpgrade();return; } }
+
+                if(knifeOrbitalUpgrade.activeInHierarchy == true || chainBallUpgrade.activeInHierarchy == true || staplerUpgrade.activeInHierarchy == true || spikyShieldUpgrade.activeInHierarchy == true || nailGunUpgrade.activeInHierarchy == true || bladeUpgrade.activeInHierarchy == true)
+                {
+                    if(randomUpgrade == 34 || randomUpgrade == 35) {  SpawnRandomUpgrade(); return; }
+                }
+            }
+            #endregion
 
             if (upgradesSpawned == 0) { upgrade1Number = randomUpgrade; }
             if (upgradesSpawned == 1) { upgrade2Number = randomUpgrade; }
@@ -550,8 +610,7 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
             {
                 if (SelectGameMode.choseBullethell == true) 
                 {
-                    int randomBullethell = Random.Range(1, 6);
-                    Debug.Log("Got bullet blocking " + randomBullethell);
+                    //Debug.Log("Got bullet blocking " + randomBullethell);
 
                     if (randomBullethell == 1) { SetUpgradePos(strawberryShieldUpgrade, true); }
                     if (randomBullethell == 2) { SetUpgradePos(bigLaserUpgrade, false); }
@@ -562,16 +621,14 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
                 if (SelectGameMode.choseFlash == true)
                 {
-                    int randomFragile = Random.Range(1, 8);
-                    Debug.Log("Got fragile " + randomFragile);
+                    //Debug.Log("Got fragile " + randomFragile);
 
-                    if (randomFragile == 1) { SetUpgradePos(knifeOrbitalUpgrade, false); }
-                    if (randomFragile == 2) { SetUpgradePos(chainBallUpgrade, true); }
-                    if (randomFragile == 3) { SetUpgradePos(staplerUpgrade, true); }
-                    if (randomFragile == 4) { SetUpgradePos(spikyShieldUpgrade, false); }
-                    if (randomFragile == 5) { SetUpgradePos(nailGunUpgrade, false); }
-                    if (randomFragile == 6) { SetUpgradePos(bearTrapUpgrade, false); }
-                    if (randomFragile == 7) { SetUpgradePos(bladeUpgrade, false); }
+                    if (randomFlash == 1) { SetUpgradePos(knifeOrbitalUpgrade, false); }
+                    if (randomFlash == 2) { SetUpgradePos(chainBallUpgrade, true); }
+                    if (randomFlash == 3) { SetUpgradePos(staplerUpgrade, true); }
+                    if (randomFlash == 4) { SetUpgradePos(spikyShieldUpgrade, false); }
+                    if (randomFlash == 5) { SetUpgradePos(nailGunUpgrade, false); }
+                    if (randomFlash == 6) { SetUpgradePos(bladeUpgrade, false); }
                 }
             }
             #endregion
@@ -590,10 +647,44 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
                 randomUpgrade = Random.Range(1 - extraChance, 19 + ManageSlots.slotsAviable);
             } while (randomUpgrade == upgrade1Number || randomUpgrade == upgrade2Number || randomUpgrade == upgrade3Number || randomUpgrade == upgrade4Number);
 
+            int randomBullethell = Random.Range(1, 6);
+            int randomFlash = Random.Range(1, 7);
+
             if (SelectGameMode.choseFragile == true)
             {
                 if (randomUpgrade == 4) { Debug.Log("Health"); SpawnRandomUpgrade(); return; } //Health
             }
+
+            #region Check bullethell or flash duplicate
+            if (SelectGameMode.choseBullethell == true)
+            {
+                if (strawberryShieldUpgrade.activeInHierarchy == true) { if (randomUpgrade == 9 || randomBullethell == 1) { SpawnRandomUpgrade(); return; } }
+                if (bigLaserUpgrade.activeInHierarchy == true) { if (randomUpgrade == 11 || randomBullethell == 2) { SpawnRandomUpgrade(); return; } }
+                if (spikyShieldUpgrade.activeInHierarchy == true) { if (randomUpgrade == 13 || randomBullethell == 3) { SpawnRandomUpgrade(); return; } }
+                if (laserUpgrade.activeInHierarchy == true) { if (randomUpgrade == 8 || randomBullethell == 4) { SpawnRandomUpgrade(); return; } }
+                if (legsUpgrade.activeInHierarchy == true) { if (randomUpgrade == 18 || randomBullethell == 5) { SpawnRandomUpgrade(); return; } }
+
+                if (strawberryShieldUpgrade.activeInHierarchy == true || bigLaserUpgrade.activeInHierarchy == true || spikyShieldUpgrade.activeInHierarchy == true || laserUpgrade.activeInHierarchy == true || legsUpgrade.activeInHierarchy == true)
+                {
+                    if (randomUpgrade == 34 || randomUpgrade == 35) { SpawnRandomUpgrade(); return; }
+                }
+            }
+
+            if (SelectGameMode.choseFlash == true)
+            {
+                if (knifeOrbitalUpgrade.activeInHierarchy == true) { if (randomUpgrade == 7 || randomFlash == 1) { SpawnRandomUpgrade(); return; } }
+                if (chainBallUpgrade.activeInHierarchy == true) { if (randomUpgrade == 10 || randomFlash == 2) { SpawnRandomUpgrade(); return; } }
+                if (staplerUpgrade.activeInHierarchy == true) { if (randomUpgrade == 12 || randomFlash == 3) { SpawnRandomUpgrade(); return; } }
+                if (spikyShieldUpgrade.activeInHierarchy == true) { if (randomUpgrade == 13 || randomFlash == 4) { SpawnRandomUpgrade(); return; } }
+                if (nailGunUpgrade.activeInHierarchy == true) { if (randomUpgrade == 17 || randomFlash == 5) { SpawnRandomUpgrade(); return; } }
+                if (bladeUpgrade.activeInHierarchy == true) { if (randomUpgrade == 16 || randomFlash == 6) { SpawnRandomUpgrade(); return; } }
+
+                if (knifeOrbitalUpgrade.activeInHierarchy == true || chainBallUpgrade.activeInHierarchy == true || staplerUpgrade.activeInHierarchy == true || spikyShieldUpgrade.activeInHierarchy == true || nailGunUpgrade.activeInHierarchy == true || bladeUpgrade.activeInHierarchy == true)
+                {
+                    if (randomUpgrade == 34 || randomUpgrade == 35) {  SpawnRandomUpgrade(); return; }
+                }
+            }
+            #endregion
 
             if (upgradesSpawned == 0) { upgrade1Number = randomUpgrade; }
             if (upgradesSpawned == 1) { upgrade2Number = randomUpgrade; }
@@ -634,8 +725,7 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
             {
                 if (SelectGameMode.choseBullethell == true)
                 {
-                    int randomBullethell = Random.Range(1, 6);
-                    Debug.Log("Got bullet blocking " + randomBullethell);
+                    //Debug.Log("Got bullet blocking " + randomBullethell);
 
                     if (randomBullethell == 1) { SetUpgradePos(strawberryShieldUpgrade, true); }
                     if (randomBullethell == 2) { SetUpgradePos(bigLaserUpgrade, false); }
@@ -646,16 +736,14 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
                 if (SelectGameMode.choseFlash == true)
                 {
-                    int randomFragile = Random.Range(1, 8);
-                    Debug.Log("Got flash " + randomFragile);
+                    //Debug.Log("Got flash " + randomFragile);
 
-                    if (randomFragile == 1) { SetUpgradePos(knifeOrbitalUpgrade, false); }
-                    if (randomFragile == 2) { SetUpgradePos(chainBallUpgrade, true); }
-                    if (randomFragile == 3) { SetUpgradePos(staplerUpgrade, true); }
-                    if (randomFragile == 4) { SetUpgradePos(spikyShieldUpgrade, false); }
-                    if (randomFragile == 5) { SetUpgradePos(nailGunUpgrade, false); }
-                    if (randomFragile == 6) { SetUpgradePos(bearTrapUpgrade, false); }
-                    if (randomFragile == 7) { SetUpgradePos(bladeUpgrade, false); }
+                    if (randomFlash == 1) { SetUpgradePos(knifeOrbitalUpgrade, false); }
+                    if (randomFlash == 2) { SetUpgradePos(chainBallUpgrade, true); }
+                    if (randomFlash == 3) { SetUpgradePos(staplerUpgrade, true); }
+                    if (randomFlash == 4) { SetUpgradePos(spikyShieldUpgrade, false); }
+                    if (randomFlash == 5) { SetUpgradePos(nailGunUpgrade, false); }
+                    if (randomFlash == 6) { SetUpgradePos(bladeUpgrade, false); }
                 }
             }
             #endregion
@@ -731,9 +819,11 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
     #region Reroll
     public static int rerollsThisRound;
+    public GameObject upgradeHoverIcon;
 
     public void Reroll()
     {
+        upgradeHoverIcon.SetActive(false);
         audioManager.Play("Ui_click1");
         rerollsThisRound += 1;
         if(rerollsThisRound >= MetaProgressionUpgrades.rerolls)
@@ -743,8 +833,56 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         }
         else
         {
-            upgradeDescText.text = $"reroll your upgrades. {MetaProgressionUpgrades.rerolls - rerollsThisRound} left"; upgradeLevelText.text = "";
-            upgradeNameText.text = "reroll";
+            if (LocalizationSCRIPT.languageSelected == 1) //English
+            {
+                upgradeDescText.text = $"reroll your upgrades. {MetaProgressionUpgrades.rerolls - rerollsThisRound} left"; upgradeLevelText.text = "";
+                upgradeNameText.text = "reroll";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 2) //German
+            {
+                upgradeDescText.text = $"Würfle neue Upgrades. {MetaProgressionUpgrades.rerolls - rerollsThisRound} übrig"; upgradeLevelText.text = "";
+                upgradeNameText.text = "Würfeln";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 3) //Japanese
+            {
+                upgradeDescText.text = $"アップグレードをリロール（残り{MetaProgressionUpgrades.rerolls - rerollsThisRound}回）"; upgradeLevelText.text = "";
+                upgradeNameText.text = "リロール";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 4) //French
+            {
+                upgradeDescText.text = $"Relancez vos améliorations. Il vous reste {MetaProgressionUpgrades.rerolls - rerollsThisRound} relances."; upgradeLevelText.text = "";
+                upgradeNameText.text = "Relance";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 5) //Spanish
+            {
+                upgradeDescText.text = $"cambia tus mejoras. quedan {MetaProgressionUpgrades.rerolls - rerollsThisRound}"; upgradeLevelText.text = "";
+                upgradeNameText.text = "reroll";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 6) //Chinese
+            {
+                upgradeDescText.text = $"重新选择你的升级。剩余{MetaProgressionUpgrades.rerolls - rerollsThisRound}次"; upgradeLevelText.text = "";
+                upgradeNameText.text = "重新选择";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 7) //Korean
+            {
+                upgradeDescText.text = $"업그레이드 다시 굴리기. 남은 횟수: {MetaProgressionUpgrades.rerolls - rerollsThisRound}"; upgradeLevelText.text = "";
+                upgradeNameText.text = "다시 굴리기";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 8) //Russian
+            {
+                upgradeDescText.text = $"перетасовки улучшений. {MetaProgressionUpgrades.rerolls - rerollsThisRound} попытки"; upgradeLevelText.text = "";
+                upgradeNameText.text = "перетасовать";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 9) //Polish
+            {
+                upgradeDescText.text = $"Przerzuć swoje ulepszenia. Pozostało: {MetaProgressionUpgrades.rerolls - rerollsThisRound}"; upgradeLevelText.text = "";
+                upgradeNameText.text = "przerzuć";
+            }
+            else if (LocalizationSCRIPT.languageSelected == 10) //Portugese
+            {
+                upgradeDescText.text = $"role novamente seus aprimoramentos. {MetaProgressionUpgrades.rerolls - rerollsThisRound} restantes"; upgradeLevelText.text = "";
+                upgradeNameText.text = "Rolar novamente";
+            }
         }
 
         SetAllUpgradesOff();
@@ -766,6 +904,53 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public ManageSlots manageSlotsScript;
     public StrawberryMechanics strawberryScript;
 
+    public void GiveUpgrades()
+    {
+        Upgrade_CriticalClicks();
+
+        Upgrade_KnifeOrbital();
+
+        Upgrade_FriendlyBullets();
+
+        Upgrade_Legs();
+        Upgrade_Legs();
+
+        Upgrade_LaserGun();
+
+        Upgrade_Stapler();
+
+        Upgrade_ChainBall();
+        Upgrade_ChainBall();
+
+        UpgradeNailGun();
+
+        Upgrade_IncreaseAllDamage();
+
+        Upgrade_StrongerClicks();
+        Upgrade_StrongerClicks();
+
+        Upgrade_ClickCooldown();
+
+        Upgrade_ArrowRain();
+
+        Upgrade_Kunai();
+
+        UpgradeThorn();
+
+        Upgrade_BouncyBall();
+
+        Upgrade_PaperShot();
+
+        Upgrade_BearTrap();
+        Upgrade_BearTrap();
+
+        Upgrade_PoisonDart();
+        Upgrade_PoisonDart();
+
+        Upgrade_SawBlade();
+        Upgrade_SawBlade();
+    }
+
     //Stat increasing upgrades
     #region Stronger clicks
     public static float clickDamage, clickDamageIncrease;
@@ -773,9 +958,16 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
     public void Upgrade_StrongerClicks()
     {
+        ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         clickDamage += clickDamageIncrease;
         clickDamageLevel += 1;
-        ThingsAllDo();
     }
     #endregion
 
@@ -786,8 +978,14 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
     public void Upgrade_CriticalClicks()
     {
-        critLevel += 1;
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+        critLevel += 1;
 
         if (chosenCriticalClicks == false)
         {
@@ -827,6 +1025,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         clickCooldown -= clickCooldownDecrease;
 
         if (clickCooldown <= 0.4)
@@ -850,8 +1054,15 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
     public void Upgrade_StrawberryHealth()
     {
-        healthLevel += 1;
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
+        healthLevel += 1;
 
         if (StrawberryMechanics.strawberryHealth < 10)
         {
@@ -879,7 +1090,15 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
     public void Upgrade_IncreaseAllDamage()
     {
-        if(choseDamageIncrease == false)
+        ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
+        if (choseDamageIncrease == false)
         {
             totalIncreaseDamage = 5;
             totalIncreaseDamageIncrease = 3;
@@ -891,8 +1110,6 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         }
       
         increaseAllDamageLevel += 1;
-        
-        ThingsAllDo();
     }
     #endregion
 
@@ -907,7 +1124,15 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
     public void Upgrade_IncreaseAllChance()
     {
-        if(choseIncreaseAllChance == false)
+        ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
+        if (choseIncreaseAllChance == false)
         {
             ladyBugOnStrawberry.SetActive(true);
             totalChanceIncreaseLOW = 0.5f; totalChanceIncreaseIncreaseLOW = 0.3f;
@@ -924,8 +1149,6 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         }
 
         totalChanceIncreaseLevel += 1;
-
-        ThingsAllDo();
     }
     #endregion
 
@@ -940,9 +1163,15 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
     public void Upgrade_KnifeOrbital()
     {
-        knifeOrbital.SetActive(true);
-
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
+        knifeOrbital.SetActive(true);
 
         knifeOrbitalLevel += 1;
 
@@ -966,9 +1195,15 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
     public void Upgrade_ChainBall()
     {
-        chainBall.SetActive(true);
-
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
+        chainBall.SetActive(true);
 
         chainBallLevel += 1;
 
@@ -993,10 +1228,14 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
     public void Upgrade_ChainBlade()
     {
-        chainBlade.SetActive(true);
-
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+        chainBlade.SetActive(true);
         bladeLevel += 1;
 
         if (choseBlade == false) 
@@ -1026,7 +1265,13 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public void Upgrade_LaserGun()
     {
         ThingsAllDo();
-     
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         if (choseLaserGun == true)
         {
             laserGunDamage += laserGunDamageIncrease;
@@ -1045,6 +1290,11 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
         choseLaserGun = true;
         laserGunLevel += 1;
+
+        if (choseStapler == true && choseLaserGun == true && choseNailGun == true && choseBigLaser == true)
+        {
+            achScript.TriggerACH("allGuns"); Achivements.achievedAllGunOrbitals = true;
+        }
     }
     #endregion
 
@@ -1060,14 +1310,20 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         shield.SetActive(true);
         if(choseStrawberryShield == true)
         {
-            shield.transform.localScale = new Vector2(1.1f + shieldSizeIncrease, 1.1f + shieldSizeIncrease);
+            shield.transform.localScale = new Vector2(1.2f + shieldSizeIncrease, 1.2f + shieldSizeIncrease);
         }
         else
         {
-            shield.transform.localScale = new Vector2(1.1f, 1.1f);
+            shield.transform.localScale = new Vector2(1.2f, 1.2f);
         }
 
         shieldSizeIncrease += 0.22f;
@@ -1090,14 +1346,20 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         spikyShield.SetActive(true);
         if (choseSpikyShield == true)
         {
-            spikyShield.transform.localScale = new Vector2(0.85f + spikyShieldSizeIncrease, 0.85f + spikyShieldSizeIncrease);
+            spikyShield.transform.localScale = new Vector2(0.75f + spikyShieldSizeIncrease, 0.75f + spikyShieldSizeIncrease);
         }
         else
         {
-            spikyShield.transform.localScale = new Vector2(0.85f, 0.85f);
+            spikyShield.transform.localScale = new Vector2(0.75f, 0.75f);
         }
 
         spikyShieldSizeIncrease += 0.13f;
@@ -1121,6 +1383,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         if (choseBigLaser == true)
         {
             bigLaserDamage += bigLaserDamageIncrease;
@@ -1137,6 +1405,11 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         }
 
         bigLaserLevel += 1;
+
+        if (choseStapler == true && choseLaserGun == true && choseNailGun == true && choseBigLaser == true)
+        {
+            achScript.TriggerACH("allGuns"); Achivements.achievedAllGunOrbitals = true;
+        }
     }
     #endregion
 
@@ -1155,6 +1428,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public void Upgrade_Stapler()
     {
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
 
         if (choseStapler == false)
         {
@@ -1175,6 +1454,11 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         choseStapler = true;
 
         staplerLevel += 1;
+
+        if(choseStapler == true && choseLaserGun == true && choseNailGun == true && choseBigLaser == true)
+        {
+            achScript.TriggerACH("allGuns"); Achivements.achievedAllGunOrbitals = true;
+        }
     }
     #endregion
 
@@ -1194,12 +1478,18 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         if (choseNailGun == false)
         {
             SetOrbitalPosition(nailGun);
             nailGun.SetActive(true);
             NonClickUpgrades.nailGunStartPos = nailGun.transform.localPosition;
-
+             
             startNailGun = true;
             choseNailGun = true;
         }
@@ -1215,6 +1505,11 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         }
 
         nailGunLevel += 1;
+
+        if (choseStapler == true && choseLaserGun == true && choseNailGun == true && choseBigLaser == true)
+        {
+            achScript.TriggerACH("allGuns"); Achivements.achievedAllGunOrbitals = true;
+        }
     }
     #endregion
 
@@ -1227,6 +1522,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public void Upgrade_FriendlyBullets()
     {
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
 
         if (choseFriendlyBullets == false)
         {
@@ -1250,6 +1551,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public void Upgrade_Spike()
     {
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
 
         if (choseSpikes == false)
         {
@@ -1275,6 +1582,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public void Upgrade_Legs()
     {
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
 
         if (choseLegs == false)
         {
@@ -1303,9 +1616,18 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         if (choseCursorSlash == false)
         {
-            cursorSlash.GetComponent<TrailRenderer>().enabled = true;
+            if(MobileScript.isMobile == false)
+            {
+                cursorSlash.GetComponent<TrailRenderer>().enabled = true;
+            }
             upgradesPicked[ManageSlots.upgradeSlotsTaken] = cursorSlashUpgrade;
 
             manageSlotsScript.SetSlotAlpha(ManageSlots.upgradeSlotsTaken, 1);
@@ -1341,6 +1663,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         if (chosePaperShot == false)
         {
             upgradesPicked[ManageSlots.upgradeSlotsTaken] = paperShotUpgrade;
@@ -1374,6 +1702,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public void Upgrade_PoisonDart()
     {
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
 
         if (chosePoisonDart == false)
         {
@@ -1409,6 +1743,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         if (choseThorn == false)
         {
             upgradesPicked[ManageSlots.upgradeSlotsTaken] = thornUpgrade;
@@ -1441,6 +1781,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public void Upgrade_BouncyBall()
     {
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
 
         if (choseBouncyBall == false)
         {
@@ -1476,6 +1822,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         if (choseKunai == false)
         {
             upgradesPicked[ManageSlots.upgradeSlotsTaken] = kunaiUpgrade;
@@ -1488,6 +1840,7 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         else
         {
             kunaiDamage += kunaiDamageIncrease;
+            kunaiInstaKill += kunaiIntaKillIncrease;
         }
 
         choseKunai = true;
@@ -1508,6 +1861,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public void Upgrade_BearTrap()
     {
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
 
         if (choseBearTrap == false)
         {
@@ -1544,6 +1903,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         choseUpgrade = true;
 
         if (choseArrowRain == false)
@@ -1579,6 +1944,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         if (choseScythe == false)
         {
             upgradesPicked[ManageSlots.upgradeSlotsTaken] = scyntheUpgrade;
@@ -1611,6 +1982,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public void UpgradeSword()
     {
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
 
         if (choseSword == false)
         {
@@ -1645,6 +2022,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         if (choseBoulder == false)
         {
             upgradesPicked[ManageSlots.upgradeSlotsTaken] = boulderUpgrade;
@@ -1677,6 +2060,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public void Upgrade_Meteor()
     {
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
 
         if (choseMeteor == false)
         {
@@ -1711,6 +2100,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         if (choseSawBlade == false)
         {
             upgradesPicked[ManageSlots.upgradeSlotsTaken] = sawBladeUpgrade;
@@ -1744,6 +2139,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     {
         ThingsAllDo();
 
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
+
         if (choseKatana == false)
         {
             upgradesPicked[ManageSlots.upgradeSlotsTaken] = katanaUpgrade;
@@ -1776,6 +2177,12 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public void Upgrade_Log()
     {
         ThingsAllDo();
+
+        if (MobileScript.isMobile == true)
+        {
+            if (choseMobileUpgrade == false) { return; }
+        }
+        choseMobileUpgrade = false;
 
         if (choseLog == false)
         {
@@ -1882,6 +2289,7 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
                 wishlistText.gameObject.SetActive(false);
             }
         }
+        
     }
 
     public TextMeshProUGUI coinCollected, coinsCollectedAmount, totalCoinsText, totalCoinsAmount;
@@ -1901,54 +2309,85 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
 
         MetaProgressionUpgrades.totalCoins += coinsThisRound;
 
-        if (SelectGameMode.choseEasy == true) { gamemodeCompletedName.text = "easy"; easyCrown.SetActive(true); }
-        if (SelectGameMode.choseNormal == true) { gamemodeCompletedName.text = "normal"; normalCrown.SetActive(true); }
-        if (SelectGameMode.choseHard == true) { gamemodeCompletedName.text = "hard"; hardCrown.SetActive(true); }
-        if (SelectGameMode.choseBullethell == true) { gamemodeCompletedName.text = "bullethell"; bullethellCrown.SetActive(true); }
-        if (SelectGameMode.choseFlash == true) { gamemodeCompletedName.text = "flash"; flashCrown.SetActive(true); }
-        if (SelectGameMode.choseFragile == true) { gamemodeCompletedName.text = "fragile"; fragileCrown.SetActive(true); }
-        if (SelectGameMode.choseRampage == true) { gamemodeCompletedName.text = "rampage"; rampageCrown.SetActive(true); }
+        if (SelectGameMode.choseEasy == true) { gamemodeCompletedName.text = LocalizationSCRIPT.easy; easyCrown.SetActive(true); achScript.TriggerACH("complete_easy"); Achivements.achievedRegularEasy = true; }
+        if (SelectGameMode.choseNormal == true) { gamemodeCompletedName.text = LocalizationSCRIPT.normal; normalCrown.SetActive(true); achScript.TriggerACH("complete_normal"); Achivements.achievedRegularNormal = true; }
+        if (SelectGameMode.choseHard == true) { gamemodeCompletedName.text = LocalizationSCRIPT.hard; hardCrown.SetActive(true); achScript.TriggerACH("complete_hard"); Achivements.achievedRegularHard = true; }
+        if (SelectGameMode.choseBullethell == true) { gamemodeCompletedName.text = LocalizationSCRIPT.bullethell; bullethellCrown.SetActive(true); achScript.TriggerACH("complete_bullethell"); Achivements.achievedBulletHell = true; }
+        if (SelectGameMode.choseFlash == true) { gamemodeCompletedName.text = LocalizationSCRIPT.flash; flashCrown.SetActive(true); achScript.TriggerACH("complete_flash"); Achivements.achievedFlash = true; }
+        if (SelectGameMode.choseFragile == true) { gamemodeCompletedName.text = LocalizationSCRIPT.fragile; fragileCrown.SetActive(true); achScript.TriggerACH("complete_fragile"); Achivements.achievedFragile = true; }
+        if (SelectGameMode.choseRampage == true) { gamemodeCompletedName.text = LocalizationSCRIPT.rampage; rampageCrown.SetActive(true); achScript.TriggerACH("complete_rampage"); Achivements.achievedRampage = true; }
+
+        if(SelectGameMode.choseEasy || SelectGameMode.choseNormal || SelectGameMode.choseHard || SelectGameMode.choseBullethell || SelectGameMode.choseFlash || SelectGameMode.choseRampage)
+        {
+            if(StrawberryMechanics.tookDamage == false && Achivements.achievedNoDamageRun == false)
+            {
+                Achivements.achievedNoDamageRun = true;
+                achScript.TriggerACH("noDamage");
+            }
+        }
 
         if (SelectGameMode.choseEasy == true && SelectGameMode.easyCompleted == false) 
-        { 
+        {
+            SelectGameMode.easyCompleted = true;
             MetaProgressionUpgrades.totalCoins += SelectGameMode.easyReward; completionRewardAmount.text = "+" + SelectGameMode.easyReward;
+            Achivements.totalGoldCoinsCollected += SelectGameMode.easyReward;
         }
-        else if (SelectGameMode.choseNormal == true && SelectGameMode.normalCompleted == false) 
-        { 
+        else if (SelectGameMode.choseNormal == true && SelectGameMode.normalCompleted == false)
+        {
+            SelectGameMode.normalCompleted = true;
             MetaProgressionUpgrades.totalCoins += SelectGameMode.normalReward; completionRewardAmount.text = "+" + SelectGameMode.normalReward;
+            Achivements.totalGoldCoinsCollected += SelectGameMode.normalReward;
         }
         else if (SelectGameMode.choseHard == true && SelectGameMode.hardCompleted == false)
         {
+            SelectGameMode.hardCompleted = true;
             MetaProgressionUpgrades.totalCoins += SelectGameMode.hardReward; completionRewardAmount.text = "+" + SelectGameMode.hardReward;
+            Achivements.totalGoldCoinsCollected += SelectGameMode.hardReward;
         }
-        else if (SelectGameMode.choseBullethell == true && SelectGameMode.bullethellCompleted == false) 
+        else if (SelectGameMode.choseBullethell == true && SelectGameMode.bullethellCompleted == false)
         {
+            SelectGameMode.bullethellCompleted = true;
             MetaProgressionUpgrades.totalCoins += SelectGameMode.bullethellReward; completionRewardAmount.text = "+" + SelectGameMode.bullethellReward;
+            Achivements.totalGoldCoinsCollected += SelectGameMode.bullethellReward;
         }
-        else if (SelectGameMode.choseFlash == true && SelectGameMode.flashCompleted == false) 
-        { 
+        else if (SelectGameMode.choseFlash == true && SelectGameMode.flashCompleted == false)
+        {
+            SelectGameMode.flashCompleted = true;
             MetaProgressionUpgrades.totalCoins += SelectGameMode.flashReward; completionRewardAmount.text = "+" + SelectGameMode.flashReward;
+            Achivements.totalGoldCoinsCollected += SelectGameMode.flashReward;
         }
         else if (SelectGameMode.choseFragile == true && SelectGameMode.fragileCompleted == false)
         {
+            SelectGameMode.fragileCompleted = true;
             MetaProgressionUpgrades.totalCoins += SelectGameMode.fragileReward; completionRewardAmount.text = "+" + SelectGameMode.fragileReward;
-        }
-        else if (SelectGameMode.choseNarrow == true && SelectGameMode.narrowCompleted == false) 
-        {
-            MetaProgressionUpgrades.totalCoins += SelectGameMode.narrowReward; completionRewardAmount.text = "+" + SelectGameMode.narrowReward;
+            Achivements.totalGoldCoinsCollected += SelectGameMode.fragileReward;
         }
         else if (SelectGameMode.choseRampage == true && SelectGameMode.rampageCompleted == false)
         {
+            SelectGameMode.rampageCompleted = true;
             MetaProgressionUpgrades.totalCoins += SelectGameMode.rampageReward; completionRewardAmount.text = "+" + SelectGameMode.rampageReward;
+            Achivements.totalGoldCoinsCollected += SelectGameMode.rampageReward;
         }
         else
         {
             completionRewardAmount.text = "+0";
         }
 
+        if(SelectGameMode.easyCompleted == true && SelectGameMode.normalCompleted == true && SelectGameMode.hardCompleted == true && SelectGameMode.bullethellCompleted == true && SelectGameMode.flashCompleted == true && SelectGameMode.fragileCompleted == true && SelectGameMode.rampageCompleted == true)
+        {
+            Achivements.achievedAllGamemodes = true;
+            achScript.TriggerACH("complete_allGamemode");
+        }
+
         totalCoinsAmount.text = "" + MetaProgressionUpgrades.totalCoins;
 
+        Achivements.totalGoldCoinsCollected += coinsThisRound;
+        if (Achivements.totalGoldCoinsCollected > 10) { achScript.TriggerACH("coins_10"); Achivements.achievedCollect10Coins = true; }
+        if (Achivements.totalGoldCoinsCollected > 100) { achScript.TriggerACH("coins_100"); Achivements.achievedCollect100Coins = true; }
+        if (Achivements.totalGoldCoinsCollected > 1000) { achScript.TriggerACH("coins_1000"); Achivements.achievedCollect1000Coins = true; }
+
         yield return new WaitForSeconds(0.65f);
+        mainMenuScript.CheckSlimesOnScreen();
         gamemodeCompletedText.gameObject.SetActive(true); gamemodeCompletedName.gameObject.SetActive(true); audioManager.Play("Pop");
         yield return new WaitForSeconds(0.15f);
         completionRewardText.gameObject.SetActive(true); completionRewardAmount.gameObject.SetActive(true); audioManager.Play("Pop");
@@ -1957,7 +2396,10 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         yield return new WaitForSeconds(0.15f);
         totalCoinsText.gameObject.SetActive(true); totalCoinsAmount.gameObject.SetActive(true); audioManager.Play("Pop");
         yield return new WaitForSeconds(0.15f);
-        playAgainBtn.SetActive(true); mainMenuBtn.SetActive(true); exitGameBtn.SetActive(true); audioManager.Play("Pop");
+        playAgainBtn.SetActive(true); mainMenuBtn.SetActive(true); audioManager.Play("Pop");
+
+        mainMenuScript.CheckBulletsOnScreen();
+        saveScript.SaveGame();
     }
     
     public void PlayAgainBtn()
@@ -1991,6 +2433,8 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     public void ResetUpgrades()
     {
         //Remember to also reset the damage and everything else
+
+        totalShootingOrbitals = 0;
 
         SetDemoUpgradeStats();
 
@@ -2081,6 +2525,7 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
         choseDamageIncrease = false;
         #endregion
 
+        rerollsThisRound = 0;
         ManageSlots.upgradeSlotsTaken = 0;
 
         spawnedRandomUpgrade = false;
@@ -2096,12 +2541,61 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
     }
     #endregion
 
+    public bool choseMobileUpgrade;
+    public void MobileChooseUpgrade()
+    {
+        choseMobileUpgrade = true;
+
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_ClickDamage") { Upgrade_StrongerClicks(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Cooldown") { Upgrade_ClickCooldown(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_CritDamage") { Upgrade_CriticalClicks(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_HealthUpgrade") { Upgrade_StrawberryHealth(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_CursorSlash") { Upgrade_CursorSlash(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_PaperShot") { Upgrade_PaperShot(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_ArrowRain") { Upgrade_ArrowRain(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_KnifeOrbital") { Upgrade_KnifeOrbital(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Scythe") { Upgrade_Scythe(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_LaserGun") { Upgrade_LaserGun(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Sword") { UpgradeSword(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_PoisonDart") { Upgrade_PoisonDart(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_StrawberryShield") { Upgrade_StrawberryShield(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_SpikyShield") { Upgrade_SpikeShield(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_ChainBall") { Upgrade_ChainBall(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_ChainBlade") { Upgrade_ChainBlade(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Thorn") { UpgradeThorn(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_BigLaser") { Upgrade_BigLaser(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Boulder") { Upgrade_Boulder(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_BouncyBall") { Upgrade_BouncyBall(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_IncreaseAllDamage") { Upgrade_IncreaseAllDamage(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_IncreaseAllChance") { Upgrade_IncreaseAllChance(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Meteor") { Upgrade_Meteor(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Stapler") { Upgrade_Stapler(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Kunai") { Upgrade_Kunai(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_FriendlyBullets") { Upgrade_FriendlyBullets(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Sawblade") { Upgrade_SawBlade(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Katana") { Upgrade_Katana(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Spike") { Upgrade_Spike(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_NailGun") { UpgradeNailGun(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_BearTrap") { Upgrade_BearTrap(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Log") { Upgrade_Log(); }
+        if (HoverUpgrades.mobileUpgradeHover == "Upgrade_Legs") { Upgrade_Legs(); }
+    }
+
+    public GameObject mobileChooseBtn;
 
     public void ThingsAllDo()
     {
+        if(MobileScript.isMobile == true)
+        {
+            if(choseMobileUpgrade == false) { return; }
+        }
+
+        if(SpawnSlimes.isTesting == true) { return; }
         audioManager.Play("UpgradeChoose");
         choseUpgrade = true;
         isInChooseUpgrade = false;
+
+        mobileChooseBtn.SetActive(false);
     }
 
     #region Load Data

@@ -24,39 +24,42 @@ public class BouncyBallMechanics : MonoBehaviour
 
     private void OnEnable()
     {
-        timesBounced = 0;
-        StartCoroutine(AdjustRotationBasedOnDirection());
+        isReturned = false;
+        timesBounced = 1;
         StartCoroutine(SetBallOff());
-
-        ShootBouncyBall();
 
         bounceAnim.Play();
     }
 
     public void ShootBouncyBall()
     {
-        if(timesBounced < 1) { cursorMechanicsScript.SelectRandomTargetObject(3); }
+        Vector2 direction = new Vector2(0,0);
+        Vector2 startPos = gameObject.transform.position;
 
-        Vector2 direction;
-
-        if (timesBounced < 1) { direction = (CursorMechanics.bouncyBallTarget - CursorMechanics.bouncyBallStartPos).normalized; }
-        else { direction = (CursorMechanics.bouncyBallTarget - bouncePos).normalized; }
+        if (timesBounced < 1) { direction = (CursorMechanics.bouncyBallTarget - startPos).normalized;  }
+        else
+        {
+            direction = bouncePos.normalized;
+        }
 
         float speed = 6.25f;
         rb.velocity = direction * speed;
+        StartCoroutine(AdjustRotationBasedOnDirection());
     }
 
     int timesBounced;
     Vector2 bouncePos;
+
+    public bool isReturned;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.layer == 7)
         {
             timesBounced += 1;
-            if (timesBounced > 3)
+            if (timesBounced > 4)
             {
-                ObjectPool.instance.ReturnBouncyBallFromPool(gameObject);
+                if(isReturned == false) { ObjectPool.instance.ReturnBouncyBallFromPool(gameObject); isReturned = true; }
             }
             else
             {

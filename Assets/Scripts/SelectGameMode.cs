@@ -15,15 +15,14 @@ public class SelectGameMode : MonoBehaviour, IDataPersistence
 
     private void Awake()
     {
-        easyReward = 20;
-        normalReward = 40;
-        hardReward = 100;
+        easyReward = 40;
+        normalReward = 100;
+        hardReward = 250;
 
-        bullethellReward = 35;
-        flashReward = 30;
-        fragileReward = 50;
-        narrowReward = 25;
-        rampageReward = 25;
+        bullethellReward = 90;
+        flashReward = 70;
+        fragileReward = 130;
+        rampageReward = 140;
 
         easy_waveToReach = 25;
         normal_waveToReach = 30;
@@ -130,6 +129,7 @@ public class SelectGameMode : MonoBehaviour, IDataPersistence
 
     public static bool justSetStuff;
 
+    public bool setRewardText;
 
     #region Select gamemode
     public void SelectTheGamemode(int gamemode)
@@ -141,7 +141,8 @@ public class SelectGameMode : MonoBehaviour, IDataPersistence
             choseEasy = true;
             gamemodeDesText.text = LocalizationSCRIPT.easyDescription + " " + LocalizationSCRIPT.SELECTED;
             if (playSound == true && justSetStuff == false) { audioManager.Play("Select"); }
-            if(DemoScript.isDemo == false && easyCompleted == false) { rewardText.gameObject.SetActive(true); rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + easyReward; }
+            if(DemoScript.isDemo == false && easyCompleted == false) {  rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + easyReward; setRewardText = true; }
+            else { setRewardText = false; }
         }
         if (gamemode == 2) 
         {
@@ -150,7 +151,8 @@ public class SelectGameMode : MonoBehaviour, IDataPersistence
             selectedIcon.transform.position = hard.transform.position;
             choseNormal = true;
             gamemodeDesText.text = LocalizationSCRIPT.normalDescription + " " + LocalizationSCRIPT.SELECTED;
-            if (DemoScript.isDemo == false && normalCompleted == false) { rewardText.gameObject.SetActive(true); rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + normalReward; }
+            if (DemoScript.isDemo == false && normalCompleted == false) { setRewardText = true; rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + normalReward; }
+            else { setRewardText = false; }
         }
         if (gamemode == 3)
         {
@@ -159,7 +161,8 @@ public class SelectGameMode : MonoBehaviour, IDataPersistence
             selectedIcon.transform.position = normal.transform.position;
             choseHard = true;
             gamemodeDesText.text = LocalizationSCRIPT.hardDescription + " " + LocalizationSCRIPT.SELECTED;
-            if (DemoScript.isDemo == false && hardCompleted == false) { rewardText.gameObject.SetActive(true); rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + hardReward; }
+            if (DemoScript.isDemo == false && hardCompleted == false) { setRewardText = true; rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + hardReward; }
+            else { setRewardText = false; }
         }
         if (gamemode == 4) 
         {
@@ -168,7 +171,8 @@ public class SelectGameMode : MonoBehaviour, IDataPersistence
             selectedIcon.transform.position = bullethell.transform.position;
             choseBullethell = true;
             gamemodeDesText.text = LocalizationSCRIPT.bulletHellDescription + " " + LocalizationSCRIPT.SELECTED;
-            if (DemoScript.isDemo == false && bullethellCompleted == false) { rewardText.gameObject.SetActive(true); rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + bullethellReward; }
+            if (DemoScript.isDemo == false && bullethellCompleted == false) { setRewardText = true; rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + bullethellReward; }
+            else { setRewardText = false; }
         }
         if (gamemode == 5) 
         {
@@ -177,7 +181,8 @@ public class SelectGameMode : MonoBehaviour, IDataPersistence
             selectedIcon.transform.position = flash.transform.position;
             choseFlash = true;
             gamemodeDesText.text = LocalizationSCRIPT.flahsDescription + " " + LocalizationSCRIPT.SELECTED;
-            if (DemoScript.isDemo == false && flashCompleted == false) { rewardText.gameObject.SetActive(true); rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + flashReward; }
+            if (DemoScript.isDemo == false && flashCompleted == false) { setRewardText = true; rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + flashReward; }
+            else { setRewardText = false; }
         }
         if (gamemode == 6) 
         {
@@ -186,7 +191,8 @@ public class SelectGameMode : MonoBehaviour, IDataPersistence
             selectedIcon.transform.position = fragile.transform.position;
             choseFragile = true;
             gamemodeDesText.text = LocalizationSCRIPT.fragileDescription + " " + LocalizationSCRIPT.SELECTED;
-            if (DemoScript.isDemo == false && fragileCompleted == false) { rewardText.gameObject.SetActive(true); rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + fragileReward; }
+            if (DemoScript.isDemo == false && fragileCompleted == false) { setRewardText = true; rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + fragileReward; }
+            else { setRewardText = false; }
         }
         if (gamemode == 7)
         {
@@ -195,7 +201,8 @@ public class SelectGameMode : MonoBehaviour, IDataPersistence
             selectedIcon.transform.position = narrow.transform.position;
             choseNarrow = true;
             gamemodeDesText.text = LocalizationSCRIPT.narrowDescription + " " + LocalizationSCRIPT.SELECTED;
-            if (DemoScript.isDemo == false && narrowCompleted == false) { rewardText.gameObject.SetActive(true); rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + narrowReward; }
+            if (DemoScript.isDemo == false && narrowCompleted == false) { setRewardText = true; rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + narrowReward; }
+            else { setRewardText = false; }
         }
         if (gamemode == 8) 
         {
@@ -204,74 +211,98 @@ public class SelectGameMode : MonoBehaviour, IDataPersistence
             selectedIcon.transform.position = rampage.transform.position;
             choseRampage = true;
             gamemodeDesText.text = LocalizationSCRIPT.rampageDescription + " " + LocalizationSCRIPT.SELECTED;
-            if (DemoScript.isDemo == false && rampageCompleted == false) { rewardText.gameObject.SetActive(true); rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + rampageReward; }
+            if (DemoScript.isDemo == false && rampageCompleted == false) { setRewardText = true; rewardText.text = LocalizationSCRIPT.reward + "<color=yellow>" + rampageReward; }
+            else { setRewardText = false; }
+        }
+
+        if(setRewardText == true) 
+        { 
+            rewardText.gameObject.SetActive(true);
+            gamemodeDesText.gameObject.transform.localPosition = new Vector2(0, -208);
+            rewardText.gameObject.transform.localPosition = new Vector2(4, -306);
+        }
+        else 
+        {
+            rewardText.gameObject.SetActive(false);
+            gamemodeDesText.gameObject.transform.localPosition = new Vector2(0, -225);
+        }
+
+        if(DemoScript.isDemo == true)
+        {
+            rewardText.gameObject.SetActive(false);
+            gamemodeDesText.gameObject.transform.localPosition = new Vector2(0, -225);
         }
 
         justSetStuff = false;
     }
     #endregion
 
-
-
+  
     #region Load Data
     public void LoadData(GameData data)
     {
-        choseEasy = data.choseEasy;
-        choseNormal = data.choseNormal;
-        choseHard = data.choseHard;
-        choseBullethell = data.choseBullethell;
-        choseFlash = data.choseFlash;
-        choseFragile = data.choseFragile;
-        choseNarrow = data.choseNarrow;
-        choseRampage = data.choseRampage;
+        if(DemoScript.isDemo == false)
+        {
+            choseEasy = data.choseEasy;
+            choseNormal = data.choseNormal;
+            choseHard = data.choseHard;
+            choseBullethell = data.choseBullethell;
+            choseFlash = data.choseFlash;
+            choseFragile = data.choseFragile;
+            choseNarrow = data.choseNarrow;
+            choseRampage = data.choseRampage;
 
-        isNormalUnlocked = data.isNormalUnlocked;
-        isHardUnlocked = data.isHardUnlocked;
-        isBullethellUnlocked = data.isBullethellUnlocked;
-        isFlashunlocked = data.isFlashunlocked;
-        isFragileUnlocked = data.isFragileUnlocked;
-        isNarrowUnlocked = data.isNarrowUnlocked;
-        isRampageUnlocked = data.isRampageUnlocked;
+            isNormalUnlocked = data.isNormalUnlocked;
+            isHardUnlocked = data.isHardUnlocked;
+            isBullethellUnlocked = data.isBullethellUnlocked;
+            isFlashunlocked = data.isFlashunlocked;
+            isFragileUnlocked = data.isFragileUnlocked;
+            isNarrowUnlocked = data.isNarrowUnlocked;
+            isRampageUnlocked = data.isRampageUnlocked;
 
-        easyCompleted = data.easyCompleted;
-        normalCompleted = data.normalCompleted;
-        hardCompleted = data.hardCompleted;
-        bullethellCompleted = data.bullethellCompleted;
-        flashCompleted = data.flashCompleted;
-        fragileCompleted = data.fragileCompleted;
-        narrowCompleted = data.narrowCompleted;
-        rampageCompleted = data.rampageCompleted;
+            easyCompleted = data.easyCompleted;
+            normalCompleted = data.normalCompleted;
+            hardCompleted = data.hardCompleted;
+            bullethellCompleted = data.bullethellCompleted;
+            flashCompleted = data.flashCompleted;
+            fragileCompleted = data.fragileCompleted;
+            narrowCompleted = data.narrowCompleted;
+            rampageCompleted = data.rampageCompleted;
+        }
     }
     #endregion
 
     #region Save Data
     public void SaveData(ref GameData data)
     {
-        data.choseEasy = choseEasy;
-        data.choseNormal = choseNormal;
-        data.choseHard = choseHard;
-        data.choseBullethell = choseBullethell;
-        data.choseFlash = choseFlash;
-        data.choseFragile = choseFragile;
-        data.choseNarrow = choseNarrow;
-        data.choseRampage = choseRampage;
+        if (DemoScript.isDemo == false)
+        {
+            data.choseEasy = choseEasy;
+            data.choseNormal = choseNormal;
+            data.choseHard = choseHard;
+            data.choseBullethell = choseBullethell;
+            data.choseFlash = choseFlash;
+            data.choseFragile = choseFragile;
+            data.choseNarrow = choseNarrow;
+            data.choseRampage = choseRampage;
 
-        data.isNormalUnlocked = isNormalUnlocked;
-        data.isHardUnlocked = isHardUnlocked;
-        data.isBullethellUnlocked = isBullethellUnlocked;
-        data.isFlashunlocked = isFlashunlocked;
-        data.isFragileUnlocked = isFragileUnlocked;
-        data.isNarrowUnlocked = isNarrowUnlocked;
-        data.isRampageUnlocked = isRampageUnlocked;
+            data.isNormalUnlocked = isNormalUnlocked;
+            data.isHardUnlocked = isHardUnlocked;
+            data.isBullethellUnlocked = isBullethellUnlocked;
+            data.isFlashunlocked = isFlashunlocked;
+            data.isFragileUnlocked = isFragileUnlocked;
+            data.isNarrowUnlocked = isNarrowUnlocked;
+            data.isRampageUnlocked = isRampageUnlocked;
 
-        data.easyCompleted = easyCompleted;
-        data.normalCompleted = normalCompleted;
-        data.hardCompleted = hardCompleted;
-        data.bullethellCompleted = bullethellCompleted;
-        data.flashCompleted = flashCompleted;
-        data.fragileCompleted = fragileCompleted;
-        data.narrowCompleted = narrowCompleted;
-        data.rampageCompleted = rampageCompleted;
+            data.easyCompleted = easyCompleted;
+            data.normalCompleted = normalCompleted;
+            data.hardCompleted = hardCompleted;
+            data.bullethellCompleted = bullethellCompleted;
+            data.flashCompleted = flashCompleted;
+            data.fragileCompleted = fragileCompleted;
+            data.narrowCompleted = narrowCompleted;
+            data.rampageCompleted = rampageCompleted;
+        }
     }
     #endregion
 }

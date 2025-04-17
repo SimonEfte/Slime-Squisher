@@ -99,6 +99,10 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private GameObject bigPurplePrefab;
     private Queue<GameObject> bigPurplePool = new Queue<GameObject>();
     [SerializeField] private int bigPurplePoolSize = 50;
+
+    [SerializeField] private GameObject normalBossPrefab;
+    private Queue<GameObject> normalBossPool = new Queue<GameObject>();
+    [SerializeField] private int normalBossPoolSize = 37;
     #endregion
 
 
@@ -225,6 +229,10 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private GameObject bulletHitParticlePrefab;
     private Queue<GameObject> bulletHitParticlePool = new Queue<GameObject>();
     [SerializeField] private int bulletHitParticlePoolSize = 20;
+
+    [SerializeField] private GameObject normalBossGooPrefab;
+    private Queue<GameObject> normalBossGooPool = new Queue<GameObject>();
+    [SerializeField] private int normalBossGooPoolSize = 40;
     #endregion
 
     #region texts
@@ -240,17 +248,10 @@ public class ObjectPool : MonoBehaviour
 
     public float fastSize1, fastSize2;
     public float regularSize1, regularSize2;
+    public float shootingSize1, shootingSize2;
 
     private void Awake()
     {
-        fastSize1 = 0.33f;
-        fastSize2 = 0.36f;
-
-        regularSize1 = 0.37f;
-        regularSize2 = 0.4f;
-
-        paperClipSize = 0.39f;
-
         if (instance == null)
         {
             instance = this;
@@ -261,6 +262,42 @@ public class ObjectPool : MonoBehaviour
 
     void Start()
     {
+        fastSize1 = 0.36f;
+        fastSize2 = 0.38f;
+
+        regularSize1 = 0.37f;
+        regularSize2 = 0.4f;
+
+        shootingSize1 = 0.6f;
+        shootingSize2 = 0.7f;
+
+        if (MobileScript.isMobile == true)
+        {
+            fastSize1 = 0.4f;
+            fastSize2 = 0.5f;
+
+            regularSize1 = 0.5f;
+            regularSize2 = 0.6f;
+
+            shootingSize1 = 0.75f;
+            shootingSize2 = 0.85f;
+        }
+
+        paperClipSize = 0.39f;
+
+
+        #region Normal Boss
+        for (int i = 0; i < normalBossPoolSize; i++)
+        {
+            GameObject normalBoss = Instantiate(normalBossPrefab);
+            normalBoss.name = "Normal Boss " + i;
+            normalBossPool.Enqueue(normalBoss);
+            normalBoss.SetActive(false);
+            normalBoss.transform.SetParent(slimeParent);
+            normalBoss.transform.localScale = new Vector2(1.65f, 1.65f);
+        }
+        #endregion
+
         //Regular slimes
         #region Regular green
         for (int i = 0; i < slime1PoolSize; i++)
@@ -402,7 +439,7 @@ public class ObjectPool : MonoBehaviour
             shootingGreenPool.Enqueue(shootingGreen);
             shootingGreen.SetActive(false);
             shootingGreen.transform.SetParent(slimeParent);
-            float randomSize = Random.Range(0.6f, 0.7f);
+            float randomSize = Random.Range(shootingSize1, shootingSize2);
             shootingGreen.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
         }
         #endregion
@@ -415,7 +452,7 @@ public class ObjectPool : MonoBehaviour
             blueShootingPool.Enqueue(blueShooting);
             blueShooting.SetActive(false);
             blueShooting.transform.SetParent(slimeParent);
-            float randomSize = Random.Range(0.6f, 0.7f);
+            float randomSize = Random.Range(shootingSize1, shootingSize2);
             blueShooting.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
         }
         #endregion
@@ -428,7 +465,7 @@ public class ObjectPool : MonoBehaviour
             shootingYellowPool.Enqueue(shootingYellow);
             shootingYellow.SetActive(false);
             shootingYellow.transform.SetParent(slimeParent);
-            float randomSize = Random.Range(0.6f, 0.7f);
+            float randomSize = Random.Range(shootingSize1, shootingSize2);
             shootingYellow.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
         }
         #endregion
@@ -441,7 +478,7 @@ public class ObjectPool : MonoBehaviour
             shootingRedPool.Enqueue(shootingRed);
             shootingRed.SetActive(false);
             shootingRed.transform.SetParent(slimeParent);
-            float randomSize = Random.Range(0.6f, 0.7f);
+            float randomSize = Random.Range(shootingSize1, shootingSize2);
             shootingRed.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
         }
         #endregion
@@ -454,7 +491,7 @@ public class ObjectPool : MonoBehaviour
             shootingPurplePool.Enqueue(shootingPurple);
             shootingPurple.SetActive(false);
             shootingPurple.transform.SetParent(slimeParent);
-            float randomSize = Random.Range(0.6f, 0.7f);
+            float randomSize = Random.Range(shootingSize1, shootingSize2);
             shootingPurple.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
         }
         #endregion
@@ -584,6 +621,16 @@ public class ObjectPool : MonoBehaviour
             purpleGooPool.Enqueue(purpleGoo);
             purpleGoo.SetActive(false);
             purpleGoo.transform.SetParent(gooParent);
+        }
+        #endregion
+
+        #region Normal Boss Goo
+        for (int i = 0; i < normalBossGooPoolSize; i++)
+        {
+            GameObject normalBossGoo = Instantiate(normalBossGooPrefab);
+            normalBossGooPool.Enqueue(normalBossGoo);
+            normalBossGoo.SetActive(false);
+            normalBossGoo.transform.SetParent(gooParent);
         }
         #endregion
 
@@ -747,7 +794,7 @@ public class ObjectPool : MonoBehaviour
             antiSlimeBulletPool.Enqueue(antiSlimeBullet);
             antiSlimeBullet.SetActive(false);
             antiSlimeBullet.transform.SetParent(projectileParent);
-            antiSlimeBullet.transform.localScale = new Vector2(1.12f, 1.12f);
+            antiSlimeBullet.transform.localScale = new Vector2(1.18f, 1.18f);
         }
         #endregion
 
@@ -769,7 +816,7 @@ public class ObjectPool : MonoBehaviour
             sawbladePool.Enqueue(sawblade);
             sawblade.SetActive(false);
             sawblade.transform.SetParent(projectileParent);
-            sawblade.transform.localScale = new Vector2(1,1);
+            sawblade.transform.localScale = new Vector2(1.1f,1.1f);
         }
         #endregion
 
@@ -1339,6 +1386,29 @@ public class ObjectPool : MonoBehaviour
     }
     #endregion
 
+    #region Normal Boss
+    public GameObject GetNormalBossFromPool()
+    {
+        if (normalBossPool.Count > 0)
+        {
+            GameObject normalBoss = normalBossPool.Dequeue();
+            normalBoss.SetActive(true);
+            return normalBoss;
+        }
+        else
+        {
+            GameObject normalBoss = Instantiate(normalBossPrefab);
+            return normalBoss;
+        }
+    }
+
+    public void ReturnNormalBossToPool(GameObject normalBoss)
+    {
+        normalBossPool.Enqueue(normalBoss);
+        normalBoss.SetActive(false);
+    }
+    #endregion
+
     //other
     #region Paper clip
     public GameObject GetPaperClipFromPool()
@@ -1475,6 +1545,29 @@ public class ObjectPool : MonoBehaviour
     {
         purpleGooPool.Enqueue(purpleGoo);
         purpleGoo.SetActive(false);
+    }
+    #endregion
+
+    #region Normal Boss Goo
+    public GameObject GetNormalBossGooFromPool()
+    {
+        if (normalBossGooPool.Count > 0)
+        {
+            GameObject normalBossGoo = normalBossGooPool.Dequeue();
+            normalBossGoo.SetActive(true);
+            return normalBossGoo;
+        }
+        else
+        {
+            GameObject normalBossGoo = Instantiate(normalBossGooPrefab);
+            return normalBossGoo;
+        }
+    }
+
+    public void ReturnNormalBossGooToPool(GameObject normalBossGoo)
+    {
+        normalBossGooPool.Enqueue(normalBossGoo);
+        normalBossGoo.SetActive(false);
     }
     #endregion
 
@@ -1690,6 +1783,8 @@ public class ObjectPool : MonoBehaviour
     {
         if (bouncyBallPool.Count > 0)
         {
+            //Debug.Log(bouncyBallPool.Count);
+
             GameObject bouncyBall = bouncyBallPool.Dequeue();
             bouncyBall.SetActive(true);
             return bouncyBall;

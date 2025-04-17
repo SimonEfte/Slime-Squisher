@@ -14,6 +14,9 @@ public class GooMechanics : MonoBehaviour
 
     public bool isGreenGoo, isBlueGoo, isOrangeGoo, isRedGoo, isPurpleGoo;
 
+    public bool isBossGoo;
+    public bool isEasyBoss, isNormalBoss, isHardBoss;
+
     private void Awake()
     {
         if (isParent) 
@@ -22,7 +25,7 @@ public class GooMechanics : MonoBehaviour
             goo[1] = transform.Find("goo2");
             goo[2] = transform.Find("goo3");
 
-            spike = transform.Find("spike");
+            if(isBossGoo == false) { spike = transform.Find("spike"); }
         }
         else
         {
@@ -36,14 +39,18 @@ public class GooMechanics : MonoBehaviour
     {
         if (isParent) 
         {
-            if(PickUpgrade.choseSpikes == true)
+            if (isBossGoo == false)
             {
-                spike.gameObject.SetActive(true);
+                if (PickUpgrade.choseSpikes == true)
+                {
+                    spike.gameObject.SetActive(true);
+                }
+                else
+                {
+                    spike.gameObject.SetActive(false);
+                }
             }
-            else
-            {
-                spike.gameObject.SetActive(false);
-            }
+            
 
             goo[0].gameObject.SetActive(false);
             goo[1].gameObject.SetActive(false);
@@ -79,6 +86,8 @@ public class GooMechanics : MonoBehaviour
             else if (isOrangeGoo) { ObjectPool.instance.ReturnOrangeGooToPool(gameObject); }
             else if (isRedGoo) { ObjectPool.instance.ReturnRedGooToPool(gameObject); }
             else if (isPurpleGoo) { ObjectPool.instance.ReturnPurpleGooToPool(gameObject); }
+            else if (isNormalBoss) { ObjectPool.instance.ReturnNormalBossGooToPool(gameObject); }
+            else if (isHardBoss) { gameObject.SetActive(false); }
         }
     }
 

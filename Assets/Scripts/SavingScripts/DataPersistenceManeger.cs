@@ -72,28 +72,21 @@ public class DataPersistenceManeger : MonoBehaviour
 
     public void SaveGame()
     {
+        if(DemoScript.isDemo == true) { return; }
         saveIncrement += 1;
         if (clickSave == true) { clickSave = false; saveIncrement = 1; }
-        //saveGamePopUp.SetActive(true);
-        //StartCoroutine(waitSet());
 
         foreach (IDataPersistence dataPErsistenceObj in dataPersistenceObjects)
         {
             dataPErsistenceObj.SaveData(ref gameDataJSON);
         }
 
-        //dataHandler.Save(gameDataJSON, ""); //(NEW) string
-    }
-
-    IEnumerator waitSet()
-    {
-        yield return new WaitForSeconds(0.8f);
-        //saveGamePopUp.SetActive(false);
+        dataHandler.Save(gameDataJSON, ""); //(NEW) string
     }
 
     private void OnApplicationQuit()
     {
-        //SaveGame();
+        SaveTheGameData();
     }
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()
@@ -109,7 +102,7 @@ public class DataPersistenceManeger : MonoBehaviour
     public void SaveTheGameData()
     {
         clickSave = true;
-        audioManager.Play("Save");
+        //audioManager.Play("Save");
         SaveGame();
     }
 }

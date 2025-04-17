@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class ClickMechanics : MonoBehaviour
 {
     public GameObject clickOBject, clickCollider;
-    public Image clickCooldown;
+    public Image clickCooldown, clockCooldownMobile;
     public static bool isClickCooldown;
 
     private Camera mainCamera;
+
+    public GameObject blockObject;
 
     private void Start()
     {
@@ -18,20 +20,69 @@ public class ClickMechanics : MonoBehaviour
 
     void Update()
     {
-        Vector3 mouseScreenPosition = Input.mousePosition;
+        if (MobileScript.isMobile)
+        {
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
 
-        Vector3 mouseWorldPosition;
+                if (touch.phase == TouchPhase.Began ||
+                    touch.phase == TouchPhase.Moved ||
+                    touch.phase == TouchPhase.Stationary)
+                {
+                    // Finger is touching the screen — enable blockObject
+                    blockObject.SetActive(true);
+                }
+                else if (touch.phase == TouchPhase.Ended ||
+                         touch.phase == TouchPhase.Canceled)
+                {
+                    // Finger lifted or touch interrupted — disable blockObject
+                    blockObject.SetActive(false);
+                }
+            }
+            else
+            {
+                // No touches — make sure it's inactive
+                blockObject.SetActive(false);
+            }
+        }
 
-        // Convert the screen position to world position
-         mouseWorldPosition = mainCamera.ScreenToWorldPoint(new Vector3(
-            mouseScreenPosition.x,
-            mouseScreenPosition.y,
-            mainCamera.nearClipPlane // Or a fixed distance from the camera
-        ));
 
-        mouseWorldPosition.z = 0;
+        Vector3 worldPosition = Vector3.zero;
 
-        clickOBject.transform.position = new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, mouseWorldPosition.z);
+        if (MobileScript.isMobile == false)
+        {
+            Vector3 mouseScreenPosition = Input.mousePosition;
+
+            // Convert the screen position to world position
+            worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(
+               mouseScreenPosition.x,
+               mouseScreenPosition.y,
+               mainCamera.nearClipPlane // Or a fixed distance from the camera
+           ));
+        }
+        else
+        {
+            // Mobile input using touch
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+                Vector3 touchScreenPosition = touch.position;
+                worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(
+                    touchScreenPosition.x,
+                    touchScreenPosition.y,
+                    mainCamera.nearClipPlane + 10f
+                ));
+            }
+            else
+            {
+                return; // No touch input detected
+            }
+        }
+
+        worldPosition.z = 0;
+
+        clickOBject.transform.position = worldPosition;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -81,16 +132,21 @@ public class ClickMechanics : MonoBehaviour
         float elapsedTime = 0f;
 
         clickCollider.SetActive(true);
-        clickCooldown.gameObject.SetActive(true);
-
-        clickCooldown.fillAmount = 1f;
+        if(MobileScript.isMobile == true) { clockCooldownMobile.gameObject.SetActive(true); clockCooldownMobile.fillAmount = 1f; }
+        else { clickCooldown.gameObject.SetActive(true); clickCooldown.fillAmount = 1f; }
 
         while (elapsedTime < duration)
         {
-            elapsedTime += Time.deltaTime; 
-            clickCooldown.fillAmount = 1f - (elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+
+            if (MobileScript.isMobile == true) { clockCooldownMobile.fillAmount = 1f - (elapsedTime / duration); }
+            else { clickCooldown.fillAmount = 1f - (elapsedTime / duration); }
+           
             yield return null; 
         }
+
+        clockCooldownMobile.fillAmount = 0;
+        clockCooldownMobile.gameObject.SetActive(false);
 
         clickCooldown.fillAmount = 0;
         clickCooldown.gameObject.SetActive(false);
@@ -107,6 +163,7 @@ public class ClickMechanics : MonoBehaviour
         cursorCooldown = null;
         PickUpgrade.isInChooseUpgrade = false;
         clickCooldown.gameObject.SetActive(false);
+        clockCooldownMobile.gameObject.SetActive(false);
         isClickCooldown = false;
     }
 }

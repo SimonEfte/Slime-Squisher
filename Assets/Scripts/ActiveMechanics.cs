@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class ActiveMechanics : MonoBehaviour, IDataPersistence
 {
+    public LocalizationSCRIPT locScript;
+
+    public Achivements achScript;
+
     public AudioManager audioManager;
 
     //Death to slimes
@@ -47,13 +51,11 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
     #region Awake
     private void Awake()
     {
-        punchyClicksPrice = 10;
-        cloverPrice = 25;
-        decoyPrice = 25;
+        punchyClicksPrice = 25;
+        cloverPrice = 35;
+        decoyPrice = 50;
         frenzyPrice = 50;
-        antiSlimeBulletPrice = 50;
-
-        ActiveVariables();
+        antiSlimeBulletPrice = 60;
 
         if (DemoScript.isDemo == true)
         {
@@ -62,6 +64,7 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
         }
 
         playSound = false;
+
         StartCoroutine(Wait());
     }
     #endregion
@@ -69,29 +72,29 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
     #region Set active variables
     public void ActiveVariables()
     {
-        if(MetaProgressionUpgrades.activeTier == 2)
+        if (MetaProgressionUpgrades.activeTier == 2)
         {
-            deathToSlimes_WaveRecharge = 3;
-            deathToSlimes_killAmount = 12;
+            deathToSlimes_WaveRecharge = 2;
+            deathToSlimes_killAmount = 9;
 
             sharpClicksTimeInterval = 0.1f;
-            sharpClicksTimer = 9;
+            sharpClicksTimer = 6;
             sharpClicks_WaveRecharge = 2;
 
-            cloverTimer = 8;
-            clover_waveRecharge = 2;
+            cloverTimer = 6;
+            clover_waveRecharge = 3;
 
-            decoyWaveHealth = 5;
-            decoy_waveRecharge = 1;
+            decoyWaveHealth = 3;
+            decoy_waveRecharge = 4;
 
             projectileFrencyTime = 3;
-            projectileFrencyProjectiles = 45;
-            projectileFrency_waveRecharge = 1;
+            projectileFrencyProjectiles = 50;
+            projectileFrency_waveRecharge = 3;
 
             antiSlimeBulletCount = 35;
-            antiBulletDeathChance = 25;
+            antiBulletDeathChance = 30;
             antiSlime_waveRecharge = 2;
-            antiSlimeDamage = 22;
+            antiSlimeDamage = 20;
         }
         else if (MetaProgressionUpgrades.activeTier == 1)
         {
@@ -99,21 +102,21 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
             deathToSlimes_killAmount = 9;
 
             sharpClicksTimeInterval = 0.1f;
-            sharpClicksTimer = 7;
-            sharpClicks_WaveRecharge = 2;
+            sharpClicksTimer = 5;
+            sharpClicks_WaveRecharge = 3;
 
-            cloverTimer = 6;
-            clover_waveRecharge = 2;
+            cloverTimer = 5;
+            clover_waveRecharge = 4;
 
-            decoyWaveHealth = 4;
-            decoy_waveRecharge = 1;
+            decoyWaveHealth = 2;
+            decoy_waveRecharge = 5;
 
             projectileFrencyTime = 2;
             projectileFrencyProjectiles = 40;
-            projectileFrency_waveRecharge = 1;
+            projectileFrency_waveRecharge = 3;
 
-            antiSlimeBulletCount = 30;
-            antiBulletDeathChance = 23;
+            antiSlimeBulletCount = 31;
+            antiBulletDeathChance = 25;
             antiSlime_waveRecharge = 2;
             antiSlimeDamage = 17;
         }
@@ -123,32 +126,82 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
             deathToSlimes_killAmount = 7;
 
             sharpClicksTimeInterval = 0.1f;
-            sharpClicksTimer = 5;
-            sharpClicks_WaveRecharge = 2;
+            sharpClicksTimer = 4;
+            sharpClicks_WaveRecharge = 3;
 
             cloverTimer = 4;
-            clover_waveRecharge = 2;
+            clover_waveRecharge = 4;
 
-            decoyWaveHealth = 3;
-            decoy_waveRecharge = 1;
+            decoyWaveHealth = 2;
+            decoy_waveRecharge = 5;
 
             projectileFrencyTime = 2;
             projectileFrencyProjectiles = 35;
-            projectileFrency_waveRecharge = 1;
+            projectileFrency_waveRecharge = 3;
 
-            antiSlimeBulletCount = 25;
+            antiSlimeBulletCount = 26;
             antiBulletDeathChance = 20;
             antiSlime_waveRecharge = 2;
             antiSlimeDamage = 15;
+        }
+
+        if (LocalizationSCRIPT.languageSelected == 1) //English
+        {
+            locScript.EnglishLanguage();
+        }
+        else if (LocalizationSCRIPT.languageSelected == 2) //German
+        {
+            locScript.GermanLanguage();
+        }
+        else if (LocalizationSCRIPT.languageSelected == 3) //Japanese
+        {
+            locScript.JapaneseLanguage();
+        }
+        else if (LocalizationSCRIPT.languageSelected == 4) //French
+        {
+            locScript.FrenchLanguage();
+        }
+        else if (LocalizationSCRIPT.languageSelected == 5) //Spanish
+        {
+            locScript.SpanishLanguage();
+        }
+        else if (LocalizationSCRIPT.languageSelected == 6) //Chinese
+        {
+            locScript.ChineseLanguage();
+        }
+        else if (LocalizationSCRIPT.languageSelected == 7) //Korean
+        {
+            locScript.KoreanLanguage();
+        }
+        else if (LocalizationSCRIPT.languageSelected == 8) //Russian
+        {
+            locScript.RussianLanguage();
+        }
+        else if (LocalizationSCRIPT.languageSelected == 9) //Polish
+        {
+            locScript.PolishLanguage();
+        }
+        else if (LocalizationSCRIPT.languageSelected == 10) //Portugese
+        {
+            locScript.PortugeseLanguage();
         }
     }
     #endregion
 
     bool playSound;
 
+    public GameObject punchyClicksPriceText, cloverPriceText, frenzyPriceText, antiPriceText;
+
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(2);
+        ActiveVariables();
+
+        if (isPunchyClicksUnlcoked == true) { lockedSharpClicks.SetActive(false); }
+        if (isCloverUnlocked == true) { lockedClover.SetActive(false); }
+        if (isDecoyUnlocked == true) { lockedDecoy.SetActive(false); }
+        if (isProjectileFrenzyUnlocked == true) { lockedFrenzy.SetActive(false); }
+        if (isAntiSlimeBulletsUnlocked == true) { lockedAntiSlimeBullets.SetActive(false); }
 
         if (choseDeathToSlimes == true) { SelectActive(1); }
         if (chosePunchyClicks == true) { SelectActive(2); }
@@ -156,6 +209,19 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
         if (choseDecoy == true) { SelectActive(4); }
         if (choseProjectileFrenzy == true) { SelectActive(5); }
         if (choseAntiSlime == true) { SelectActive(6); }
+
+        if(MobileScript.isMobile == true)
+        {
+            punchyClicksPriceText.GetComponent<TextMeshProUGUI>().text = "<color=yellow>" + punchyClicksPrice.ToString("F0");
+            cloverPriceText.GetComponent<TextMeshProUGUI>().text = "<color=yellow>" + cloverPrice.ToString("F0");
+            frenzyPriceText.GetComponent<TextMeshProUGUI>().text = "<color=yellow>" + frenzyPrice.ToString("F0");
+            antiPriceText.GetComponent<TextMeshProUGUI>().text = "<color=yellow>" + antiSlimeBulletPrice.ToString("F0");
+
+            if (isPunchyClicksUnlcoked == false) { punchyClicksPriceText.gameObject.SetActive(true); }
+            if (isCloverUnlocked == false) { cloverPriceText.gameObject.SetActive(true); }
+            if (isProjectileFrenzyUnlocked == false) { frenzyPriceText.gameObject.SetActive(true); }
+            if (isAntiSlimeBulletsUnlocked == false) { antiPriceText.gameObject.SetActive(true); }
+        }
 
         playSound = true;
     }
@@ -193,6 +259,8 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
                 lockedSharpClicks.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= punchyClicksPrice;
                 isPunchyClicksUnlcoked = true;
                 activePriceText.SetActive(false);
+                Achivements.achievedPunchyClicks = true;
+                achScript.TriggerACH("purchase_punchyClicks");
                 return;
             }
 
@@ -203,6 +271,8 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
             activeNameText.text = LocalizationSCRIPT.punchyClicks + " " + LocalizationSCRIPT.SELECTED;
             acitveDesText.text = LocalizationSCRIPT.punchyClicks_des;
             sharpClicksIcon.SetActive(true);
+
+            if(MobileScript.isMobile == true) { punchyClicksPriceText.SetActive(false); }
         }
         if (active == 3)
         {
@@ -211,6 +281,9 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
                 lockedClover.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= cloverPrice;
                 isCloverUnlocked = true;
                 activePriceText.SetActive(false);
+                activePriceText.SetActive(false);
+                Achivements.achievedClover = true;
+                achScript.TriggerACH("purchase_clover");
                 return;
             }
 
@@ -221,6 +294,8 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
             activeNameText.text = LocalizationSCRIPT.clover + " " + LocalizationSCRIPT.SELECTED;
             acitveDesText.text = LocalizationSCRIPT.clover_des;
             cloverIcon.SetActive(true);
+
+            if (MobileScript.isMobile == true) { cloverPriceText.SetActive(false); }
         }
         if (active == 4)
         {
@@ -229,6 +304,8 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
                 lockedDecoy.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= decoyPrice;
                 isDecoyUnlocked = true;
                 activePriceText.SetActive(false);
+                Achivements.achievedDecoy = true;
+                achScript.TriggerACH("purchase_decoy");
                 return;
             }
 
@@ -239,6 +316,8 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
             activeNameText.text = LocalizationSCRIPT.decoy + " " + LocalizationSCRIPT.SELECTED;
             acitveDesText.text = LocalizationSCRIPT.decoy_des;
             decoyIcon.SetActive(true);
+
+          
         }
         if (active == 5)
         {
@@ -247,6 +326,8 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
                 lockedFrenzy.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= frenzyPrice;
                 isProjectileFrenzyUnlocked = true;
                 activePriceText.SetActive(false);
+                Achivements.achievedProjectileFrenzy = true;
+                achScript.TriggerACH("purchase_frenzy");
                 return;
             }
 
@@ -257,6 +338,8 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
             activeNameText.text = LocalizationSCRIPT.frency + " " + LocalizationSCRIPT.SELECTED;
             acitveDesText.text = LocalizationSCRIPT.frency_des;
             frenzyIcon.SetActive(true);
+
+            if (MobileScript.isMobile == true) { frenzyPriceText.SetActive(false); }
         }
         if (active == 6)
         {
@@ -265,6 +348,8 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
                 lockedAntiSlimeBullets.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= antiSlimeBulletPrice;
                 isAntiSlimeBulletsUnlocked = true;
                 activePriceText.SetActive(false);
+                Achivements.achievedAntiSlimeBullets = true;
+                achScript.TriggerACH("purchase_antiSlime");
                 return;
             }
 
@@ -275,6 +360,8 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
             activeNameText.text = LocalizationSCRIPT.antiSlime + " " + LocalizationSCRIPT.SELECTED;
             acitveDesText.text = LocalizationSCRIPT.antiSlime_des;
             antiIcon.SetActive(true);
+
+            if (MobileScript.isMobile == true) { antiPriceText.SetActive(false); }
         }
 
         justChangeStuff = false;
@@ -298,67 +385,72 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
     }
     #endregion
 
-    #region update
+    #region update and mobile click active button
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1) && MainMenu.isInMainMenu == false && PickUpgrade.isInWonRunScene == false && StrawberryMechanics.isInDeathFrame == false && PickUpgrade.isInChooseUpgrade == false)
+        if (Input.GetMouseButtonDown(1) && MainMenu.isInMainMenu == false && PickUpgrade.isInWonRunScene == false && StrawberryMechanics.isInDeathFrame == false && PickUpgrade.isInChooseUpgrade == false && MobileScript.isMobile == false)
         {
-            if(choseDeathToSlimes == true && usedDeathToSlimes == false && isDeathToSlimesCooldown == false)
-            {
-                audioManager.Play("ActiveClick");
+            UseActive();
+        }
+    }
 
-                deathToSlimes_slimesKilled = 0;
-                deathToSlime_WavesCharged = 0;
-                cursorMechanicsScript.SelectRandomActiveSlime(0);
-                usedDeathToSlimes = true;
-                ActiveCooldown(true);
-            }
-            if (chosePunchyClicks == true && usedPunchyClicks == false && isPunchyClicksCooldown == false)
-            {
-                audioManager.Play("ActiveClick");
-                UsePunchyClicks();
+    public void UseActive()
+    {
+        if (choseDeathToSlimes == true && usedDeathToSlimes == false && isDeathToSlimesCooldown == false)
+        {
+            audioManager.Play("ActiveClick");
 
-                sharpClicks_WaveRecharged = 0;
-                usedPunchyClicks = true;
-                ActiveCooldown(true);
-            }
-            if (choseClover == true && usedClover == false && isCloverCooldown == false)
-            {
-                audioManager.Play("ActiveClick");
-                UseClover();
+            deathToSlimes_slimesKilled = 0;
+            deathToSlime_WavesCharged = 0;
+            cursorMechanicsScript.SelectRandomActiveSlime(0);
+            usedDeathToSlimes = true;
+            ActiveCooldown(true);
+        }
+        if (chosePunchyClicks == true && usedPunchyClicks == false && isPunchyClicksCooldown == false)
+        {
+            audioManager.Play("ActiveClick");
+            UsePunchyClicks();
 
-                clover_waveRecharged = 0;
-                usedClover = true;
-                ActiveCooldown(true);
-            }
-            if (choseDecoy == true && usedDecoy == false && isDecoyCooldown == false)
-            {
-                Decoy();
-             
-                audioManager.Play("ActiveClick");
+            sharpClicks_WaveRecharged = 0;
+            usedPunchyClicks = true;
+            ActiveCooldown(true);
+        }
+        if (choseClover == true && usedClover == false && isCloverCooldown == false)
+        {
+            audioManager.Play("ActiveClick");
+            UseClover();
 
-                decoy_WavesCharged = 0;
-                usedDecoy = true;
-                ActiveCooldown(true);
-            }
-            if (choseProjectileFrenzy == true && usedProjcetileFrency == false && isFrenzyCooldown == false)
-            {
-                audioManager.Play("ActiveClick");
-                UseFrenzy();
+            clover_waveRecharged = 0;
+            usedClover = true;
+            ActiveCooldown(true);
+        }
+        if (choseDecoy == true && usedDecoy == false && isDecoyCooldown == false)
+        {
+            Decoy();
 
-                projectileFrency_waveRecharged = 0;
-                usedProjcetileFrency = true;
-                ActiveCooldown(true);
-            }
-            if (choseAntiSlime == true && usedAntiSlimeBullet == false && isAntiSlimeBulletCooldown == false)
-            {
-                audioManager.Play("ActiveClick");
-                UseAntiSlime();
+            audioManager.Play("ActiveClick");
 
-                antiSlime_waveRecharged = 0;
-                usedAntiSlimeBullet = true;
-                ActiveCooldown(true);
-            }
+            decoy_WavesCharged = 0;
+            usedDecoy = true;
+            ActiveCooldown(true);
+        }
+        if (choseProjectileFrenzy == true && usedProjcetileFrency == false && isFrenzyCooldown == false)
+        {
+            audioManager.Play("ActiveClick");
+            UseFrenzy();
+
+            projectileFrency_waveRecharged = 0;
+            usedProjcetileFrency = true;
+            ActiveCooldown(true);
+        }
+        if (choseAntiSlime == true && usedAntiSlimeBullet == false && isAntiSlimeBulletCooldown == false)
+        {
+            audioManager.Play("ActiveClick");
+            UseAntiSlime();
+
+            antiSlime_waveRecharged = 0;
+            usedAntiSlimeBullet = true;
+            ActiveCooldown(true);
         }
     }
     #endregion
@@ -384,17 +476,21 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
     public static bool cloverIsInUse;
     public static int cloverChanceAdd;
 
+    public static bool isCloverInUse;
+
     public void UseClover()
     {
-        cloverChanceAdd = 100;
+        cloverChanceAdd = 50;
         StartCoroutine(CloverTimer());
         StartCoroutine(ActiveTimerText(cloverTimer));
     }
 
     IEnumerator CloverTimer()
     {
+        isCloverInUse = true;
         yield return new WaitForSeconds(cloverTimer);
         cloverChanceAdd = 0;
+        isCloverInUse = false;
     }
     #endregion
 
@@ -416,7 +512,6 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
         {
             ShootRandomProjetile();
             yield return new WaitForSeconds(interval);
-         
         }
 
         isFrenzyInUse = false;
@@ -426,53 +521,43 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
     public OverlappingSounds overlappingScript;
 
     public static bool isFrenzyInUse;
+    public static Vector2 frenzyStartPos;
 
     public void ShootRandomProjetile()
     {
         overlappingScript.PlaySound(6, 0, false);
 
         Vector2 pos = cursorColliderObject.transform.position;
+        CursorMechanics.kunaiStartPos = pos;
+
         CursorMechanics.kunaiHitPos = cursorColliderObject.transform.position;
-        int random = Random.Range(1,13);
+
+        if(MobileScript.isMobile == true)
+        {
+            pos = new Vector2(0,0);
+        }
+
+        int random = Random.Range(1,10);
 
         if (random == 1) { cursorMechanicsScript.SelectRandomTargetObject(1); cursorMechanicsScript.ShootPaperClip(pos); }
-        if (random == 2) { cursorMechanicsScript.SelectRandomTargetObject(4); }
+        if (random == 2)
+        { 
+            cursorMechanicsScript.SelectRandomTargetObject(4);
+        }
         if (random == 3) { cursorMechanicsScript.ShootPoisonDart(pos); }
-        if (random == 4) { SlimeMechanics.boulderStartPos = pos; cursorMechanicsScript.SelectRandomActiveSlime(4); } //Boulder
+        if (random == 4) 
+        { 
+            SlimeMechanics.boulderStartPos = pos; cursorMechanicsScript.SelectRandomActiveSlime(4); 
+        } //Boulder
         if (random == 5)
         {
-            GameObject bouncy = ObjectPool.instance.GetBouncyBallFromPool();
-            bouncy.transform.position = pos;
+            Vector2 randomTarget = new Vector2(Random.Range(-1000, 1000), Random.Range(-1000, 1000));
+            cursorMechanicsScript.ShootBouncyBall(pos, randomTarget);
         }
         if (random == 6) { pos = cursorColliderObject.transform.position; cursorMechanicsScript.ShootThorn(pos, false); }
-        if (random == 7) { nonClickUpgradeScript.StapleShoot(pos); }
-        if (random == 8) { nonClickUpgradeScript.ShootTheLaser(pos); }
-        if (random == 9) { cursorMechanicsScript.ShootKatana(); }
-        if (random == 10) { nonClickUpgradeScript.NailShoot(pos); }
-        if (random == 11) { cursorMechanicsScript.ShootLog(pos); }
-        if (random == 12) { cursorMechanicsScript.ShootSawBlades(pos, false); }
-    }
-
-
-    void ShootProjectile()
-    {
-        GameObject projectile = ObjectPool.instance.GetFrenzyProjectileFromPool();
-        GameObject shadow = ObjectPool.instance.GetShadowFromPool();
-        shadow.transform.localScale = new Vector2(0.6f, 0.6f);
-
-        projectile.transform.position = cursorColliderObject.transform.position;
-        shadow.transform.position = new Vector2(cursorColliderObject.transform.position.x, cursorColliderObject.transform.position.y - 0.2f);
-
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        Rigidbody2D rb2 = shadow.GetComponent<Rigidbody2D>();
-
-        Vector2 randomDirection = Random.insideUnitCircle.normalized;
-
-        float angle = Mathf.Atan2(randomDirection.y, randomDirection.x) * Mathf.Rad2Deg;
-        projectile.transform.rotation = Quaternion.Euler(0, 0, angle);
-
-        rb.velocity = randomDirection * 8;
-        rb2.velocity = randomDirection * 8;
+        if (random == 7) { cursorMechanicsScript.ShootKatana(); }
+        if (random == 8) { cursorMechanicsScript.ShootLog(pos); }
+        if (random == 9) { cursorMechanicsScript.ShootSawBlades(pos, false); }
     }
     #endregion
 
@@ -481,25 +566,38 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
 
     public void UseAntiSlime()
     {
-        float angleStep = 360f / 30; // Spread evenly in a circle
+        float angleStep = 360f / antiSlimeBulletCount; // Spread evenly in a circle
         Vector3 spawnPosition = strawberry.transform.position;
 
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < antiSlimeBulletCount; i++)
         {
             GameObject antiSlimeBullet = ObjectPool.instance.GetAntiSlimeBulletFromPool();
+            GameObject shadow = ObjectPool.instance.GetShadowFromPool();
 
             if (antiSlimeBullet != null)
             {
                 antiSlimeBullet.transform.position = spawnPosition;
 
+                shadow.transform.position = new Vector2(spawnPosition.x, spawnPosition.y - 0.27f);
+
+                shadow.transform.localScale = new Vector2(0.87f, 0.87f);
+
                 float angle = i * angleStep * Mathf.Deg2Rad; 
                 Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)).normalized;
 
                 Rigidbody2D rb = antiSlimeBullet.GetComponent<Rigidbody2D>();
+                Rigidbody2D rbShadow = shadow.GetComponent<Rigidbody2D>();
+
+                float bulletSpeed = 5f;
+
                 if (rb != null)
                 {
-                    float bulletSpeed = 5f; 
                     rb.velocity = direction * bulletSpeed;
+                }
+
+                if (rbShadow != null)
+                {
+                    rbShadow.velocity = direction * bulletSpeed;
                 }
             }
         }
@@ -736,7 +834,11 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
         usedProjcetileFrency = false;
         usedAntiSlimeBullet = false;
 
+        isCloverInUse = false;
+
         ActiveCooldown(true);
+
+        activeTimerText.gameObject.SetActive(false);
     }
     #endregion
 
@@ -763,34 +865,40 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
     #region Load Data
     public void LoadData(GameData data)
     {
-        choseDeathToSlimes = data.choseDeathToSlimes;
-        chosePunchyClicks = data.choseSharpClicks;
-        choseClover = data.choseClover;
-        choseDecoy = data.choseDecoy;
-        choseProjectileFrenzy = data.choseProjectileFrenzy;
-        choseAntiSlime = data.choseAntiSlime;
-        isPunchyClicksUnlcoked = data.isPunchyClicksUnlcoked;
-        isCloverUnlocked = data.isCloverUnlocked;
-        isDecoyUnlocked = data.isDecoyUnlocked;
-        isProjectileFrenzyUnlocked = data.isProjectileFrenzyUnlocked;
-        isAntiSlimeBulletsUnlocked = data.isAntiSlimeBulletsUnlocked;
+        if(DemoScript.isDemo == false)
+        {
+            choseDeathToSlimes = data.choseDeathToSlimes;
+            chosePunchyClicks = data.choseSharpClicks;
+            choseClover = data.choseClover;
+            choseDecoy = data.choseDecoy;
+            choseProjectileFrenzy = data.choseProjectileFrenzy;
+            choseAntiSlime = data.choseAntiSlime;
+            isPunchyClicksUnlcoked = data.isPunchyClicksUnlcoked;
+            isCloverUnlocked = data.isCloverUnlocked;
+            isDecoyUnlocked = data.isDecoyUnlocked;
+            isProjectileFrenzyUnlocked = data.isProjectileFrenzyUnlocked;
+            isAntiSlimeBulletsUnlocked = data.isAntiSlimeBulletsUnlocked;
+        }
     }
     #endregion
 
     #region Save Data
     public void SaveData(ref GameData data)
     {
-        data.choseDeathToSlimes = choseDeathToSlimes;
-        data.choseSharpClicks = chosePunchyClicks;
-        data.choseClover = choseClover;
-        data.choseDecoy = choseDecoy;
-        data.choseProjectileFrenzy = choseProjectileFrenzy;
-        data.choseAntiSlime = choseAntiSlime;
-        data.isPunchyClicksUnlcoked = isPunchyClicksUnlcoked;
-        data.isCloverUnlocked = isCloverUnlocked;
-        data.isDecoyUnlocked = isDecoyUnlocked;
-        data.isProjectileFrenzyUnlocked = isProjectileFrenzyUnlocked;
-        data.isAntiSlimeBulletsUnlocked = isAntiSlimeBulletsUnlocked;
+        if (DemoScript.isDemo == false)
+        {
+            data.choseDeathToSlimes = choseDeathToSlimes;
+            data.choseSharpClicks = chosePunchyClicks;
+            data.choseClover = choseClover;
+            data.choseDecoy = choseDecoy;
+            data.choseProjectileFrenzy = choseProjectileFrenzy;
+            data.choseAntiSlime = choseAntiSlime;
+            data.isPunchyClicksUnlcoked = isPunchyClicksUnlcoked;
+            data.isCloverUnlocked = isCloverUnlocked;
+            data.isDecoyUnlocked = isDecoyUnlocked;
+            data.isProjectileFrenzyUnlocked = isProjectileFrenzyUnlocked;
+            data.isAntiSlimeBulletsUnlocked = isAntiSlimeBulletsUnlocked;
+        }
     }
     #endregion
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class ManageSlots : MonoBehaviour, IDataPersistence
+public class ManageSlots : MonoBehaviour
 {
     public GameObject[] upgradeIcons, iconsParent;
     public GameObject[] slots;
@@ -12,6 +12,8 @@ public class ManageSlots : MonoBehaviour, IDataPersistence
 
     public static int slotsAviable;
     public static int upgradeSlotsTaken;
+
+    public Achivements achScript;
 
     private void Start()
     {
@@ -49,8 +51,15 @@ public class ManageSlots : MonoBehaviour, IDataPersistence
     {
         upgradeIcons[upgradeNumber].transform.SetParent(iconsParent[upgradeSlotsTaken].transform);
         upgradeIcons[upgradeNumber].SetActive(true);
-        upgradeIcons[upgradeNumber].transform.localPosition = new Vector2(0,0);
+        upgradeIcons[upgradeNumber].transform.localPosition = new Vector3(0,0, 0);
+        upgradeIcons[upgradeNumber].transform.localRotation = Quaternion.Euler(0, 0, 0);
         slotLevelText[upgradeSlotsTaken].SetActive(true);
+
+        if(upgradeSlotsTaken == 3) { achScript.TriggerACH("slot4"); Achivements.achievedFourClickUpgrades = true; }
+        if (upgradeSlotsTaken == 4) { achScript.TriggerACH("slot5"); Achivements.achievedFiveClickUpgrades = true; }
+        if (upgradeSlotsTaken == 5) { achScript.TriggerACH("slot6"); Achivements.achievedSixClickUpgrades = true; }
+        if (upgradeSlotsTaken == 6) { achScript.TriggerACH("slot7"); Achivements.achievedSevenClickUpgrades = true; }
+        if (upgradeSlotsTaken == 7) { achScript.TriggerACH("slot8"); Achivements.achievedEightClickUpgrades = true; }
     }
 
     public void SetLevelText(int upgradeNumber, int level)
@@ -89,15 +98,4 @@ public class ManageSlots : MonoBehaviour, IDataPersistence
         }
     }
 
-    #region Load Data
-    public void LoadData(GameData data)
-    {
-    }
-    #endregion
-
-    #region Save Data
-    public void SaveData(ref GameData data)
-    {
-    }
-    #endregion
 }

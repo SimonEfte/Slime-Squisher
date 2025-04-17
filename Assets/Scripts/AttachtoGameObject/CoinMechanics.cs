@@ -10,10 +10,21 @@ public class CoinMechanics : MonoBehaviour
     public Animation coinAnim;
     public GameObject coinsText;
     public TextMeshProUGUI coinsTextObject;
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRenderer, shadowSprite;
+    public AudioManager audioManager;
+
+    public Transform shadow;
+
+    public static bool playSoundOnce;
 
     private void Awake()
     {
+        shadow = transform.Find("shadow");
+        shadowSprite = shadow.GetComponent<SpriteRenderer>();
+
+        GameObject audioManagereObject = GameObject.Find("AudioManager");
+        audioManager = audioManagereObject.GetComponent<AudioManager>();
+
         coinAnim = gameObject.GetComponent<Animation>();
         coinRigidbody = gameObject.GetComponent<Rigidbody2D>();
         coinsText = GameObject.Find("PointsThisGameText");
@@ -25,6 +36,9 @@ public class CoinMechanics : MonoBehaviour
     {
         Color currentColor = spriteRenderer.color;
         spriteRenderer.color = new Color(currentColor.r, currentColor.g, currentColor.b, 1f);
+
+        Color currentColor2 = shadowSprite.color;
+        shadowSprite.color = new Color(currentColor2.r, currentColor2.g, currentColor2.b, 1f);
 
         roundEnd = false;
         hoverCoin = false;
@@ -41,9 +55,22 @@ public class CoinMechanics : MonoBehaviour
     public bool roundEnd;
     private void Update()
     {
-        if(SpawnSlimes.isWaveCompleted == true && roundEnd == false)
+        if(SelectGameMode.choseRampage == true)
         {
-            roundEnd = true; PlussCoin();
+            if(PickUpgrade.isInWonRunScene == true || StrawberryMechanics.isInDeathFrame == true)
+            {
+                if (roundEnd == false)
+                {
+                    roundEnd = true; PlussCoin(false);
+                }
+            }
+        }
+        else
+        {
+            if (SpawnSlimes.isWaveCompleted == true && roundEnd == false)
+            {
+                roundEnd = true; PlussCoin(false);
+            }
         }
     }
 
@@ -64,13 +91,27 @@ public class CoinMechanics : MonoBehaviour
             if (collision.gameObject.layer == 10 && hoverCoin == false && roundEnd == false)
             {
                 hoverCoin = true;
-                PlussCoin();
+                PlussCoin(true);
             }
         }
     }
 
-    public void PlussCoin()
+    public void PlussCoin(bool playSound)
     {
+        if(playSound == true)
+        {
+            audioManager.Play("CoinPickup");
+        }
+        else
+        {
+            if (playSoundOnce == false)
+            {
+                audioManager.Play("CoinPickup");
+                playSoundOnce = true;
+            }
+        }
+       
+
         PickUpgrade.coinsThisRound += 1;
         coinAnim.Play();
         TextMeshProUGUI pluss1Text = ObjectPool.instance.GetTextFromPool();
@@ -81,7 +122,7 @@ public class CoinMechanics : MonoBehaviour
 
     IEnumerator AnimOff()
     {
-        float duration = 0.3f;
+        float duration = 0.41f;
         float elapsedTime = 0f; 
         float speed = 1f; 
 
@@ -91,6 +132,8 @@ public class CoinMechanics : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null; 
         }
+
+        yield return new WaitForSeconds(0.1f);
 
         ObjectPool.instance.ReturnCoinFromPool(gameObject);
     }

@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 public class SlimeMechanics : MonoBehaviour
 {
+    public bool isBossEASY, isBossNORMAL, isBossHARD;
+
     public bool isTutoritalSlime;
 
     public bool isRegularSlime, isFastSlime, isShootingslime, isBigSlime;
@@ -13,7 +15,7 @@ public class SlimeMechanics : MonoBehaviour
     public bool isGreenSlime_shooting, isBlueSlime_shooting, isYellowSlime_shooting, isRedSlime_shooting, isPurpleSlime_shooting;
     public bool isGrenSlime_big, isBlueSlime_big, isYellowSlime_big, isRedSlime_big, isPurpleSlime_big;
 
-    public GameObject middleObject, projectileParent, decoy;
+    public GameObject middleObject, projectileParent, decoy, hardGoo;
     public Animator animator;
     public float moveSpeed, originalMoveSpeed;
     public float slimeHealth;
@@ -34,6 +36,7 @@ public class SlimeMechanics : MonoBehaviour
     public GameObject cursorScriptObject;
 
     public Transform squishObject, textureObject, shootSpawnPos;
+    public Transform shootSpawnPos2, shootSpawnPos3, shootSpawnPos4;
     private bool isSlimeDead;
 
     private bool staplerHit, bearTrapHit;
@@ -44,9 +47,18 @@ public class SlimeMechanics : MonoBehaviour
     public OverlappingSounds overlappingSound;
     public GameObject overlappingObject;
 
+    float split1Size, split2Size, split3Size, split4Size;
+
+    public bool isBossDoneFastMove;
+
     #region Awake
     private void Awake()
     {
+        split1Size = 1.2f;
+        split2Size = 0.8f;
+        split3Size = 0.6f;
+        split4Size = 0.4f;
+
         audioGameobject = GameObject.Find("AudioManager");
         audioManager = audioGameobject.GetComponent<AudioManager>();
 
@@ -54,6 +66,14 @@ public class SlimeMechanics : MonoBehaviour
         overlappingSound = overlappingObject.GetComponent<OverlappingSounds>();
 
         projectileParent = GameObject.Find("ProjectilesParent");
+
+        if(isBossHARD == true)
+        {
+            shootSpawnPos = transform.Find("SlimeTexture/BulletSpawnPos");
+            shootSpawnPos2 = transform.Find("SlimeTexture/BulletSpawnPos2");
+            shootSpawnPos3 = transform.Find("SlimeTexture/BulletSpawnPos3");
+            shootSpawnPos4 = transform.Find("SlimeTexture/BulletSpawnPos4");
+        }
 
         if (isShootingslime == true)
         {
@@ -77,6 +97,11 @@ public class SlimeMechanics : MonoBehaviour
             targetObject = transform.Find("TargetObject");
             squishObject = transform.Find("SquishObject");
             animator = squishObject.gameObject.GetComponent<Animator>();
+        }
+
+        if(isBossHARD == true)
+        {
+            hardGoo = GameObject.Find("HardBossGoo");
         }
 
         if(isTutoritalSlime == false) { middleObject = GameObject.Find("Strawberry"); decoy = GameObject.Find("DecoyMoveTo"); }
@@ -103,9 +128,12 @@ public class SlimeMechanics : MonoBehaviour
 
     private void OnEnable()
     {
-        extraSpeed = 0;
+        isBossDoneFastMove = false;
 
-        if(SelectGameMode.choseNormal == true) 
+        extraSpeed = 0;
+        timesHardBossShot = 0;
+
+        if (SelectGameMode.choseNormal == true) 
         {
             extraSpeed = Random.Range(0, 0.07f);
         }
@@ -134,6 +162,11 @@ public class SlimeMechanics : MonoBehaviour
         if(isShootingslime == true) { slimeAnimation.Play("GreenSlimeMovement"); }
         if(isFastSlime == true) { slimeAnimation.Play("GreenSlimeMovement"); }
         if(isBigSlime == true) { slimeAnimation.Play("BigSlimeMovement"); }
+
+        if(isBossEASY == true || isBossNORMAL == true || isBossHARD == true)
+        {
+            slimeAnimation.Play("BigSlimeMovement");
+        }
 
         #region is regular slime
         if (isGreenSlime_Regular == true)
@@ -287,6 +320,28 @@ public class SlimeMechanics : MonoBehaviour
         }
         #endregion
 
+        if(isBossEASY == true)
+        {
+            slimeHealth = 1125;
+
+            StartCoroutine(WaitSetShootingSlimeSpeed());
+        }
+        if (isBossNORMAL == true)
+        {
+            slimeHealth = 500;
+
+            StartCoroutine(WaitSetShootingSlimeSpeed());
+        }
+        if (isBossHARD == true)
+        {
+            slimeHealth = 2250;
+
+            ShootEnemyBullet(1, 1);
+            StartCoroutine(WaitSetShootingSlimeSpeed());
+        }
+
+        if(isShootingslime == false && isBossEASY == false && isBossNORMAL == false && isBossHARD == false) { isBossDoneFastMove = true; }
+
         slimeCollider.enabled = true;
 
         //animator.SetBool("Slime1Move", true);
@@ -304,11 +359,43 @@ public class SlimeMechanics : MonoBehaviour
 
     IEnumerator WaitSetShootingSlimeSpeed()
     {
-        moveSpeed = 0.85f;
+        float xScale = 0;
+
+        if (isBossNORMAL == true) 
+        { 
+            yield return new WaitForSeconds(0.09f);
+
+            xScale = (float)gameObject.transform.localScale.x;
+
+            if (xScale == 1.65f) { moveSpeed = 1f; }
+
+            if (xScale == split1Size) { slimeHealth = 420; moveSpeed = 0.085f; }
+            else if (xScale == split2Size) { slimeHealth = 300; moveSpeed = 0.081f; }
+            else if(xScale == split3Size) { slimeHealth = 130; moveSpeed = 0.074f; }
+            else if(xScale == split4Size) { slimeHealth = 95; moveSpeed = 0.066f; }
+        }
+        else
+        {
+            moveSpeed = 0.85f;
+            if(isBossEASY == true) { moveSpeed = 1.1f; }
+            if (isBossHARD == true) { moveSpeed = 1.15f; }
+        }
+
         originalMoveSpeed = moveSpeed;
         yield return new WaitForSeconds(1.2f);
+        if (isBossEASY == true) { yield return new WaitForSeconds(2f); }
+        if (isBossNORMAL == true) { yield return new WaitForSeconds(2.3f); }
+        if (isBossHARD == true) { yield return new WaitForSeconds(2.4f); }
+
         float randomSpeed = Random.Range(0.07f, 0.09f);
-        moveSpeed = randomSpeed;
+      
+        if(isBossEASY == true) { moveSpeed = 0.093f; }
+        else if (isBossHARD == true) { moveSpeed = 0.080f; }
+        else if (isBossNORMAL == true || xScale == 1.65f) { moveSpeed = 0.094f; }
+        else if (isBossEASY == false && isBossNORMAL == false && isBossHARD == false) { moveSpeed = randomSpeed; }
+
+        isBossDoneFastMove = true;
+
         originalMoveSpeed = moveSpeed;
     }
 
@@ -317,23 +404,72 @@ public class SlimeMechanics : MonoBehaviour
     {
         if(isTutoritalSlime == true) { return; }
 
-        int spawnXposPluss = 1000; int spawnXposMinus = -1000;
-        int spawnYposPluss = 570; int spawnYposMinus = -570;
-
-        if (isBigSlime == true) 
+        if(isBossEASY == true || isBossNORMAL == true || isBossHARD == true)
         {
-            spawnXposPluss = 1080; spawnXposMinus = -1080;
-            spawnYposPluss = 635; spawnYposMinus = -635;
+            if(isBossEASY == true)
+            {
+                gameObject.transform.localPosition = new Vector2(-1200, 108);
+            }
+            if (isBossNORMAL == true)
+            {
+                gameObject.transform.localPosition = new Vector2(-1250, 200);
+            }
+            if (isBossHARD == true)
+            {
+                gameObject.transform.localPosition = new Vector2(-1300, 70);
+            }
         }
+        else
+        {
+            int spawnXposPluss = 1000; int spawnXposMinus = -1000;
+            int spawnYposPluss = 570; int spawnYposMinus = -570;
 
-        int randomPos = Random.Range(1, 5);
-        int randomX = Random.Range(spawnXposMinus, spawnXposPluss);
-        int randomY = Random.Range(spawnYposPluss, spawnYposMinus);
+            if (isBigSlime == true)
+            {
+                spawnXposPluss = 1080; spawnXposMinus = -1080;
+                spawnYposPluss = 635; spawnYposMinus = -635;
+            }
 
-        if (randomPos == 1) { gameObject.transform.localPosition = new Vector2(randomX, spawnYposPluss); }
-        else if (randomPos == 2) { gameObject.transform.localPosition = new Vector2(randomX, spawnYposMinus); }
-        else if (randomPos == 3) { gameObject.transform.localPosition = new Vector2(spawnXposPluss, randomY); }
-        else if (randomPos == 4) { gameObject.transform.localPosition = new Vector2(spawnXposMinus, -randomY); }
+            int randomPos = Random.Range(1, 5);
+            int randomX = Random.Range(spawnXposMinus, spawnXposPluss);
+            int randomY = Random.Range(spawnYposPluss, spawnYposMinus);
+
+            //Spawns on top
+            if (randomPos == 1) 
+            {
+                if (MobileScript.isMobile == true)
+                {
+                    randomX = Random.Range(-630, 1000);
+                    if (isBigSlime == true)
+                    {
+                        randomX = Random.Range(-620, 1080);
+                    }
+                }
+
+                gameObject.transform.localPosition = new Vector2(randomX, spawnYposPluss); 
+            }
+
+            //Spawns on bottom
+            else if (randomPos == 2) { gameObject.transform.localPosition = new Vector2(randomX, spawnYposMinus); }
+
+            //Spawns to the right
+            else if (randomPos == 3) { gameObject.transform.localPosition = new Vector2(spawnXposPluss, randomY); }
+
+            //Spawns to the left
+            else if (randomPos == 4) 
+            {
+                if (MobileScript.isMobile == true)
+                {
+                    randomY = Random.Range(-570, 250);
+                    if (isBigSlime == true)
+                    {
+                        randomY = Random.Range(-635, 250);
+                    }
+                }
+
+                gameObject.transform.localPosition = new Vector2(spawnXposMinus, randomY); 
+            }
+        }
 
         if (gameObject.transform.localPosition.x < 0)
         {
@@ -348,7 +484,12 @@ public class SlimeMechanics : MonoBehaviour
 
     public void InstaKill()
     {
-        if(isSlimeDead == true)
+        if (isBossEASY == true || isBossNORMAL == true || isBossHARD == true)
+        {
+            return;
+        }
+
+        if (isSlimeDead == true)
         {
             return;
         }
@@ -360,7 +501,7 @@ public class SlimeMechanics : MonoBehaviour
 
         targetObject.gameObject.SetActive(false);
         OnSimeDeath();
-
+        
         if (squishSlimeCoroutine == null) { squishSlimeCoroutine = StartCoroutine(SquishTheSlime(true, false)); }
     }
 
@@ -384,7 +525,7 @@ public class SlimeMechanics : MonoBehaviour
             #region Death to slimes
             if (ActiveMechanics.choseDeathToSlimes == true)
             {
-                if (ActiveMechanics.usedDeathToSlimes == true && deathToSlime == false)
+                if (ActiveMechanics.usedDeathToSlimes == true && deathToSlime == false && isBossEASY == false && isBossNORMAL == false && isBossHARD == false)
                 {
                     if(ActiveMechanics.deathToSlimes_slimesKilled < ActiveMechanics.deathToSlimes_killAmount)
                     {
@@ -423,7 +564,13 @@ public class SlimeMechanics : MonoBehaviour
                 if (squishSlimeCoroutine == null) { squishSlimeCoroutine = StartCoroutine(SquishTheSlime(false, true)); }
             }
 
-            if(isTutoritalSlime == true) { moveSpeed = 0; }
+            if (PickUpgrade.isInWonRunScene == true && playerDied == false)
+            {
+                playerDied = true;
+                if (squishSlimeCoroutine == null) { squishSlimeCoroutine = StartCoroutine(SquishTheSlime(false, true)); }
+            }
+
+            if (isTutoritalSlime == true) { moveSpeed = 0; }
 
             if(hitByNail == true) 
             {
@@ -454,7 +601,6 @@ public class SlimeMechanics : MonoBehaviour
                            moveSpeed * Time.deltaTime
                        );
                 }
-            
             }
 
             if(gameObject.transform.localPosition.x < objetToMoveTo.transform.localPosition.x)
@@ -623,7 +769,7 @@ public class SlimeMechanics : MonoBehaviour
                 if (collision.gameObject.tag == "Staple")
                 {
                     DamageSlime(PickUpgrade.staplerDamage, false, false);
-                    staplerHit = true;
+                    if(isBossDoneFastMove == true) { staplerHit = true; }
                     StartCoroutine(StaplerWait());
                 }
             }
@@ -674,14 +820,14 @@ public class SlimeMechanics : MonoBehaviour
                     }
                 }
             }
-            if (PickUpgrade.choseSawBlade == true)
+            if (PickUpgrade.choseSawBlade == true || ActiveMechanics.choseProjectileFrenzy == true)
             {
                 if (collision.gameObject.tag == "SawBlade")
                 {
                     DamageSlime(PickUpgrade.sawBladeDamage, false, false);
                 }
             }
-            if (PickUpgrade.choseKatana == true)
+            if (PickUpgrade.choseKatana == true || ActiveMechanics.choseProjectileFrenzy == true)
             {
                 if (collision.gameObject.tag == "Katana")
                 {
@@ -713,11 +859,11 @@ public class SlimeMechanics : MonoBehaviour
                     }
                 }
             }
-            if (PickUpgrade.choseNailGun == true)
+            if (PickUpgrade.choseNailGun == true || ActiveMechanics.choseProjectileFrenzy == true)
             {
                 if (collision.gameObject.tag == "Nail")
                 {
-                    hitByNail = true;
+                    if (isBossDoneFastMove == true) { hitByNail = true; }
                     nailBleedCoroutine = StartCoroutine(NailBleedDamage());
                 }
             }
@@ -725,12 +871,12 @@ public class SlimeMechanics : MonoBehaviour
             {
                 if (collision.gameObject.tag == "BearTrap")
                 {
-                    bearTrapHit = true;
+                    if (isBossDoneFastMove == true) { bearTrapHit = true; }
                     DamageSlime(PickUpgrade.bearTrapDamage, false, false);
                     StartCoroutine(BearTrapWait());
                 }
             }
-            if (PickUpgrade.choseLog == true)
+            if (PickUpgrade.choseLog == true || ActiveMechanics.choseProjectileFrenzy == true)
             {
                 if (collision.gameObject.tag == "Log")
                 {
@@ -764,7 +910,10 @@ public class SlimeMechanics : MonoBehaviour
 
         bearTrapHit = false;
     }
+    #endregion
 
+
+    #region check stapler and nail stuck
     public void CheckIfStaplerStuck(bool stapleCheck)
     {
         foreach (Transform staple in transform)
@@ -773,12 +922,10 @@ public class SlimeMechanics : MonoBehaviour
             {
                 staple.transform.SetParent(projectileParent.transform);
                 ObjectPool.instance.ReturnStapleToPool(staple.gameObject);
-
-                break;
             }
         }
 
-        if(DemoScript.isDemo == false && stapleCheck == false)
+        if (DemoScript.isDemo == false && stapleCheck == false)
         {
             foreach (Transform nail in transform)
             {
@@ -786,13 +933,12 @@ public class SlimeMechanics : MonoBehaviour
                 {
                     nail.transform.SetParent(projectileParent.transform);
                     ObjectPool.instance.ReturnNailFromPool(nail.gameObject);
-
-                    break;
                 }
             }
         }
     }
     #endregion
+
 
     #region on slime click
     public void OnClick()
@@ -800,71 +946,128 @@ public class SlimeMechanics : MonoBehaviour
         if (PickUpgrade.choseArrowRain == true)
         {
             int random = Random.Range(0, 100);
-            if (random < 15 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease) { triggerArrowRain = true; } //15%
+            if (ActiveMechanics.isCloverInUse == true) 
+            {
+                if(random < ActiveMechanics.cloverChanceAdd) { triggerArrowRain = true; }
+            }
+            else
+            {
+                if (random < 15  + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+                { triggerArrowRain = true; } //15%
+            }
         }
 
         if (PickUpgrade.choseScythe == true)
         {
             int random2 = Random.Range(0, 100);
-            if (random2 < 15 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease) //15%
+            if (ActiveMechanics.isCloverInUse == true)
             {
-                triggerScythe = true;
-                scytheStartPos = gameObject.transform.position; 
+                if (random2 < ActiveMechanics.cloverChanceAdd) { triggerScythe = true; scytheStartPos = gameObject.transform.position; }
+            }
+            else
+            {
+                if (random2 < 16 + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease) //15%
+                {
+                    triggerScythe = true;
+                    scytheStartPos = gameObject.transform.position;
+                }
             }
         }
 
         if (PickUpgrade.choseSword == true)
         {
             int random3 = Random.Range(0, 100);
-            if (random3 < 12 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseLOW + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease) //12%
+            if (ActiveMechanics.isCloverInUse == true)
             {
-                triggerSword = true;
+                if (random3 < ActiveMechanics.cloverChanceAdd) { triggerSword = true; }
+            }
+            else
+            {
+                if (random3 < 12 + PickUpgrade.totalChanceIncreaseLOW + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease) //12%
+                {
+                    triggerSword = true;
+                }
             }
         }
 
         if (PickUpgrade.choseBoulder == true)
         {
-            int random3 = Random.Range(0, 100); //16%
-            if (random3 < 16 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+            int random3 = Random.Range(0, 100);
+            if (ActiveMechanics.isCloverInUse == true)
             {
-                boulderStartPos = gameObject.transform.position;
-                triggerBoulder = true;
+                if (random3 < ActiveMechanics.cloverChanceAdd) { triggerBoulder = true; boulderStartPos = gameObject.transform.position; }
+            }
+            else
+            {
+                if (random3 < 17 + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+                {
+                    boulderStartPos = gameObject.transform.position;
+                    triggerBoulder = true;
+                }
             }
         }
 
         if (PickUpgrade.choseMeteor == true)
         {
-            int random3 = Random.Range(0, 100); //15%
-            if (random3 < 15 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+            int random3 = Random.Range(0, 100);
+            if (ActiveMechanics.isCloverInUse == true)
             {
-                triggerMeteor = true;
+                if (random3 < ActiveMechanics.cloverChanceAdd) { triggerMeteor = true; }
+            }
+            else
+            {
+                if (random3 < 14 + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+                {
+                    triggerMeteor = true;
+                }
             }
         }
 
         if (PickUpgrade.choseSawBlade == true)
         {
-            int random = Random.Range(0, 100); //16%
-            if (random < 16 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseHIGH + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+            int random3 = Random.Range(0, 100);
+            if (ActiveMechanics.isCloverInUse == true)
             {
-                triggerSawblade = true;
+                if (random3 < ActiveMechanics.cloverChanceAdd) { triggerSawblade = true; }
+            }
+            else
+            {
+                if (random3 < 16 + PickUpgrade.totalChanceIncreaseHIGH + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+                {
+                    triggerSawblade = true;
+                }
             }
         }
 
         if (PickUpgrade.choseKatana == true)
         {
-            int random = Random.Range(0, 100); //19%
-            if (random < 18 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseHIGH + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+            int random3 = Random.Range(0, 100);
+            if (ActiveMechanics.isCloverInUse == true)
             {
-                triggerKatana = true;
+                if (random3 < ActiveMechanics.cloverChanceAdd) { triggerKatana = true; }
+            }
+            else
+            {
+                if (random3 < 18 + PickUpgrade.totalChanceIncreaseHIGH + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+                {
+                    triggerKatana = true;
+                }
             }
         }
 
         if (PickUpgrade.choseLog == true)
         {
-            int random = Random.Range(0, 100); //13%
-            if (random < 13 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseLOW + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+            int random3 = Random.Range(0, 100);
+            if (ActiveMechanics.isCloverInUse == true)
             {
-                cursorMechanicsScript.ShootLog(gameObject.transform.position);
+                if (random3 < ActiveMechanics.cloverChanceAdd) { cursorMechanicsScript.ShootLog(gameObject.transform.position); }
+            }
+            else
+            {
+                if (random3 < 14 + PickUpgrade.totalChanceIncreaseLOW + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+                {
+                    cursorMechanicsScript.ShootLog(gameObject.transform.position);
+                }
             }
         }
     }
@@ -881,7 +1084,7 @@ public class SlimeMechanics : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             timesDealtPoison += 1;
-            DamageSlime(PickUpgrade.poisonDamage, false, true);
+            if(isSlimeDead == false) { DamageSlime(PickUpgrade.poisonDamage, false, true); }
         }
     }
     #endregion
@@ -895,7 +1098,7 @@ public class SlimeMechanics : MonoBehaviour
         while (timesDealtPoison < 3)
         {
             timesDealtPoison += 1;
-            DamageSlime(PickUpgrade.bladeBleedDamage, false, false);
+            if (isSlimeDead == false) { DamageSlime(PickUpgrade.bladeBleedDamage, false, false); }
             yield return new WaitForSeconds(1);
         }
     }
@@ -910,7 +1113,7 @@ public class SlimeMechanics : MonoBehaviour
         while (timesDealtPoison < 3)
         {
             timesDealtPoison += 1;
-            DamageSlime(PickUpgrade.nailGunBleedDamage, false, false);
+            if (isSlimeDead == false) { DamageSlime(PickUpgrade.nailGunBleedDamage, false, false); }
             yield return new WaitForSeconds(1);
         }
     }
@@ -922,6 +1125,8 @@ public class SlimeMechanics : MonoBehaviour
 
     public void DamageSlime(float damage, bool clicked, bool poison)
     {
+        if(isSlimeDead == true) { return; }
+
         if(flashCoroutine == null) 
         {
             flashCoroutine = StartCoroutine(DamageWhiteFlash());
@@ -1025,71 +1230,116 @@ public class SlimeMechanics : MonoBehaviour
     #region on slime death
     public static bool triggerKunai;
 
+    public static Vector2 bouncyBallStartPos;
+
     public void OnSimeDeath()
     {
         if (PickUpgrade.chosePaperShot == true)
         {
-            int randomPaper = Random.Range(0, 100);
-            if (randomPaper < 20 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease) { CursorMechanics.triggerPaperClip = true; } //20%
+            int random = Random.Range(0, 100);
+            if (ActiveMechanics.isCloverInUse == true)
+            {
+                if (random < ActiveMechanics.cloverChanceAdd) { CursorMechanics.triggerPaperClip = true; }
+            }
+            else
+            {
+                if (random < 22 + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease) { CursorMechanics.triggerPaperClip = true; } //20%
+            }
         }
 
         //PoisonDart
         if (PickUpgrade.chosePoisonDart == true)
         {
-            int randomPoisonDart = Random.Range(0, 100);
-            if (randomPoisonDart < 20 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease) 
+            int random = Random.Range(0, 100);
+            if (ActiveMechanics.isCloverInUse == true)
             {
-                cursorMechanicsScript.ShootPoisonDart(gameObject.transform.position); 
-            }//18%
+                if (random < ActiveMechanics.cloverChanceAdd) { cursorMechanicsScript.ShootPoisonDart(gameObject.transform.position); }
+            }
+            else
+            {
+                if (random < 20 + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+                {
+                    cursorMechanicsScript.ShootPoisonDart(gameObject.transform.position);
+                }//18%
+            }
         }
 
         if (PickUpgrade.choseThorn == true)
         {
-            int randomThorn = Random.Range(0, 100);
-            if (randomThorn < 27 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease) 
+            int random = Random.Range(0, 100);
+            if (ActiveMechanics.isCloverInUse == true)
             {
-                cursorMechanicsScript.ShootThorn(gameObject.transform.localPosition, true);
-            } //27%
+                if (random < ActiveMechanics.cloverChanceAdd) { cursorMechanicsScript.ShootThorn(gameObject.transform.localPosition, true); }
+            }
+            else
+            {
+                if (random < 27 + PickUpgrade.totalChanceIncreaseMID + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+                {
+                    cursorMechanicsScript.ShootThorn(gameObject.transform.localPosition, true);
+                } //27%
+            }
         }
 
         if (PickUpgrade.choseBouncyBall == true)
         {
-            int randomBouncy = Random.Range(0, 100);
-            if (randomBouncy < 16 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseLOW + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+            int random = Random.Range(0, 100);
+
+            if (ActiveMechanics.isCloverInUse == true)
             {
-                CursorMechanics.bouncyBallStartPos = gameObject.transform.position; //16%
-                ShootBouncyBall();
+                bouncyBallStartPos = gameObject.transform.position;
+                if (random < ActiveMechanics.cloverChanceAdd) { cursorMechanicsScript.SelectRandomTargetObject(3); }
+            }
+            else
+            {
+                bouncyBallStartPos = gameObject.transform.position;
+                if (random < 16 + PickUpgrade.totalChanceIncreaseLOW + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+                {
+                    cursorMechanicsScript.SelectRandomTargetObject(3);
+                }
             }
         }
 
         if (PickUpgrade.choseKunai == true)
         {
-            int randomKunai = Random.Range(0, 100);
-            if (randomKunai < 14 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseLOW + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+            int random = Random.Range(0, 100);
+            if (ActiveMechanics.isCloverInUse == true)
             {
-                CursorMechanics.kunaiStartPos = gameObject.transform.position; //14%
-                triggerKunai = true;
+                if (random < ActiveMechanics.cloverChanceAdd)
+                {
+                    CursorMechanics.kunaiStartPos = gameObject.transform.position; 
+                    triggerKunai = true;
+                }
+            }
+            else
+            {
+                if (random < 15 + PickUpgrade.totalChanceIncreaseLOW + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease)
+                {
+                    CursorMechanics.kunaiStartPos = gameObject.transform.position; //14%
+                    triggerKunai = true;
+                }
             }
         }
 
         if (PickUpgrade.choseBearTrap == true)
         {
-            int randomBEarTRap = Random.Range(0, 100);
-            if (randomBEarTRap < 13 + ActiveMechanics.cloverChanceAdd + PickUpgrade.totalChanceIncreaseLOW + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease) //13%
+            int random = Random.Range(0, 100);
+            if (ActiveMechanics.isCloverInUse == true)
             {
-                GameObject bearTrap = ObjectPool.instance.GetBearTrapFromPool();
-                bearTrap.transform.position = gameObject.transform.position;
+                if (random < ActiveMechanics.cloverChanceAdd)
+                {
+                    GameObject bearTrap = ObjectPool.instance.GetBearTrapFromPool();
+                    bearTrap.transform.position = gameObject.transform.position;
+                }
+            }
+            else
+            {
+                if (random < 13 + PickUpgrade.totalChanceIncreaseLOW + MetaProgressionUpgrades.onSlime_CD_ChanceIncrease) //13%
+                {
+                    GameObject bearTrap = ObjectPool.instance.GetBearTrapFromPool();
+                    bearTrap.transform.position = gameObject.transform.position;
+                }
             }
         }
-    }
-    #endregion
-
-
-    #region shoot bouncy ball
-    public void ShootBouncyBall()
-    {
-        GameObject bouncy = ObjectPool.instance.GetBouncyBallFromPool();
-        bouncy.transform.position = gameObject.transform.position;
     }
     #endregion
 
@@ -1146,7 +1396,9 @@ public class SlimeMechanics : MonoBehaviour
         }
 
         textureObject.gameObject.SetActive(false);
-        SpawnSlimes.slimesSquished += 1;
+
+        if(isBossEASY == true || isBossNORMAL == true || isBossHARD == true) { }
+        else { SpawnSlimes.slimesSquished += 1; }
 
         //Debug.Log(SpawnSlimes.slimesSquished);
         //Debug.Log(SpawnSlimes.slimesWaveSpawnCount);
@@ -1288,6 +1540,113 @@ public class SlimeMechanics : MonoBehaviour
         }
         #endregion
 
+        if(isBossEASY == true)
+        {
+            goo = ObjectPool.instance.GetBlueGooFromPool();
+            gooSize = Random.Range(5.2f, 5.2f); gooOffset = 120;
+        }
+        if (isBossHARD == true)
+        {
+            goo = hardGoo;
+            hardGoo.SetActive(true);
+            gooSize = Random.Range(2.6f, 2.6f); gooOffset = 130;
+        }
+
+        #region is normal boss splits
+        if (isBossNORMAL == true && PickUpgrade.isInWonRunScene == false && StrawberryMechanics.isInDeathFrame == false)
+        {
+            Vector2 thisPos = gameObject.transform.localPosition;
+            int randomXPosOffset1 = Random.Range(-30, 90);
+            int randomXPosOffset2 = Random.Range(-30, 90);
+
+            int randomPosOffsetMinus = Random.Range(-50, -120);
+            int randomPosOffsetPluss = Random.Range(50, 120);
+
+            float xScale = (float)gameObject.transform.localScale.x;
+
+            if (xScale == 1.65f) //First split
+            {
+                GameObject smoll1_1 = ObjectPool.instance.GetNormalBossFromPool();
+                GameObject smoll1_2 = ObjectPool.instance.GetNormalBossFromPool();
+
+                smoll1_1.transform.localPosition = new Vector2(thisPos.x + randomXPosOffset1, thisPos.y + randomPosOffsetMinus);
+                smoll1_2.transform.localPosition = new Vector2(thisPos.x + randomXPosOffset2, thisPos.y + randomPosOffsetPluss);
+
+                smoll1_1.transform.localScale = new Vector2(split1Size, split1Size);
+                smoll1_2.transform.localScale = new Vector2(split1Size, split1Size);
+            }
+
+            if (xScale == split1Size) //Second split
+            {
+                GameObject smoll1_1 = ObjectPool.instance.GetNormalBossFromPool();
+                GameObject smoll1_2 = ObjectPool.instance.GetNormalBossFromPool();
+
+                smoll1_1.transform.localPosition = new Vector2(thisPos.x + randomXPosOffset1, thisPos.y + randomPosOffsetMinus);
+                smoll1_2.transform.localPosition = new Vector2(thisPos.x + randomXPosOffset2, thisPos.y + randomPosOffsetPluss);
+
+                smoll1_1.transform.localScale = new Vector2(split2Size, split2Size);
+                smoll1_2.transform.localScale = new Vector2(split2Size, split2Size);
+            }
+
+            if (xScale == split2Size) //Third split
+            {
+                GameObject smoll1_1 = ObjectPool.instance.GetNormalBossFromPool();
+                GameObject smoll1_2 = ObjectPool.instance.GetNormalBossFromPool();
+
+                smoll1_1.transform.localPosition = new Vector2(thisPos.x + randomXPosOffset1, thisPos.y + randomPosOffsetMinus);
+                smoll1_2.transform.localPosition = new Vector2(thisPos.x + randomXPosOffset2, thisPos.y + randomPosOffsetPluss);
+
+                smoll1_1.transform.localScale = new Vector2(split3Size, split3Size);
+                smoll1_2.transform.localScale = new Vector2(split3Size, split3Size);
+            }
+
+            if (xScale == split3Size) //Fourth split
+            {
+                GameObject smoll1_1 = ObjectPool.instance.GetNormalBossFromPool();
+                GameObject smoll1_2 = ObjectPool.instance.GetNormalBossFromPool();
+
+                smoll1_1.transform.localPosition = new Vector2(thisPos.x + randomXPosOffset1, thisPos.y + randomPosOffsetMinus);
+                smoll1_2.transform.localPosition = new Vector2(thisPos.x + randomXPosOffset2, thisPos.y + randomPosOffsetPluss);
+
+                smoll1_1.transform.localScale = new Vector2(split4Size, split4Size);
+                smoll1_2.transform.localScale = new Vector2(split4Size, split4Size);
+            }
+        }
+        #endregion
+
+        #region normal boss goo mechanics
+        if (isBossNORMAL == true)
+        {
+            goo = ObjectPool.instance.GetNormalBossGooFromPool();
+            float xScale = (float)gameObject.transform.localScale.x;
+
+            if (xScale == 1.65f) //First split
+            {
+                gooSize = Random.Range(3.4f, 3.4f); gooOffset = 140;
+            }
+
+            if (xScale == split1Size) //Second split
+            {
+                gooSize = Random.Range(2.5f, 2.5f); gooOffset = 100;
+            }
+
+            if (xScale == split2Size) //Third split
+            {
+                gooSize = Random.Range(1.45f, 1.45f); gooOffset = 70;
+            }
+
+            if (xScale == split3Size) //Fourth split
+            {
+                gooSize = Random.Range(1.3f, 1.3f); gooOffset = 50;
+            }
+
+            if (xScale == split4Size) //Fourth split
+            {
+                gooSize = Random.Range(0.8f, 0.8f); gooOffset = 40;
+            }
+        }
+        #endregion
+
         Vector2 pos = gameObject.transform.localPosition;
         Vector2 gooSpawnPos = new Vector2(pos.x, pos.y - gooOffset);
         goo.transform.localPosition = gooSpawnPos;
@@ -1391,6 +1750,10 @@ public class SlimeMechanics : MonoBehaviour
         }
         #endregion
 
+        if(isBossEASY == true) { animator.SetTrigger("Squish_EasyBoss"); }
+        if (isBossNORMAL == true) { animator.SetTrigger("Squish_NormalBoss"); }
+        if (isBossHARD == true) { animator.SetTrigger("Squish_HardBoss"); }
+
         yield return new WaitForSeconds(0.3f);
         squishObject.gameObject.SetActive(false);
 
@@ -1423,6 +1786,19 @@ public class SlimeMechanics : MonoBehaviour
         else if (isYellowSlime_big == true) { ObjectPool.instance.ReturnBigYellowToPool(gameObject); }
         else if (isRedSlime_big == true) { ObjectPool.instance.ReturnRedBigToPool(gameObject); }
         else if (isPurpleSlime_big == true) { ObjectPool.instance.ReturnBigPurpleToPool(gameObject); }
+
+        if(isBossEASY == true) { SpawnSlimes.isEasyBossAlive = false; gameObject.SetActive(false); }
+        if (isBossNORMAL == true) 
+        { 
+            ObjectPool.instance.ReturnNormalBossToPool(gameObject);
+            SpawnSlimes.normalBossKills += 1;
+            //Debug.Log(SpawnSlimes.normalBossKills);
+            if (SpawnSlimes.normalBossKills == 31)
+            {
+                SpawnSlimes.isNormalBossAlive = false;
+            }
+        }
+        if (isBossHARD == true) { SpawnSlimes.isHardBossAlive = false; gameObject.SetActive(false); }
     }
     #endregion
 
@@ -1436,9 +1812,12 @@ public class SlimeMechanics : MonoBehaviour
     #endregion
 
     #region Shoot bullet
+    public int timesHardBossShot;
+
     public void ShootEnemyBullet(float time, float shotSpeed)
     {
         if(isTutoritalSlime == true) { time = 1.5f; }
+    
         StartCoroutine(ContinueToShoot(time, shotSpeed));
     }
 
@@ -1449,7 +1828,13 @@ public class SlimeMechanics : MonoBehaviour
             time -= Random.Range(0.15f, 0.35f);
         }
 
-        if(isTutoritalSlime == true) { yield return new WaitForSeconds(0.1f); }
+        if (isBossHARD == true)
+        {
+            yield return new WaitForSeconds(2f);
+            shotSpeed = Random.Range(2.5f, 3.4f);
+        }
+
+        if (isTutoritalSlime == true) { yield return new WaitForSeconds(0.1f); }
         else { yield return new WaitForSeconds(1); }
 
         while (true)
@@ -1459,6 +1844,13 @@ public class SlimeMechanics : MonoBehaviour
 
             while (true)
             {
+                if (isBossHARD == true)
+                {
+                    if (timesHardBossShot < 9) { time = Random.Range(0.2f, 0.32f); }
+                    if (timesHardBossShot > 8) { time = Random.Range(3f, 4f); }
+                    shootTime = time;
+                }
+
                 while (shootWait < shootTime)
                 {
                     shootWait += Time.deltaTime;
@@ -1468,12 +1860,16 @@ public class SlimeMechanics : MonoBehaviour
                 shootWait = 0;
 
                 StartCoroutine(ChargeBullet(shotSpeed, 0f));
-                if(isYellowSlime_shooting == true) { StartCoroutine(ChargeBullet(shotSpeed, 0.2f)); }
-                if (isPurpleSlime_shooting == true) { StartCoroutine(ChargeBullet(shotSpeed, 0.14f)); }
-                if (isRedSlime_shooting == true) 
-                { 
-                    StartCoroutine(ChargeBullet(shotSpeed, 0.17f));
-                    StartCoroutine(ChargeBullet(shotSpeed, 0.34f));
+
+                if(MobileScript.isMobile == false)
+                {
+                    if (isYellowSlime_shooting == true) { StartCoroutine(ChargeBullet(shotSpeed, 0.2f)); }
+                    if (isPurpleSlime_shooting == true) { StartCoroutine(ChargeBullet(shotSpeed, 0.14f)); }
+                    if (isRedSlime_shooting == true)
+                    {
+                        StartCoroutine(ChargeBullet(shotSpeed, 0.17f));
+                        StartCoroutine(ChargeBullet(shotSpeed, 0.34f));
+                    }
                 }
             }
         }
@@ -1481,6 +1877,12 @@ public class SlimeMechanics : MonoBehaviour
 
     IEnumerator ChargeBullet(float shootSpeed, float extraWaitTime)
     {
+        if (isBossHARD == true)
+        {
+            timesHardBossShot += 1;
+            if (timesHardBossShot == 10) { timesHardBossShot = 0; }
+        }
+
         if (SelectGameMode.choseNormal == true)
         {
             shootSpeed += Random.Range(0.1f, 0.2f);
@@ -1493,8 +1895,23 @@ public class SlimeMechanics : MonoBehaviour
         {
             yield return new WaitForSeconds(extraWaitTime);
 
+            Transform bulletSetPos = null;
+
+            if(isBossHARD == true)
+            {
+                int randomPos = Random.Range(1, 5);
+                if (randomPos == 1) { bulletSetPos = shootSpawnPos; }
+                if (randomPos == 2) { bulletSetPos = shootSpawnPos2; }
+                if (randomPos == 3) { bulletSetPos = shootSpawnPos3; }
+                if (randomPos == 4) { bulletSetPos = shootSpawnPos4; }
+            }
+            else
+            {
+                bulletSetPos = shootSpawnPos;
+            }
+
             GameObject bullet = ObjectPool.instance.GetEnemyBulletFromPool();
-            bullet.transform.position = shootSpawnPos.transform.position;
+            bullet.transform.position = bulletSetPos.transform.position;
 
             bool isFriendly = false;
 
@@ -1517,6 +1934,7 @@ public class SlimeMechanics : MonoBehaviour
             }
             else
             {
+                isFriendly = false;
                 bullet.tag = "EnemyBullet";
                 bullet.layer = 12;
             }
@@ -1528,7 +1946,7 @@ public class SlimeMechanics : MonoBehaviour
             {
                 CheckBullet(bullet);
 
-                bullet.transform.position = shootSpawnPos.transform.position;
+                bullet.transform.position = bulletSetPos.transform.position;
                 chargeWait += Time.deltaTime;
 
                 bullet.transform.localScale = new Vector2(chargeWait / 2f, chargeWait / 2f);
@@ -1536,7 +1954,7 @@ public class SlimeMechanics : MonoBehaviour
                 yield return null;
             }
 
-            bullet.transform.position = shootSpawnPos.transform.position;
+            bullet.transform.position = bulletSetPos.transform.position;
 
             yield return new WaitForSeconds(0.1f);
 
