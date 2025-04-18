@@ -273,10 +273,10 @@ public class ObjectPool : MonoBehaviour
 
         if (MobileScript.isMobile == true)
         {
-            fastSize1 = 0.4f;
-            fastSize2 = 0.5f;
+            fastSize1 = 0.5f;
+            fastSize2 = 0.55f;
 
-            regularSize1 = 0.5f;
+            regularSize1 = 0.55f;
             regularSize2 = 0.6f;
 
             shootingSize1 = 0.75f;

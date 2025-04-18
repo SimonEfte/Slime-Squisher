@@ -33,7 +33,19 @@ public class DataPersistenceManeger : MonoBehaviour
             Debug.LogError("Found more than one Data Persistance Manager in the scene");
         }
         instance = this;
+
+        StartCoroutine(WaitForSaveStuff());
     }
+
+    bool saveForMobile;
+
+    IEnumerator WaitForSaveStuff()
+    {
+        saveForMobile = false;
+        yield return new WaitForSeconds(4);
+        saveForMobile = true;
+    }
+
 
     private void Start()
     {
@@ -87,6 +99,20 @@ public class DataPersistenceManeger : MonoBehaviour
     private void OnApplicationQuit()
     {
         SaveTheGameData();
+    }
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if(MobileScript.isMobile == true)
+        {
+            if(saveForMobile == true)
+            {
+                if (pauseStatus)
+                {
+                    SaveTheGameData();
+                }
+            }
+        }
     }
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()

@@ -1628,6 +1628,7 @@ public class PickUpgrade : MonoBehaviour, IDataPersistence
             {
                 cursorSlash.GetComponent<TrailRenderer>().enabled = true;
             }
+
             upgradesPicked[ManageSlots.upgradeSlotsTaken] = cursorSlashUpgrade;
 
             manageSlotsScript.SetSlotAlpha(ManageSlots.upgradeSlotsTaken, 1);

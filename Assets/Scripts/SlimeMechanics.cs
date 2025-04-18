@@ -174,6 +174,7 @@ public class SlimeMechanics : MonoBehaviour
             slimeHealth = SpawnSlimes.greenRegular_health;
 
             float randomSpeed = Random.Range(0.20f, 0.22f);
+            if(MobileScript.isMobile == true) { randomSpeed = Random.Range(0.16f, 0.18f); }
             moveSpeed = randomSpeed;
         }
         if (isBlueSlime_regular == true)
@@ -181,6 +182,7 @@ public class SlimeMechanics : MonoBehaviour
             slimeHealth = SpawnSlimes.blueRegular_health;
 
             float randomSpeed = Random.Range(0.21f, 0.23f);
+            if (MobileScript.isMobile == true) { randomSpeed = Random.Range(0.17f, 0.18f); }
             moveSpeed = randomSpeed;
         }
         if (isYellowSlime_regular == true)
@@ -188,6 +190,7 @@ public class SlimeMechanics : MonoBehaviour
             slimeHealth = SpawnSlimes.yellowRegular_health;
 
             float randomSpeed = Random.Range(0.22f, 0.24f);
+            if (MobileScript.isMobile == true) { randomSpeed = Random.Range(0.19f, 0.2f); }
             moveSpeed = randomSpeed;
         }
         if (isRedSlime_regular == true)
@@ -195,6 +198,7 @@ public class SlimeMechanics : MonoBehaviour
             slimeHealth = SpawnSlimes.redRegular_health;
 
             float randomSpeed = Random.Range(0.24f, 0.25f);
+            if (MobileScript.isMobile == true) { randomSpeed = Random.Range(0.2f, 0.21f); }
             moveSpeed = randomSpeed;
         }
         if (isPurpleSlime_Regular == true)
@@ -202,6 +206,7 @@ public class SlimeMechanics : MonoBehaviour
             slimeHealth = SpawnSlimes.purpleRegular_health;
 
             float randomSpeed = Random.Range(0.26f, 0.29f);
+            if (MobileScript.isMobile == true) { randomSpeed = Random.Range(0.2f, 0.23f); }
             moveSpeed = randomSpeed;
         }
         #endregion
@@ -219,6 +224,7 @@ public class SlimeMechanics : MonoBehaviour
             slimeHealth = SpawnSlimes.blueFast_health;
 
             float randomSpeed = Random.Range(0.45f, 0.53f);
+            if (MobileScript.isMobile == true) { randomSpeed = Random.Range(0.35f, 0.38f); }
             moveSpeed = randomSpeed;
         }
         if (isYellowSlime_fast == true)
@@ -226,6 +232,7 @@ public class SlimeMechanics : MonoBehaviour
             slimeHealth = SpawnSlimes.yellowFast_health;
 
             float randomSpeed = Random.Range(0.55f, 0.62f);
+            if (MobileScript.isMobile == true) { randomSpeed = Random.Range(0.38f, 0.4f); }
             moveSpeed = randomSpeed;
         }
         if (isRedSlime_fast == true)
@@ -233,6 +240,7 @@ public class SlimeMechanics : MonoBehaviour
             slimeHealth = SpawnSlimes.redFast_health;
 
             float randomSpeed = Random.Range(0.65f, 0.71f);
+            if (MobileScript.isMobile == true) { randomSpeed = Random.Range(0.4f, 0.41f); }
             moveSpeed = randomSpeed;
         }
         if (isPurpleSlime_fast == true)
@@ -240,6 +248,7 @@ public class SlimeMechanics : MonoBehaviour
             slimeHealth = SpawnSlimes.purpleFast_health;
 
             float randomSpeed = Random.Range(0.8f, 1f);
+            if (MobileScript.isMobile == true) { randomSpeed = Random.Range(0.42f, 0.45f); }
             moveSpeed = randomSpeed;
         }
         #endregion

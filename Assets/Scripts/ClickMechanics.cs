@@ -18,6 +18,8 @@ public class ClickMechanics : MonoBehaviour
         mainCamera = Camera.main;
     }
 
+    public GameObject cursorSlash;
+
     void Update()
     {
         if (MobileScript.isMobile)
@@ -32,12 +34,24 @@ public class ClickMechanics : MonoBehaviour
                 {
                     // Finger is touching the screen — enable blockObject
                     blockObject.SetActive(true);
+
+                    if (PickUpgrade.choseCursorSlash)
+                    {
+                        if(MainMenu.isPaused == false && PickUpgrade.isInChooseUpgrade == false && PickUpgrade.isInWonRunScene == false && StrawberryMechanics.isInDeathFrame == false) { cursorSlash.GetComponent<TrailRenderer>().enabled = true; }
+                      
+                    }
+
                 }
                 else if (touch.phase == TouchPhase.Ended ||
                          touch.phase == TouchPhase.Canceled)
                 {
                     // Finger lifted or touch interrupted — disable blockObject
                     blockObject.SetActive(false);
+
+                    if (PickUpgrade.choseCursorSlash)
+                    {
+                        cursorSlash.GetComponent<TrailRenderer>().enabled = false;
+                    }
                 }
             }
             else

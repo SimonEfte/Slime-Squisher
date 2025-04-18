@@ -9,6 +9,8 @@ public class MobileScript : MonoBehaviour
 
     public GameObject clickCollider, blockCollider;
 
+
+
     private void Awake()
     {
         isMobile = true;

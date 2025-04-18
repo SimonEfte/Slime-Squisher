@@ -56,11 +56,11 @@ public class SpawnSlimes : MonoBehaviour
 
         if(MobileScript.isMobile == true)
         {
-            greenShooting_shotTimer = 5f; greenShooting_shotSpeed = 1.2f;
-            blueShooting_shotTimer = 4f; blueShooting_shotSpeed = 1.7f;
-            yellowShooting_shotTimer = 3f; yellowShooting_shotSpeed = 1.9f;
-            redShooting_shotTimer = 2.3f; redShooting_shotSpeed = 2f;
-            purpleShooting_shotTimer = 2f; purpleShooting_shotSpeed = 2.2f;
+            greenShooting_shotTimer = 5f; greenShooting_shotSpeed = 1.1f;
+            blueShooting_shotTimer = 4f; blueShooting_shotSpeed = 1.3f;
+            yellowShooting_shotTimer = 3f; yellowShooting_shotSpeed = 1.4f;
+            redShooting_shotTimer = 2.5f; redShooting_shotSpeed = 1.5f;
+            purpleShooting_shotTimer = 2.2f; purpleShooting_shotSpeed = 1.6f;
         }
 
         //Testing

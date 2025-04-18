@@ -714,6 +714,22 @@ MonoBehaviour:
       - Escolher
       Flags: 00000000000000000000
       Languages_Touch: []
+    - Term: purchase?
+      TermType: 0
+      Description: 
+      Languages:
+      - purchase?
+      - kaufen?
+      - "\u30B4\u30FC\u30EB\u30C9\u3092\u4F7F\u3046\uFF1F"
+      - achat?
+      - "\xBFcompra?"
+      - "\u8D2D\u4E70\uFF1F"
+      - "\uAD6C\uC785?"
+      - "\u043F\u043E\u043A\u0443\u043F\u043A\u0430?"
+      - zakup?
+      - comprar?
+      Flags: 00000000000000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

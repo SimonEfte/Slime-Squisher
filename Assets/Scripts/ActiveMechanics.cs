@@ -240,8 +240,29 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
     public GameObject deathToSlimesIcon, sharpClicksIcon, cloverIcon, decoyIcon, frenzyIcon, antiIcon;
     public GameObject activePriceText;
 
+    int mobileOpen;
+    public GameObject mobilePurchasePopUp;
+    bool isMobilePurchaseButton;
+
+    public void mobilePurchaseYes()
+    {
+        isMobilePurchaseButton = true;
+        mobilePurchasePopUp.SetActive(false);
+
+        SelectActive(mobileOpen);
+    }
+
+    public void mobilePurchaseNO()
+    {
+        audioManager.Play("Ui_click1");
+
+        mobilePurchasePopUp.SetActive(false);
+    }
+
     public void SelectActive(int active)
     {
+        mobileOpen = active;
+
         if (active == 1)
         {
             SetActiveOff();
@@ -256,12 +277,21 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
         {
             if(isPunchyClicksUnlcoked == false && MetaProgressionUpgrades.totalCoins >= punchyClicksPrice && DemoScript.isDemo == false)
             {
-                lockedSharpClicks.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= punchyClicksPrice;
-                isPunchyClicksUnlcoked = true;
-                activePriceText.SetActive(false);
-                Achivements.achievedPunchyClicks = true;
-                achScript.TriggerACH("purchase_punchyClicks");
-                return;
+                if(MobileScript.isMobile == true && isMobilePurchaseButton == false)
+                {
+                    mobilePurchasePopUp.SetActive(true);
+                }
+                else
+                {
+                    lockedSharpClicks.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= punchyClicksPrice;
+                    isPunchyClicksUnlcoked = true;
+                    activePriceText.SetActive(false);
+                    Achivements.achievedPunchyClicks = true;
+                    achScript.TriggerACH("purchase_punchyClicks");
+                    punchyClicksPriceText.SetActive(false);
+                    isMobilePurchaseButton = false;
+                    return;
+                }
             }
 
             if (isPunchyClicksUnlcoked == false && justChangeStuff == false) { audioManager.Play("Error"); return; }
@@ -271,20 +301,28 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
             activeNameText.text = LocalizationSCRIPT.punchyClicks + " " + LocalizationSCRIPT.SELECTED;
             acitveDesText.text = LocalizationSCRIPT.punchyClicks_des;
             sharpClicksIcon.SetActive(true);
-
-            if(MobileScript.isMobile == true) { punchyClicksPriceText.SetActive(false); }
         }
         if (active == 3)
         {
             if (isCloverUnlocked == false && MetaProgressionUpgrades.totalCoins >= cloverPrice && DemoScript.isDemo == false)
             {
-                lockedClover.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= cloverPrice;
-                isCloverUnlocked = true;
-                activePriceText.SetActive(false);
-                activePriceText.SetActive(false);
-                Achivements.achievedClover = true;
-                achScript.TriggerACH("purchase_clover");
-                return;
+                if (MobileScript.isMobile == true && isMobilePurchaseButton == false)
+                {
+                    mobilePurchasePopUp.SetActive(true);
+                }
+                else
+                {
+                    lockedClover.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= cloverPrice;
+                    isCloverUnlocked = true;
+                    activePriceText.SetActive(false);
+                    activePriceText.SetActive(false);
+                    Achivements.achievedClover = true;
+                    achScript.TriggerACH("purchase_clover");
+
+                    isMobilePurchaseButton = false;
+                    if (MobileScript.isMobile == true) { cloverPriceText.SetActive(false); }
+                    return;
+                }
             }
 
             if (isCloverUnlocked == false && justChangeStuff == false) { audioManager.Play("Error"); return; }
@@ -294,8 +332,6 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
             activeNameText.text = LocalizationSCRIPT.clover + " " + LocalizationSCRIPT.SELECTED;
             acitveDesText.text = LocalizationSCRIPT.clover_des;
             cloverIcon.SetActive(true);
-
-            if (MobileScript.isMobile == true) { cloverPriceText.SetActive(false); }
         }
         if (active == 4)
         {
@@ -316,19 +352,26 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
             activeNameText.text = LocalizationSCRIPT.decoy + " " + LocalizationSCRIPT.SELECTED;
             acitveDesText.text = LocalizationSCRIPT.decoy_des;
             decoyIcon.SetActive(true);
-
-          
         }
         if (active == 5)
         {
             if (isProjectileFrenzyUnlocked == false && MetaProgressionUpgrades.totalCoins >= frenzyPrice && DemoScript.isDemo == false)
             {
-                lockedFrenzy.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= frenzyPrice;
-                isProjectileFrenzyUnlocked = true;
-                activePriceText.SetActive(false);
-                Achivements.achievedProjectileFrenzy = true;
-                achScript.TriggerACH("purchase_frenzy");
-                return;
+                if (MobileScript.isMobile == true && isMobilePurchaseButton == false)
+                {
+                    mobilePurchasePopUp.SetActive(true);
+                }
+                else
+                {
+                    lockedFrenzy.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= frenzyPrice;
+                    isProjectileFrenzyUnlocked = true;
+                    activePriceText.SetActive(false);
+                    Achivements.achievedProjectileFrenzy = true;
+                    achScript.TriggerACH("purchase_frenzy");
+                    if (MobileScript.isMobile == true) { frenzyPriceText.SetActive(false); }
+                    isMobilePurchaseButton = false;
+                    return;
+                }
             }
 
             if (isProjectileFrenzyUnlocked == false && justChangeStuff == false) { audioManager.Play("Error"); return; }
@@ -338,19 +381,26 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
             activeNameText.text = LocalizationSCRIPT.frency + " " + LocalizationSCRIPT.SELECTED;
             acitveDesText.text = LocalizationSCRIPT.frency_des;
             frenzyIcon.SetActive(true);
-
-            if (MobileScript.isMobile == true) { frenzyPriceText.SetActive(false); }
         }
         if (active == 6)
         {
             if (isAntiSlimeBulletsUnlocked == false && MetaProgressionUpgrades.totalCoins >= antiSlimeBulletPrice && DemoScript.isDemo == false)
             {
-                lockedAntiSlimeBullets.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= antiSlimeBulletPrice;
-                isAntiSlimeBulletsUnlocked = true;
-                activePriceText.SetActive(false);
-                Achivements.achievedAntiSlimeBullets = true;
-                achScript.TriggerACH("purchase_antiSlime");
-                return;
+                if (MobileScript.isMobile == true && isMobilePurchaseButton == false)
+                {
+                    mobilePurchasePopUp.SetActive(true);
+                }
+                else
+                {
+                    lockedAntiSlimeBullets.SetActive(false); audioManager.Play("Purchase"); MetaProgressionUpgrades.totalCoins -= antiSlimeBulletPrice;
+                    isAntiSlimeBulletsUnlocked = true;
+                    activePriceText.SetActive(false);
+                    Achivements.achievedAntiSlimeBullets = true;
+                    achScript.TriggerACH("purchase_antiSlime");
+                    if (MobileScript.isMobile == true) { antiPriceText.SetActive(false); }
+                    isMobilePurchaseButton = false;
+                    return;
+                }
             }
 
             if (isAntiSlimeBulletsUnlocked == false && justChangeStuff == false) { audioManager.Play("Error"); return; }
@@ -360,8 +410,6 @@ public class ActiveMechanics : MonoBehaviour, IDataPersistence
             activeNameText.text = LocalizationSCRIPT.antiSlime + " " + LocalizationSCRIPT.SELECTED;
             acitveDesText.text = LocalizationSCRIPT.antiSlime_des;
             antiIcon.SetActive(true);
-
-            if (MobileScript.isMobile == true) { antiPriceText.SetActive(false); }
         }
 
         justChangeStuff = false;
